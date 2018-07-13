@@ -317,7 +317,8 @@
 
 - (void)openSettings:(id)sender {
     
-    if (IPAD) {
+    if ([self.splitViewController isFullScreen] || [self.splitViewController canPullHideLeft]) {
+        
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[SettingViewController2 new]];
         nav.preferredContentSize = CGSizeMake(340, 576);
         nav.modalPresentationStyle = UIModalPresentationPopover;

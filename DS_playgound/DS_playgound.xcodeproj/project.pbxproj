@@ -22,6 +22,7 @@
 		070D71FF20F74EFE00175D20 /* SortMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 070D71FD20F74EFE00175D20 /* SortMainController.m */; };
 		070D720420F74F1E00175D20 /* SortingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 070D720020F74F1D00175D20 /* SortingViewController.m */; };
 		070D720520F74F1E00175D20 /* ConfigSortController.m in Sources */ = {isa = PBXBuildFile; fileRef = 070D720320F74F1E00175D20 /* ConfigSortController.m */; };
+		071BDA3720F8A71500D10F53 /* TextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 071BDA3620F8A71500D10F53 /* TextFieldCell.m */; };
 		075B156D20F749EA0081CD48 /* MyComparator.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B156C20F749EA0081CD48 /* MyComparator.m */; };
 		075B157120F74A010081CD48 /* SortBaseClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B157020F74A010081CD48 /* SortBaseClass.m */; };
 		075B158920F74A4E0081CD48 /* ELRepeatLinearCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B157820F74A4E0081CD48 /* ELRepeatLinearCell.m */; };
@@ -45,7 +46,6 @@
 		07BB0CD120F73DDF00B2BCA7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB0CD020F73DDF00B2BCA7 /* main.m */; };
 		07BB28E520F7535C00909AFE /* SettingViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB28E420F7535C00909AFE /* SettingViewController2.m */; };
 		07BB28E820F7550C00909AFE /* SwitchCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB28E720F7550C00909AFE /* SwitchCell2.m */; };
-		07BB28EB20F7568A00909AFE /* TextFieldCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB28E920F7568A00909AFE /* TextFieldCell2.m */; };
 		07BB28F420F7645200909AFE /* ChineseToPinyinResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB28F320F7645200909AFE /* ChineseToPinyinResource.m */; };
 		07BB28F720F7668300909AFE /* HanyuPinyinOutputFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB28F620F7668300909AFE /* HanyuPinyinOutputFormat.m */; };
 		07BB28FA20F7671200909AFE /* NSString+PinYin4Cocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB28F920F7671200909AFE /* NSString+PinYin4Cocoa.m */; };
@@ -84,6 +84,8 @@
 		070D720120F74F1D00175D20 /* ConfigSortController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigSortController.h; sourceTree = "<group>"; };
 		070D720220F74F1E00175D20 /* SortingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortingViewController.h; sourceTree = "<group>"; };
 		070D720320F74F1E00175D20 /* ConfigSortController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigSortController.m; sourceTree = "<group>"; };
+		071BDA3120F8A57100D10F53 /* TextFieldCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextFieldCell.h; sourceTree = "<group>"; };
+		071BDA3620F8A71500D10F53 /* TextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCell.m; sourceTree = "<group>"; };
 		075B156A20F749EA0081CD48 /* Compare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Compare.h; sourceTree = "<group>"; };
 		075B156B20F749EA0081CD48 /* MyComparator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyComparator.h; sourceTree = "<group>"; };
 		075B156C20F749EA0081CD48 /* MyComparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyComparator.m; sourceTree = "<group>"; };
@@ -112,12 +114,10 @@
 		075B159920F74C2D0081CD48 /* SelectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectController.h; sourceTree = "<group>"; };
 		075B159A20F74C2D0081CD48 /* SelectOrderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectOrderController.m; sourceTree = "<group>"; };
 		075B159B20F74C2D0081CD48 /* SelectionSorter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionSorter.m; sourceTree = "<group>"; };
-		075B159C20F74C2D0081CD48 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		075B159D20F74C2D0081CD48 /* SelectFlowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectFlowController.m; sourceTree = "<group>"; };
 		075B159E20F74C2D0081CD48 /* SelectHeapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectHeapController.h; sourceTree = "<group>"; };
 		075B159F20F74C2D0081CD48 /* SelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectController.m; sourceTree = "<group>"; };
 		075B15A020F74C2D0081CD48 /* SelectHeapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectHeapController.m; sourceTree = "<group>"; };
-		075B15A820F74C5F0081CD48 /* SettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		07BB0CBE20F73DDD00B2BCA7 /* DS_playgound.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DS_playgound.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07BB0CC120F73DDD00B2BCA7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		07BB0CC220F73DDD00B2BCA7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -132,8 +132,6 @@
 		07BB28E420F7535C00909AFE /* SettingViewController2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewController2.m; sourceTree = "<group>"; };
 		07BB28E620F7550C00909AFE /* SwitchCell2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchCell2.h; sourceTree = "<group>"; };
 		07BB28E720F7550C00909AFE /* SwitchCell2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwitchCell2.m; sourceTree = "<group>"; };
-		07BB28E920F7568A00909AFE /* TextFieldCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCell2.m; sourceTree = "<group>"; };
-		07BB28EA20F7568A00909AFE /* TextFieldCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldCell2.h; sourceTree = "<group>"; };
 		07BB28F220F7645200909AFE /* ChineseToPinyinResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChineseToPinyinResource.h; path = PinYinConverter/ChineseToPinyinResource.h; sourceTree = "<group>"; };
 		07BB28F320F7645200909AFE /* ChineseToPinyinResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChineseToPinyinResource.m; path = PinYinConverter/ChineseToPinyinResource.m; sourceTree = "<group>"; };
 		07BB28F520F7668300909AFE /* HanyuPinyinOutputFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HanyuPinyinOutputFormat.h; path = PinYinConverter/HanyuPinyinOutputFormat.h; sourceTree = "<group>"; };
@@ -271,12 +269,10 @@
 		075B156520F749600081CD48 /* SettingController */ = {
 			isa = PBXGroup;
 			children = (
-				075B159C20F74C2D0081CD48 /* SettingViewController.h */,
-				075B15A820F74C5F0081CD48 /* SettingViewController.m */,
 				07BB28E620F7550C00909AFE /* SwitchCell2.h */,
 				07BB28E720F7550C00909AFE /* SwitchCell2.m */,
-				07BB28E920F7568A00909AFE /* TextFieldCell2.m */,
-				07BB28EA20F7568A00909AFE /* TextFieldCell2.h */,
+				071BDA3120F8A57100D10F53 /* TextFieldCell.h */,
+				071BDA3620F8A71500D10F53 /* TextFieldCell.m */,
 				07BB28E320F7535C00909AFE /* SettingViewController2.h */,
 				07BB28E420F7535C00909AFE /* SettingViewController2.m */,
 			);
@@ -601,7 +597,7 @@
 				075B159020F74A4E0081CD48 /* SortNameCollectionCell.m in Sources */,
 				075B15A120F74C2D0081CD48 /* SelectOrderController.m in Sources */,
 				075B15A520F74C2D0081CD48 /* SelectHeapController.m in Sources */,
-				07BB28EB20F7568A00909AFE /* TextFieldCell2.m in Sources */,
+				071BDA3720F8A71500D10F53 /* TextFieldCell.m in Sources */,
 				075B158920F74A4E0081CD48 /* ELRepeatLinearCell.m in Sources */,
 				070D71F920F74CE600175D20 /* QuickSorter.mm in Sources */,
 				075B158C20F74A4E0081CD48 /* ELGroupedUnitCell.m in Sources */,
@@ -764,7 +760,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = DS_playgound/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.SDU-iOS-LAB.DS-playgound";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -779,7 +775,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = DS_playgound/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.SDU-iOS-LAB.DS-playgound";
 				PRODUCT_NAME = "$(TARGET_NAME)";

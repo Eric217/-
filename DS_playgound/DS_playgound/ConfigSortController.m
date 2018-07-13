@@ -191,6 +191,7 @@
     
     //other initializers
     [Config addObserver:self selector:@selector(resignResponder) notiName:ELTextFieldShouldResignNotification];
+    
     if (![UserDefault boolForKey:kFirstOpened]) {
         [Config saveDouble:1 forKey:kFirstOpened];
         [Config saveDouble:1 forKey:kNumericCompare];
@@ -242,6 +243,17 @@
     }
 }
 
+- (void)updateConstraintsStatus:(int)status animated:(BOOL)animated {
+    
+    if (animated) {
+        [UIView animateWithDuration:0.28 animations:^{
+            [self updateConstraintsStatus:status];
+        }];
+    } else
+        [self updateConstraintsStatus:status];
+    
+}
+
 - (void)updateLabelsNameLabelTop:(CGFloat)y1 height:(CGFloat)h0 label1Top:(CGFloat)y2 label1H:(CGFloat)h1 label2H:(CGFloat)h2 {
     [_sortNameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(y1);
@@ -284,9 +296,7 @@
     [[self view] endEditing:1];
 }
 
-- (void)dismiss:(id)sender {
-    
-    //[self.splitViewController dismissViewControllerAnimated:0 completion:nil];
+- (void)dismiss:(id)sender {    
     [self.view.window setRootViewController:_anotherRootVC];
 }
 - (void)selectOrder:(id)sender {
@@ -403,19 +413,19 @@
     if (![self isDevicePortait]) {
         if (IPAD || IPHONE6P) {
             if (self.splitViewController.displayMode == UISplitViewControllerDisplayModePrimaryOverlay) {
-                [self updateConstraintsStatus:1];
+                [self updateConstraintsStatus:1 animated:1];
             }
         } else {
-            [self updateConstraintsStatus:2];
+            [self updateConstraintsStatus:2 animated:1];
         }
     }
     return 1;
 }
 - (void)textViewDidEndEditing:(UITextView *)textView {
     if (IPHONE && ![self isDevicePortait]) {
-        [self updateConstraintsStatus:1];
+        [self updateConstraintsStatus:1 animated:1];
     } else if (IPAD) {
-        [self updateConstraintsStatus:0];
+        [self updateConstraintsStatus:0 animated:1];
     }
     
 }

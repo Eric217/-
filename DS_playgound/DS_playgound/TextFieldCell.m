@@ -6,18 +6,16 @@
 //  Copyright © 2018 Eric. All rights reserved.
 //
 
-#import "TextFieldCell2.h"
+#import "TextFieldCell.h"
 #import <Masonry/Masonry.h>
 
 
-@interface TextFieldCell2 ()
-
-@property (nonatomic, strong) UISwitch *switcher;
+@interface TextFieldCell ()
 
 @end
 
 
-@implementation TextFieldCell2
+@implementation TextFieldCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -31,16 +29,18 @@
         [l mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.contentView).inset(10);
             make.centerY.equalTo(self.contentView);
-            make.size.mas_equalTo(CGSizeMake(24, 45));
+            make.size.mas_equalTo(CGSizeMake(24, 50));
         }];
         [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(l.mas_left).inset(10);
             make.centerY.height.equalTo(l);
             make.width.mas_equalTo(100);
         }];
+        [_textField setTextColor:UIColor.darkGrayColor];
         _textField.returnKeyType = UIReturnKeyDone;
         [_textField setTextAlignment:NSTextAlignmentRight];
         [_textField setKeyboardType:UIKeyboardTypeDecimalPad];
+        
     }
     return self;
     

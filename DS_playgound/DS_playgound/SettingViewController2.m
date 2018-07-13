@@ -10,7 +10,7 @@
 #import "Common.h"
 #import "SettingViewController2.h"
 #import "SwitchCell2.h"
-#import "TextFieldCell2.h"
+#import "TextFieldCell.h"
 #import "DataTransmitter.h"
 #import "SelectFlowController.h"
 #import "SelectHeapController.h"
@@ -32,6 +32,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.splitViewController.presentsWithGesture = 1;
+    [self resignResponder];
 }
 
 - (void)viewDidLoad {
@@ -142,7 +143,7 @@
         
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            TextFieldCell2 *cell = [[TextFieldCell2 alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];//NSStringFromClass(TextFieldCell.class)];
+            TextFieldCell *cell = [[TextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];//NSStringFromClass(TextFieldCell.class)];
             cell.textField.delegate = self;
             double ti = [UserDefault doubleForKey:kTimeInterval];
             [cell.textField setText:[NSString stringWithFormat:@"%.2f", ti]];
@@ -234,7 +235,7 @@
     
     if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            TextFieldCell2 *textFiel = [tableView cellForRowAtIndexPath:indexPath];
+            TextFieldCell *textFiel = [tableView cellForRowAtIndexPath:indexPath];
             [textFiel.textField becomeFirstResponder];
         } else if (indexPath.row == 1) {
             SelectFlowController *vc = [[SelectFlowController alloc] init];
