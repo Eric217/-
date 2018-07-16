@@ -14,7 +14,9 @@
 #import "UIViewController+funcs.h"
 #import "UIButton+init.h"
 #import "UILabel+init.h"
+#import "SortDescriptionController.h"
 #import <Masonry/Masonry.h>
+
 
 @interface ConfigSortController () <UITextViewDelegate, DataTransmitter>
 
@@ -85,7 +87,7 @@
     
  
 }
- 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
    
@@ -115,7 +117,12 @@
     [self.view addSubview:_label1];
     [self.view addSubview:_label2];
     [_sortNameLabel setText:_sortName];
+    [_sortNameLabel setUserInteractionEnabled:1];
+    [_sortNameLabel addGestureRecognizer: [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showDescription)]];
 
+    UIButton *butt2 = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    [butt2 addTarget:self action:@selector(showDescription) forControlEvents:UIControlEventTouchUpInside];
+    
     //start show
     _startShow = [UIButton buttonWithTitle:@"开始演示" fontSize:23 textColor:UIColor.blackColor target:self action:@selector(startDisplay:) image:img];
     [_startShow setTitleEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
@@ -150,6 +157,13 @@
         make.height.mas_equalTo(36);
         make.top.equalTo(self.view).offset(64+[Config v_pad:44 plus:28 p:26 min:24]);
     }];
+    [_sortNameLabel addSubview:butt2];
+    [butt2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.sortNameLabel);
+        make.centerX.equalTo(self.sortNameLabel).offset(84);
+        make.size.mas_equalTo(CGSizeMake(30, 30));
+    }];
+    
     [_startShow mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view).inset([Config v_pad:58 plus:34 p:30 min:24]);
         make.height.mas_equalTo(44);
@@ -296,9 +310,18 @@
     [[self view] endEditing:1];
 }
 
-- (void)dismiss:(id)sender {    
+- (void)showDescription {
+    SortDescriptionController *desc = [[SortDescriptionController alloc] initWithTitle:_sortName sortType:_sortType];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:desc];
+    nav.modalPresentationStyle = UIModalPresentationPageSheet;
+    nav.preferredContentSize = CGSizeMake(ScreenW-100, ScreenH-60);
+    [self presentViewController:nav animated:1 completion:nil] ;
+}
+
+- (void)dismiss:(id)sender {
     [self.view.window setRootViewController:_anotherRootVC];
 }
+
 - (void)selectOrder:(id)sender {
     [_inputField endEditing:1];
     SelectOrderController *selectVC = [[SelectOrderController alloc] init];
@@ -306,6 +329,7 @@
     [self.navigationController pushViewController:selectVC animated:1];
     
 }
+
 - (void)resumeDisplay:(id)sender {
     [self showDetailVC:_sortingNavVC isNav:1];
 }

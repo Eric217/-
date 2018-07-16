@@ -12,6 +12,8 @@ NSNotificationName const ELTextFieldShouldResignNotification = @"TFShouldResignN
  
 CGFloat UnitSize = UnitSizeDefault;
 CGFloat TreeFont = TreeFontDefault;
+CGFloat SepaWidth = SepaWidtDefault;
+CGFloat LineWidth = LineWidthDefault;
 
 static NSString * docPath = 0;
 
@@ -100,6 +102,23 @@ static NSString * docPath = 0;
     }
  
     return points;
+}
+
+
++ (void)updateTreeUnitSize:(CGFloat)u_s font:(CGFloat)t_f sepaMul:(CGFloat)s_w {
+    if (u_s > 0)
+        UnitSize = u_s;
+    if (t_f > 0)
+        TreeFont = t_f;
+    if (s_w > 0)
+        SepaWidth = s_w * UnitSize;
+}
+
++ (void)defaultTreeConfig {
+    UnitSize = UnitSizeDefault;
+    TreeFont = TreeFontDefault;
+    SepaWidth = SepaWidtDefault;
+    LineWidth = LineWidthDefault;
 }
 
 

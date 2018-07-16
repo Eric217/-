@@ -33,8 +33,9 @@
 #define String(Int) [NSString stringWithFormat:@"%d", Int]
 #define IndexPath_Sec0(Item) [NSIndexPath indexPathForItem:Item inSection:0]
 #define IndexPath(Item, Section) [NSIndexPath indexPathForItem:Item inSection:Section]
-
- 
+#define IOS11AVAIL(block) if (@available(iOS 11.0, *)) { block(); }
+#define ConstChar_(str) [str cStringUsingEncoding:kCFStringEncodingUTF8]
+#define putsNS(nsstr) puts(ConstChar_(nsstr))
 
 //MARK: - PROJECT
 
@@ -64,9 +65,11 @@
 
 #define UnitSizeDefault     44
 #define TreeFontDefault     24
-#define LineWidth           2
+#define SepaWidtDefault     1.52*UnitSizeDefault
+#define LineWidthDefault    2
+
+
 //Dependent
-#define SepaWidth           1.52*UnitSize
 #define UnderTreeH          68*UnitSize/UnitSizeDefault
 
 

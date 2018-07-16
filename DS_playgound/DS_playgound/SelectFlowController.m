@@ -31,7 +31,7 @@
     [super viewDidLoad];
      
     [self.navigationController.navigationBar setTintColor:UIColor.blackColor];
-    [self setTitle:@"顺序执行方式"];
+    [self setTitle:@"自动执行方式"];
  
     [self.table registerClass:UITableViewCell.class forCellReuseIdentifier:NSStringFromClass(UITableViewCell.class)];
     [self.table setRowHeight:50];

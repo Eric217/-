@@ -119,10 +119,9 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     UISplitViewController *splitVC = [[UISplitViewController alloc] init];
     
-    ConfigSortController *conf = [[ConfigSortController alloc] initWithSortType:indexPath.item anotherRoot:self];
+    ConfigSortController *conf = [[ConfigSortController alloc] initWithSortType:indexPath.item anotherRoot:self.view.window.rootViewController];
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:conf];
     
     

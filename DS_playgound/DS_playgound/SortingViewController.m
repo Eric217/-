@@ -101,7 +101,7 @@
     self.navigationItem.rightBarButtonItems = @[_settings, _restartButton];
     
     _lastStepButton = [[UIBarButtonItem alloc] initWithTitle:@"上一步" style:UIBarButtonItemStylePlain target:self action:@selector(lastStep:)];
-    _flowRunButton = [[UIBarButtonItem alloc] initWithTitle:@"顺序执行" style:UIBarButtonItemStylePlain target:self action:@selector(play:)];
+    _flowRunButton = [[UIBarButtonItem alloc] initWithTitle:@"自动执行" style:UIBarButtonItemStylePlain target:self action:@selector(play:)];
     _nextRowButton = [[UIBarButtonItem alloc] initWithTitle:@"单组跳过" style:UIBarButtonItemStylePlain target:self action:@selector(nextRow:)];
     
     _nextStepButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(nextStep:)];
@@ -345,7 +345,7 @@
 }
 - (void)stopTimer:(id)sender {
     [_timer invalidate];
-    [_flowRunButton setTitle:@"顺序执行"];
+    [_flowRunButton setTitle:@"自动执行"];
 }
 
 

@@ -52,6 +52,9 @@
 		07BB28FD20F7683600909AFE /* PinyinFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB28FB20F7683600909AFE /* PinyinFormatter.m */; };
 		07BB290020F7690300909AFE /* PinyinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB28FE20F7690300909AFE /* PinyinHelper.m */; };
 		07BB290220F769A100909AFE /* unicode_to_hanyu_pinyin.txt in Resources */ = {isa = PBXBuildFile; fileRef = 07BB290120F769A100909AFE /* unicode_to_hanyu_pinyin.txt */; };
+		07D609B820FC603C00838E3A /* SelectTravesalController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D609B720FC603C00838E3A /* SelectTravesalController.m */; };
+		07D609BB20FCB2A700838E3A /* TravesingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D609BA20FCB2A700838E3A /* TravesingController.m */; };
+		07FCF1FA20FCDD4B00C071DF /* SortDescriptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FCF1F920FCDD4B00C071DF /* SortDescriptionController.m */; };
 		0AC5B8A422514E31F88FF369 /* Pods_DS_playgound.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1FD786A0A326F251D0F22F5 /* Pods_DS_playgound.framework */; };
 /* End PBXBuildFile section */
 
@@ -143,6 +146,12 @@
 		07BB28FE20F7690300909AFE /* PinyinHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PinyinHelper.m; path = PinYinConverter/PinyinHelper.m; sourceTree = "<group>"; };
 		07BB28FF20F7690300909AFE /* PinyinHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PinyinHelper.h; path = PinYinConverter/PinyinHelper.h; sourceTree = "<group>"; };
 		07BB290120F769A100909AFE /* unicode_to_hanyu_pinyin.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = unicode_to_hanyu_pinyin.txt; path = PinYinConverter/unicode_to_hanyu_pinyin.txt; sourceTree = "<group>"; };
+		07D609B620FC603C00838E3A /* SelectTravesalController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectTravesalController.h; sourceTree = "<group>"; };
+		07D609B720FC603C00838E3A /* SelectTravesalController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectTravesalController.m; sourceTree = "<group>"; };
+		07D609B920FCB2A700838E3A /* TravesingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravesingController.h; sourceTree = "<group>"; };
+		07D609BA20FCB2A700838E3A /* TravesingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TravesingController.m; sourceTree = "<group>"; };
+		07FCF1F820FCDD4B00C071DF /* SortDescriptionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SortDescriptionController.h; sourceTree = "<group>"; };
+		07FCF1F920FCDD4B00C071DF /* SortDescriptionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SortDescriptionController.m; sourceTree = "<group>"; };
 		33779D1955637EAD3502E930 /* Pods-DS_playgound.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DS_playgound.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DS_playgound/Pods-DS_playgound.debug.xcconfig"; sourceTree = "<group>"; };
 		47DB74C7777C6EB771836EB6 /* Pods-DS_playgound.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DS_playgound.release.xcconfig"; path = "Pods/Target Support Files/Pods-DS_playgound/Pods-DS_playgound.release.xcconfig"; sourceTree = "<group>"; };
 		A1FD786A0A326F251D0F22F5 /* Pods_DS_playgound.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DS_playgound.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,9 +172,10 @@
 		075B155B20F7445B0081CD48 /* Liu */ = {
 			isa = PBXGroup;
 			children = (
+				07DFBB7720FBA25200D23E9A /* Traversal */,
 				075B155E20F748EE0081CD48 /* SorterModel */,
 				075B156820F7498C0081CD48 /* SortController */,
-				075B156720F749770081CD48 /* MainController */,
+				075B156720F749770081CD48 /* SortMain */,
 				075B156620F7496C0081CD48 /* SelectController */,
 				075B156520F749600081CD48 /* SettingController */,
 				075B156420F749580081CD48 /* Extension */,
@@ -294,7 +304,7 @@
 			name = SelectController;
 			sourceTree = "<group>";
 		};
-		075B156720F749770081CD48 /* MainController */ = {
+		075B156720F749770081CD48 /* SortMain */ = {
 			isa = PBXGroup;
 			children = (
 				070D71FE20F74EFE00175D20 /* SortMainController.h */,
@@ -302,7 +312,7 @@
 				075B157F20F74A4E0081CD48 /* SortNameCollectionCell.h */,
 				075B158620F74A4E0081CD48 /* SortNameCollectionCell.m */,
 			);
-			name = MainController;
+			name = SortMain;
 			sourceTree = "<group>";
 		};
 		075B156820F7498C0081CD48 /* SortController */ = {
@@ -312,6 +322,8 @@
 				070D720320F74F1E00175D20 /* ConfigSortController.m */,
 				070D720220F74F1E00175D20 /* SortingViewController.h */,
 				070D720020F74F1D00175D20 /* SortingViewController.m */,
+				07FCF1F820FCDD4B00C071DF /* SortDescriptionController.h */,
+				07FCF1F920FCDD4B00C071DF /* SortDescriptionController.m */,
 				075B156920F749A90081CD48 /* Cells */,
 			);
 			name = SortController;
@@ -429,6 +441,17 @@
 				07BB290120F769A100909AFE /* unicode_to_hanyu_pinyin.txt */,
 			);
 			name = PinYinConverter;
+			sourceTree = "<group>";
+		};
+		07DFBB7720FBA25200D23E9A /* Traversal */ = {
+			isa = PBXGroup;
+			children = (
+				07D609B620FC603C00838E3A /* SelectTravesalController.h */,
+				07D609B720FC603C00838E3A /* SelectTravesalController.m */,
+				07D609B920FCB2A700838E3A /* TravesingController.h */,
+				07D609BA20FCB2A700838E3A /* TravesingController.m */,
+			);
+			name = Traversal;
 			sourceTree = "<group>";
 		};
 		AA4B242DBAF06115C31F1A03 /* Pods */ = {
@@ -580,6 +603,7 @@
 				070D71FF20F74EFE00175D20 /* SortMainController.m in Sources */,
 				070D71E720F74CA300175D20 /* UIViewController+funcs.m in Sources */,
 				07BB28F720F7668300909AFE /* HanyuPinyinOutputFormat.m in Sources */,
+				07D609B820FC603C00838E3A /* SelectTravesalController.m in Sources */,
 				070D71E420F74CA300175D20 /* UILabel+init.m in Sources */,
 				070D71F820F74CE600175D20 /* LinearSorter.m in Sources */,
 				070D71E820F74CA300175D20 /* UIButton+init.m in Sources */,
@@ -606,6 +630,7 @@
 				075B158A20F74A4E0081CD48 /* ELTreeUnitCell.m in Sources */,
 				070D71E620F74CA300175D20 /* UIImage+operations.m in Sources */,
 				070D71F620F74CE600175D20 /* BubbleSorter.m in Sources */,
+				07FCF1FA20FCDD4B00C071DF /* SortDescriptionController.m in Sources */,
 				07BB28F420F7645200909AFE /* ChineseToPinyinResource.m in Sources */,
 				070D71EE20F74CB900175D20 /* Common.m in Sources */,
 				070D720420F74F1E00175D20 /* SortingViewController.m in Sources */,
@@ -613,6 +638,7 @@
 				070D720520F74F1E00175D20 /* ConfigSortController.m in Sources */,
 				07BB0CC320F73DDD00B2BCA7 /* AppDelegate.m in Sources */,
 				07BB28E520F7535C00909AFE /* SettingViewController2.m in Sources */,
+				07D609BB20FCB2A700838E3A /* TravesingController.m in Sources */,
 				075B15A220F74C2D0081CD48 /* SelectionSorter.m in Sources */,
 				075B156D20F749EA0081CD48 /* MyComparator.m in Sources */,
 				075B15A420F74C2D0081CD48 /* SelectController.m in Sources */,

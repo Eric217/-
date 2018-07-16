@@ -17,6 +17,8 @@ UIKIT_EXTERN NSNotificationName const ELTextFieldShouldResignNotification;
 
 UIKIT_EXTERN CGFloat UnitSize;
 UIKIT_EXTERN CGFloat TreeFont;
+UIKIT_EXTERN CGFloat SepaWidth;
+UIKIT_EXTERN CGFloat LineWidth;
  
 //MARK: - common and useful funcs
 ///Config provides common tools
@@ -26,6 +28,8 @@ UIKIT_EXTERN CGFloat TreeFont;
 + (int)getTreeHeight:(NSUInteger)count;
 + (CGSize)estimatedSizeThatFitsTree:(NSUInteger)nodeCount bottom:(CGFloat)bottomH;
 + (CGPoint *)getLocaWithHeight:(int)h startAngle:(CGFloat)a angleReducer:(void(^)(int level, CGFloat * angle))handler;
++ (void)updateTreeUnitSize:(CGFloat)u_s font:(CGFloat)t_f sepaMul:(CGFloat)s_w;
++ (void)defaultTreeConfig;
 + (CGSize)sizeForText:(NSString *)str attr:(NSDictionary *)attr maxSize:(CGSize)max orFontS:(CGFloat)fs;
 
 + (void)saveDouble:(double)value forKey:(NSString *)key;
