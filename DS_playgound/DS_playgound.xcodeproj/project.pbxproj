@@ -38,6 +38,7 @@
 		075B15A320F74C2D0081CD48 /* SelectFlowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B159D20F74C2D0081CD48 /* SelectFlowController.m */; };
 		075B15A420F74C2D0081CD48 /* SelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B159F20F74C2D0081CD48 /* SelectController.m */; };
 		075B15A520F74C2D0081CD48 /* SelectHeapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B15A020F74C2D0081CD48 /* SelectHeapController.m */; };
+		0768BFE720FE1613000DF520 /* TravesalDescController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0768BFE620FE1613000DF520 /* TravesalDescController.m */; };
 		07BB0CC320F73DDD00B2BCA7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB0CC220F73DDD00B2BCA7 /* AppDelegate.m */; };
 		07BB0CC620F73DDD00B2BCA7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB0CC520F73DDD00B2BCA7 /* ViewController.m */; };
 		07BB0CC920F73DDD00B2BCA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07BB0CC720F73DDD00B2BCA7 /* Main.storyboard */; };
@@ -121,6 +122,8 @@
 		075B159E20F74C2D0081CD48 /* SelectHeapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectHeapController.h; sourceTree = "<group>"; };
 		075B159F20F74C2D0081CD48 /* SelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectController.m; sourceTree = "<group>"; };
 		075B15A020F74C2D0081CD48 /* SelectHeapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectHeapController.m; sourceTree = "<group>"; };
+		0768BFE520FE1613000DF520 /* TravesalDescController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravesalDescController.h; sourceTree = "<group>"; };
+		0768BFE620FE1613000DF520 /* TravesalDescController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TravesalDescController.m; sourceTree = "<group>"; };
 		07BB0CBE20F73DDD00B2BCA7 /* DS_playgound.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DS_playgound.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07BB0CC120F73DDD00B2BCA7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		07BB0CC220F73DDD00B2BCA7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -448,6 +451,8 @@
 			children = (
 				07D609B620FC603C00838E3A /* SelectTravesalController.h */,
 				07D609B720FC603C00838E3A /* SelectTravesalController.m */,
+				0768BFE520FE1613000DF520 /* TravesalDescController.h */,
+				0768BFE620FE1613000DF520 /* TravesalDescController.m */,
 				07D609B920FCB2A700838E3A /* TravesingController.h */,
 				07D609BA20FCB2A700838E3A /* TravesingController.m */,
 			);
@@ -622,6 +627,7 @@
 				075B15A120F74C2D0081CD48 /* SelectOrderController.m in Sources */,
 				075B15A520F74C2D0081CD48 /* SelectHeapController.m in Sources */,
 				071BDA3720F8A71500D10F53 /* TextFieldCell.m in Sources */,
+				0768BFE720FE1613000DF520 /* TravesalDescController.m in Sources */,
 				075B158920F74A4E0081CD48 /* ELRepeatLinearCell.m in Sources */,
 				070D71F920F74CE600175D20 /* QuickSorter.mm in Sources */,
 				075B158C20F74A4E0081CD48 /* ELGroupedUnitCell.m in Sources */,

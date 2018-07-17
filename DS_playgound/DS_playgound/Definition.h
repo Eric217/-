@@ -30,12 +30,20 @@
 
 // FUNC - Common And Simple
 #define DISPATCH_AT_ONCE(block) dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ block(); })
+
 #define String(Int) [NSString stringWithFormat:@"%d", Int]
+#define StringOfChar(Char) [NSString stringWithFormat:@"%c", Char]
+#define StringOfCGF(CGF) [NSString stringWithFormat:@"%f", CGF];
+
 #define IndexPath_Sec0(Item) [NSIndexPath indexPathForItem:Item inSection:0]
 #define IndexPath(Item, Section) [NSIndexPath indexPathForItem:Item inSection:Section]
+
 #define IOS11AVAIL(block) if (@available(iOS 11.0, *)) { block(); }
+
 #define ConstChar_(str) [str cStringUsingEncoding:kCFStringEncodingUTF8]
 #define putsNS(nsstr) puts(ConstChar_(nsstr))
+
+#define TRIM(str, charSet) [str stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:charSet]]
 
 //MARK: - PROJECT
 
@@ -61,6 +69,7 @@
 #define kSortType           @"sort_Order"
 #define SortNameFile        @"SortNames.plist"
 #define SortOrderFile       @"SortOrder.plist"
+#define TravesalFile        @"Travesals.plist"
 
 
 #define UnitSizeDefault     44
@@ -119,5 +128,13 @@ typedef NS_ENUM(NSUInteger, PreferredHeap) {
     PreferMaxHeap = 2,
     PreferBoth = 0,
 };
- 
+
+#define TravesalPre1  1
+typedef NS_ENUM(NSUInteger, TravesalType) {
+    TravesalPre = 0,
+    TravesalIn,
+    TravesalPost,
+    TravesalLevel
+};
+
 #endif /* Definition_h */

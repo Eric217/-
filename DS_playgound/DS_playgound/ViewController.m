@@ -41,12 +41,8 @@
 
 - (void)didClick {
     [self presentViewController:[SortMainController new] animated:1 completion:nil];
-
-    
-    
-    
-   
 }
+
 - (void)didClick1 {
    
     UISplitViewController *splitVC = [[UISplitViewController alloc] init];

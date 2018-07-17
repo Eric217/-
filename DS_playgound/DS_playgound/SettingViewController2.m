@@ -39,9 +39,9 @@
     [super viewDidLoad];
     
     //works only on ipad
-    [self.navigationController.navigationBar setTintColor:UIColor.blackColor];
+
     if (IPAD)
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
     
     [self setTitle:@"演示设置"];
     

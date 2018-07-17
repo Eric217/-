@@ -152,6 +152,10 @@
     _inputField.delegate = self;
     [self.view addSubview:_inputField];
     
+    UIButton *autofillButt = [UIButton buttonWithTitle:@"随机内容" fontSize:16 textColor:UIColor.lightGrayColor target:self action:@selector(autoFillContent) image:0];
+    [autofillButt.titleLabel setTextAlignment:NSTextAlignmentRight];
+    [self.view addSubview:autofillButt];
+    
     [_sortNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.height.mas_equalTo(36);
@@ -160,7 +164,7 @@
     [_sortNameLabel addSubview:butt2];
     [butt2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.sortNameLabel);
-        make.centerX.equalTo(self.sortNameLabel).offset(84);
+        make.centerX.equalTo(self.sortNameLabel).offset(80);
         make.size.mas_equalTo(CGSizeMake(30, 30));
     }];
     
@@ -201,6 +205,11 @@
         make.right.equalTo(self.view).inset(40);
         make.top.equalTo(self.label1.mas_bottom).offset(24 + (IPAD ? 29 : 24));
         make.bottom.equalTo(self.selectOrderContainerView.mas_top).inset(IPAD ? 29 : 25);
+    }];
+    [autofillButt mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.bottom.equalTo(self.inputField);
+        make.height.mas_equalTo(27);
+        make.width.mas_equalTo(80);
     }];
     
     //other initializers
@@ -353,6 +362,18 @@
     }
     [self startDisplayWithoutError:inputData];
 }
+
+- (void)autoFillContent {
+    NSMutableString *str = [NSMutableString new];;
+    for (int i = 0; i < 9; i++) {
+        int idx = rand()%36;
+        char ch = idx < 10 ? '0'+idx : 'a' + idx - 10;
+        [str appendString:StringOfChar(ch)];
+        [str appendString:@" "];
+    }
+    _inputField.text = str;
+}
+
 
 //MARK: - 业务衍生函数
 - (void)startDisplayWithoutError:(NSMutableArray *)inputData {
