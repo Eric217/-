@@ -25,6 +25,17 @@ static NSString * docPath = 0;
 @implementation Config
 
 
++ (NSArray *)trimmedArray:(NSArray *)a {
+    NSMutableArray *arr = [NSMutableArray new];
+    int c = (int)a.count;
+    for (int i = 0; i < c; i++) {
+        if (![EmptyNode isEqualToString:a[i]]) {
+            [arr addObject:a[i]];
+        }
+    }
+    return arr;
+}
+
 + (int)getTreeHeight:(NSUInteger)count {
     if (count == 0) {
         return 0;
@@ -65,6 +76,7 @@ static NSString * docPath = 0;
 }
 
 ///need to free points and alter coordinate, level: _height-2 ... 0
+///得出的点是左下角为原点排列
 + (CGPoint *)getLocaWithHeight:(int)h startAngle:(CGFloat)a angleReducer:(void(^)(int level, CGFloat *))handler {
     if (h == 0) {
         return 0;

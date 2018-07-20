@@ -12,4 +12,6 @@
 
 - (void)fillContents:(id)content;
 
+- (UIImage *)normalSnapshotImage;
+
 @end

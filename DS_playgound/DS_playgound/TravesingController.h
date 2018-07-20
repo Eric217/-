@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
-NS_ASSUME_NONNULL_BEGIN
+#import "Common.h"
 
 @interface TravesingController : UIViewController
 
+- (void)playTravesalType:(TravesalType)type title:(NSString *)t;
+
 @end
 
-NS_ASSUME_NONNULL_END

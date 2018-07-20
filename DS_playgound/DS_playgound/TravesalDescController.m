@@ -13,6 +13,8 @@
 
 #import "TravesingController.h"
 
+@class TravesingController; //相当于cpp里类的claim
+
 @interface TravesalDescController ()
 
 @property (nonatomic, strong) UIButton *startShow;
@@ -60,10 +62,11 @@
 }
 
 - (void)startDisplay:(id)sender {
-    TravesingController *travesing = [[TravesingController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:travesing];
+    UINavigationController * nav = self.splitViewController.viewControllers[1];
+    TravesingController *travesing = nav.viewControllers[0];
+    [travesing playTravesalType:_travesal title:self.title];
     
-    [self.splitViewController showDetailViewController:nav sender:0];
+    
 }
 
 @end

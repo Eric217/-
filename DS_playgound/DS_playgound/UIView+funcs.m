@@ -11,6 +11,18 @@
 @implementation UIView (funcs)
  
 - (void)fillContents:(id)content {}
- 
+
+/**
+ 普通的截图
+ 该API仅可以在未使用layer和OpenGL渲染的视图上使用
+ @return 截取的图片
+ */
+- (UIImage *)normalSnapshotImage {
+    UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, [UIScreen mainScreen].scale);
+    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return snapshotImage;
+}
 
 @end

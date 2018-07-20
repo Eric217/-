@@ -11,5 +11,7 @@
 @interface UILabel (init)
 
 + (UILabel *)labelWithCentredTitle:(NSString *)title fontSize:(CGFloat)fontSize;
++ (UILabel *)labelWithEmptyPrompt:(NSString *)title fontSize:(CGFloat)f_s;
+
 
 @end

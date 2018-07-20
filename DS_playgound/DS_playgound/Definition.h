@@ -80,7 +80,7 @@
 
 //Dependent
 #define UnderTreeH          68*UnitSize/UnitSizeDefault
-
+#define EmptyNode           @"e符†"
 
 
 typedef NS_ENUM(NSUInteger, SortType) {

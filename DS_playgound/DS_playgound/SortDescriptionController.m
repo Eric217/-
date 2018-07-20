@@ -96,6 +96,7 @@
     
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
     paragraphStyle.lineSpacing = 10;
+    paragraphStyle.lineBreakMode = NSLineBreakByCharWrapping;
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
     attributes[NSParagraphStyleAttributeName] = paragraphStyle;
     attributes[NSFontAttributeName] = [UIFont systemFontOfSize:19];

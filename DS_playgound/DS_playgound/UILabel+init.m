@@ -17,4 +17,17 @@
     [l setTextAlignment:NSTextAlignmentCenter];
     return l;
 }
+
+///font size 28 recommended
++ (UILabel *)labelWithEmptyPrompt:(NSString *)title fontSize:(CGFloat)f_s {
+    UILabel *_collectionEmptyView = [[UILabel alloc] init];
+    UIColor *tc = [UIColor.grayColor colorWithAlphaComponent:0.78];
+    [_collectionEmptyView setTextColor:tc];
+    _collectionEmptyView.text = title;
+    _collectionEmptyView.numberOfLines = 2;
+    _collectionEmptyView.font = [UIFont systemFontOfSize:f_s];
+    _collectionEmptyView.textAlignment = NSTextAlignmentCenter;
+    return _collectionEmptyView;
+}
+
 @end

@@ -51,11 +51,18 @@
     [_promptLabel setText:@"选择遍历方式"];
     [_promptLabel setFont:[UIFont systemFontOfSize:30]];
     //bottom label
-    UILabel *bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, 0, 0, 60)];
+    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+    paragraphStyle.lineSpacing = 4;
+    paragraphStyle.lineBreakMode = NSLineBreakByCharWrapping;
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+    attributes[NSParagraphStyleAttributeName] = paragraphStyle;
+    attributes[NSFontAttributeName] = [UIFont systemFontOfSize:16];
+    attributes[NSForegroundColorAttributeName] = UIColor.darkGrayColor;
+    
+    UILabel *bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, 0, 0, 68)];
+    bottomLabel.attributedText = [[NSAttributedString alloc] initWithString:@"        二叉树遍历有很多应用，例如获取节点数、树的高度，中序遍历数学表达式树，后序遍历来析构一棵树等等。" attributes:attributes];
     bottomLabel.numberOfLines = 0;
-    [bottomLabel setFont:[UIFont systemFontOfSize:16]];
-    [bottomLabel setTextColor:UIColor.darkGrayColor];
-    [bottomLabel setText:@"二叉树遍历有很多应用，例如获取节点数、树的高度，中序遍历数学表达式树，后序遍历来析构一棵树等等。"];
+ 
     _footerView = [[UIView alloc] init];
     _footerView.backgroundColor = UIColor.clearColor;
     [_footerView addSubview:bottomLabel];

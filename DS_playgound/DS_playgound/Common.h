@@ -42,6 +42,7 @@ UIKIT_EXTERN CGFloat LineWidth;
 + (NSString *)documentPath;
 + (NSArray *)getArrayDataFromFile:(NSString *)name;
 + (void)writeArrayToFile:(NSString *)file data:(NSArray *)arr;
++ (NSArray *)trimmedArray:(NSArray *)a;
 
 + (CGFloat)v_pad:(CGFloat)ipad plus:(CGFloat)b p:(CGFloat)s min:(CGFloat)ss;
 

@@ -23,6 +23,8 @@
 		070D720420F74F1E00175D20 /* SortingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 070D720020F74F1D00175D20 /* SortingViewController.m */; };
 		070D720520F74F1E00175D20 /* ConfigSortController.m in Sources */ = {isa = PBXBuildFile; fileRef = 070D720320F74F1E00175D20 /* ConfigSortController.m */; };
 		071BDA3720F8A71500D10F53 /* TextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 071BDA3620F8A71500D10F53 /* TextFieldCell.m */; };
+		071C668F20FF2C810036A7A3 /* UIView+easyDraw.m in Sources */ = {isa = PBXBuildFile; fileRef = 071C668E20FF2C810036A7A3 /* UIView+easyDraw.m */; };
+		073B04BD210254EF0009C1EA /* Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = 073B04BC210254EF0009C1EA /* Auth.m */; };
 		075B156D20F749EA0081CD48 /* MyComparator.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B156C20F749EA0081CD48 /* MyComparator.m */; };
 		075B157120F74A010081CD48 /* SortBaseClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B157020F74A010081CD48 /* SortBaseClass.m */; };
 		075B158920F74A4E0081CD48 /* ELRepeatLinearCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B157820F74A4E0081CD48 /* ELRepeatLinearCell.m */; };
@@ -39,6 +41,7 @@
 		075B15A420F74C2D0081CD48 /* SelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B159F20F74C2D0081CD48 /* SelectController.m */; };
 		075B15A520F74C2D0081CD48 /* SelectHeapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B15A020F74C2D0081CD48 /* SelectHeapController.m */; };
 		0768BFE720FE1613000DF520 /* TravesalDescController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0768BFE620FE1613000DF520 /* TravesalDescController.m */; };
+		07B5BB5720FF24F500105B84 /* TreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B5BB5620FF24F500105B84 /* TreeView.m */; };
 		07BB0CC320F73DDD00B2BCA7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB0CC220F73DDD00B2BCA7 /* AppDelegate.m */; };
 		07BB0CC620F73DDD00B2BCA7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB0CC520F73DDD00B2BCA7 /* ViewController.m */; };
 		07BB0CC920F73DDD00B2BCA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07BB0CC720F73DDD00B2BCA7 /* Main.storyboard */; };
@@ -55,6 +58,8 @@
 		07BB290220F769A100909AFE /* unicode_to_hanyu_pinyin.txt in Resources */ = {isa = PBXBuildFile; fileRef = 07BB290120F769A100909AFE /* unicode_to_hanyu_pinyin.txt */; };
 		07D609B820FC603C00838E3A /* SelectTravesalController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D609B720FC603C00838E3A /* SelectTravesalController.m */; };
 		07D609BB20FCB2A700838E3A /* TravesingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D609BA20FCB2A700838E3A /* TravesingController.m */; };
+		07E8A5F92100242400A8C94A /* Travesal.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E8A5F82100242400A8C94A /* Travesal.m */; };
+		07E8A5FC2100252600A8C94A /* BinaryTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E8A5FB2100252600A8C94A /* BinaryTree.m */; };
 		07FCF1FA20FCDD4B00C071DF /* SortDescriptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FCF1F920FCDD4B00C071DF /* SortDescriptionController.m */; };
 		0AC5B8A422514E31F88FF369 /* Pods_DS_playgound.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1FD786A0A326F251D0F22F5 /* Pods_DS_playgound.framework */; };
 /* End PBXBuildFile section */
@@ -90,6 +95,10 @@
 		070D720320F74F1E00175D20 /* ConfigSortController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigSortController.m; sourceTree = "<group>"; };
 		071BDA3120F8A57100D10F53 /* TextFieldCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextFieldCell.h; sourceTree = "<group>"; };
 		071BDA3620F8A71500D10F53 /* TextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCell.m; sourceTree = "<group>"; };
+		071C668D20FF2C810036A7A3 /* UIView+easyDraw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+easyDraw.h"; sourceTree = "<group>"; };
+		071C668E20FF2C810036A7A3 /* UIView+easyDraw.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+easyDraw.m"; sourceTree = "<group>"; };
+		073B04BB210254EF0009C1EA /* Auth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Auth.h; sourceTree = "<group>"; };
+		073B04BC210254EF0009C1EA /* Auth.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Auth.m; sourceTree = "<group>"; };
 		075B156A20F749EA0081CD48 /* Compare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Compare.h; sourceTree = "<group>"; };
 		075B156B20F749EA0081CD48 /* MyComparator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyComparator.h; sourceTree = "<group>"; };
 		075B156C20F749EA0081CD48 /* MyComparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyComparator.m; sourceTree = "<group>"; };
@@ -124,6 +133,8 @@
 		075B15A020F74C2D0081CD48 /* SelectHeapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectHeapController.m; sourceTree = "<group>"; };
 		0768BFE520FE1613000DF520 /* TravesalDescController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravesalDescController.h; sourceTree = "<group>"; };
 		0768BFE620FE1613000DF520 /* TravesalDescController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TravesalDescController.m; sourceTree = "<group>"; };
+		07B5BB5520FF24F500105B84 /* TreeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TreeView.h; sourceTree = "<group>"; };
+		07B5BB5620FF24F500105B84 /* TreeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TreeView.m; sourceTree = "<group>"; };
 		07BB0CBE20F73DDD00B2BCA7 /* DS_playgound.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DS_playgound.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07BB0CC120F73DDD00B2BCA7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		07BB0CC220F73DDD00B2BCA7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -153,6 +164,10 @@
 		07D609B720FC603C00838E3A /* SelectTravesalController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectTravesalController.m; sourceTree = "<group>"; };
 		07D609B920FCB2A700838E3A /* TravesingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravesingController.h; sourceTree = "<group>"; };
 		07D609BA20FCB2A700838E3A /* TravesingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TravesingController.m; sourceTree = "<group>"; };
+		07E8A5F72100242400A8C94A /* Travesal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Travesal.h; sourceTree = "<group>"; };
+		07E8A5F82100242400A8C94A /* Travesal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Travesal.m; sourceTree = "<group>"; };
+		07E8A5FA2100252600A8C94A /* BinaryTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BinaryTree.h; sourceTree = "<group>"; };
+		07E8A5FB2100252600A8C94A /* BinaryTree.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BinaryTree.m; sourceTree = "<group>"; };
 		07FCF1F820FCDD4B00C071DF /* SortDescriptionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SortDescriptionController.h; sourceTree = "<group>"; };
 		07FCF1F920FCDD4B00C071DF /* SortDescriptionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SortDescriptionController.m; sourceTree = "<group>"; };
 		33779D1955637EAD3502E930 /* Pods-DS_playgound.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DS_playgound.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DS_playgound/Pods-DS_playgound.debug.xcconfig"; sourceTree = "<group>"; };
@@ -172,15 +187,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		075B155B20F7445B0081CD48 /* Liu */ = {
+		073B04BE210255AB0009C1EA /* Sort */ = {
 			isa = PBXGroup;
 			children = (
-				07DFBB7720FBA25200D23E9A /* Traversal */,
 				075B155E20F748EE0081CD48 /* SorterModel */,
 				075B156820F7498C0081CD48 /* SortController */,
 				075B156720F749770081CD48 /* SortMain */,
 				075B156620F7496C0081CD48 /* SelectController */,
 				075B156520F749600081CD48 /* SettingController */,
+			);
+			name = Sort;
+			sourceTree = "<group>";
+		};
+		073B04BF210256170009C1EA /* TravesalControllers */ = {
+			isa = PBXGroup;
+			children = (
+				07D609B920FCB2A700838E3A /* TravesingController.h */,
+				07D609BA20FCB2A700838E3A /* TravesingController.m */,
+				07D609B620FC603C00838E3A /* SelectTravesalController.h */,
+				07D609B720FC603C00838E3A /* SelectTravesalController.m */,
+				0768BFE520FE1613000DF520 /* TravesalDescController.h */,
+				0768BFE620FE1613000DF520 /* TravesalDescController.m */,
+			);
+			name = TravesalControllers;
+			sourceTree = "<group>";
+		};
+		073B04C0210256400009C1EA /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				070D71E020F74CA300175D20 /* UIView+frameProperty.h */,
+				070D71D920F74CA300175D20 /* UIView+frameProperty.m */,
+				071C668D20FF2C810036A7A3 /* UIView+easyDraw.h */,
+				071C668E20FF2C810036A7A3 /* UIView+easyDraw.m */,
+				070D71E120F74CA300175D20 /* UIView+funcs.h */,
+				070D71E220F74CA300175D20 /* UIView+funcs.m */,
+			);
+			name = UIView;
+			sourceTree = "<group>";
+		};
+		075B155B20F7445B0081CD48 /* Liu */ = {
+			isa = PBXGroup;
+			children = (
+				073B04BE210255AB0009C1EA /* Sort */,
+				07DFBB7720FBA25200D23E9A /* Traversal */,
 				075B156420F749580081CD48 /* Extension */,
 				075B156320F7494E0081CD48 /* Common */,
 			);
@@ -206,9 +255,9 @@
 		075B155E20F748EE0081CD48 /* SorterModel */ = {
 			isa = PBXGroup;
 			children = (
-				075B156120F749160081CD48 /* SorterImplementation */,
 				075B156020F7490E0081CD48 /* SortBase */,
 				075B155F20F748FF0081CD48 /* Compare */,
+				075B156120F749160081CD48 /* SorterImplementation */,
 			);
 			name = SorterModel;
 			sourceTree = "<group>";
@@ -250,9 +299,11 @@
 		075B156320F7494E0081CD48 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				070D71EC20F74CB900175D20 /* Definition.h */,
+				073B04BB210254EF0009C1EA /* Auth.h */,
+				073B04BC210254EF0009C1EA /* Auth.m */,
 				070D71ED20F74CB900175D20 /* Common.h */,
 				070D71EA20F74CB900175D20 /* Common.m */,
+				070D71EC20F74CB900175D20 /* Definition.h */,
 				070D71EB20F74CB900175D20 /* DataTransmitter.h */,
 			);
 			name = Common;
@@ -261,16 +312,13 @@
 		075B156420F749580081CD48 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				073B04C0210256400009C1EA /* UIView */,
 				070D71DE20F74CA300175D20 /* UIButton+init.h */,
 				070D71DF20F74CA300175D20 /* UIButton+init.m */,
 				070D71DD20F74CA300175D20 /* UIImage+operations.h */,
 				070D71DB20F74CA300175D20 /* UIImage+operations.m */,
 				070D71DA20F74CA300175D20 /* UILabel+init.h */,
 				070D71D820F74CA300175D20 /* UILabel+init.m */,
-				070D71E020F74CA300175D20 /* UIView+frameProperty.h */,
-				070D71D920F74CA300175D20 /* UIView+frameProperty.m */,
-				070D71E120F74CA300175D20 /* UIView+funcs.h */,
-				070D71E220F74CA300175D20 /* UIView+funcs.m */,
 				070D71E320F74CA300175D20 /* UIViewController+funcs.h */,
 				070D71DC20F74CA300175D20 /* UIViewController+funcs.m */,
 				07BB28F820F7671200909AFE /* NSString+PinYin4Cocoa.h */,
@@ -378,6 +426,15 @@
 			name = Base;
 			sourceTree = "<group>";
 		};
+		076F944420FF7B8500013A03 /* TravesingView */ = {
+			isa = PBXGroup;
+			children = (
+				07B5BB5520FF24F500105B84 /* TreeView.h */,
+				07B5BB5620FF24F500105B84 /* TreeView.m */,
+			);
+			name = TravesingView;
+			sourceTree = "<group>";
+		};
 		07BB0CB520F73DDD00B2BCA7 = {
 			isa = PBXGroup;
 			children = (
@@ -449,14 +506,22 @@
 		07DFBB7720FBA25200D23E9A /* Traversal */ = {
 			isa = PBXGroup;
 			children = (
-				07D609B620FC603C00838E3A /* SelectTravesalController.h */,
-				07D609B720FC603C00838E3A /* SelectTravesalController.m */,
-				0768BFE520FE1613000DF520 /* TravesalDescController.h */,
-				0768BFE620FE1613000DF520 /* TravesalDescController.m */,
-				07D609B920FCB2A700838E3A /* TravesingController.h */,
-				07D609BA20FCB2A700838E3A /* TravesingController.m */,
+				073B04BF210256170009C1EA /* TravesalControllers */,
+				076F944420FF7B8500013A03 /* TravesingView */,
+				07E8A5F6210023CB00A8C94A /* TravesalModel */,
 			);
 			name = Traversal;
+			sourceTree = "<group>";
+		};
+		07E8A5F6210023CB00A8C94A /* TravesalModel */ = {
+			isa = PBXGroup;
+			children = (
+				07E8A5F72100242400A8C94A /* Travesal.h */,
+				07E8A5F82100242400A8C94A /* Travesal.m */,
+				07E8A5FA2100252600A8C94A /* BinaryTree.h */,
+				07E8A5FB2100252600A8C94A /* BinaryTree.m */,
+			);
+			name = TravesalModel;
 			sourceTree = "<group>";
 		};
 		AA4B242DBAF06115C31F1A03 /* Pods */ = {
@@ -605,9 +670,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07E8A5FC2100252600A8C94A /* BinaryTree.m in Sources */,
+				07B5BB5720FF24F500105B84 /* TreeView.m in Sources */,
 				070D71FF20F74EFE00175D20 /* SortMainController.m in Sources */,
 				070D71E720F74CA300175D20 /* UIViewController+funcs.m in Sources */,
 				07BB28F720F7668300909AFE /* HanyuPinyinOutputFormat.m in Sources */,
+				073B04BD210254EF0009C1EA /* Auth.m in Sources */,
 				07D609B820FC603C00838E3A /* SelectTravesalController.m in Sources */,
 				070D71E420F74CA300175D20 /* UILabel+init.m in Sources */,
 				070D71F820F74CE600175D20 /* LinearSorter.m in Sources */,
@@ -628,11 +696,13 @@
 				075B15A520F74C2D0081CD48 /* SelectHeapController.m in Sources */,
 				071BDA3720F8A71500D10F53 /* TextFieldCell.m in Sources */,
 				0768BFE720FE1613000DF520 /* TravesalDescController.m in Sources */,
+				07E8A5F92100242400A8C94A /* Travesal.m in Sources */,
 				075B158920F74A4E0081CD48 /* ELRepeatLinearCell.m in Sources */,
 				070D71F920F74CE600175D20 /* QuickSorter.mm in Sources */,
 				075B158C20F74A4E0081CD48 /* ELGroupedUnitCell.m in Sources */,
 				07BB290020F7690300909AFE /* PinyinHelper.m in Sources */,
 				075B158F20F74A4E0081CD48 /* ELCollectionCell.m in Sources */,
+				071C668F20FF2C810036A7A3 /* UIView+easyDraw.m in Sources */,
 				075B158A20F74A4E0081CD48 /* ELTreeUnitCell.m in Sources */,
 				070D71E620F74CA300175D20 /* UIImage+operations.m in Sources */,
 				070D71F620F74CE600175D20 /* BubbleSorter.m in Sources */,

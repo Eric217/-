@@ -14,6 +14,7 @@
 #import "UIImage+operations.h"
 #import "SettingViewController2.h"
 #import "UIButton+init.h"
+#import "UILabel+init.h"
 #import "Sorters.h"
 #import "SortCell.h"
 
@@ -135,14 +136,8 @@
         make.size.equalTo(self.view);
     }];
     
-    _collectionEmptyView = [[UILabel alloc] init];
+    _collectionEmptyView = [UILabel labelWithEmptyPrompt:emptyDisplayString fontSize:28];
     [_collection insertSubview:_collectionEmptyView atIndex:0];
-    UIColor *tc = [UIColor.grayColor colorWithAlphaComponent:0.78];
-    [_collectionEmptyView setTextColor:tc];
-    _collectionEmptyView.text = emptyDisplayString;
-    _collectionEmptyView.numberOfLines = 2;
-    _collectionEmptyView.font = [UIFont systemFontOfSize:28];
-    _collectionEmptyView.textAlignment = NSTextAlignmentCenter;
     [_collectionEmptyView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.collection).mas_offset(-13);
         make.centerY.equalTo(self.collection.mas_centerY).mas_offset(-126);
