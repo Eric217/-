@@ -44,8 +44,6 @@ static NSString * docPath = 0;
 }
 
 + (void)updateUnitSizeAndFontFor:(ScreenMode)screen withTreeSize:(NSUInteger)nodeCount {
-    
-    
 //    if (nodeCount > 7) {
 //        UnitSize = UnitSizeDefault * 0.6;
 //        TreeFont = TreeFontDefault *0.8;
@@ -132,33 +130,13 @@ static NSString * docPath = 0;
     SepaWidth = SepaWidtDefault;
     LineWidth = LineWidthDefault;
 }
-
-
-+ (CGSize)sizeForText:(NSString *)str attr:(NSDictionary *)attr maxSize:(CGSize)max orFontS:(CGFloat)fs {
-    CGRect rect = [str boundingRectWithSize:max options:NSStringDrawingUsesLineFragmentOrigin attributes:attr ? attr : @{NSFontAttributeName: [UIFont systemFontOfSize:fs]} context:0];
-    return rect.size;
-}
+ 
 
 + (void)saveDouble:(double)value forKey:(NSString *)key {
     [NSUserDefaults.standardUserDefaults setDouble:value forKey:key];
     [NSUserDefaults.standardUserDefaults synchronize];
 }
-
-+ (double)doubleValue:(NSString *)text error:(BOOL *)error {
-    NSScanner *scanner = [NSScanner scannerWithString:text];
-    double result = 0;
-    if (!([scanner scanDouble:&result] && [scanner isAtEnd])) {
-        result = 0;
-        *error = 1;
-    }
-    if (!result) {
-        unichar c = [text characterAtIndex:0];
-        if (c != '0' && c != '.') {
-            *error = 1;
-        }
-    }
-    return result;
-}
+ 
 
 + (void)addObserver:(id)target selector:(SEL)func notiName:(NSNotificationName)name {
     [[NSNotificationCenter defaultCenter] addObserver:target selector:func name:name object:nil];

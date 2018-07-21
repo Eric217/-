@@ -30,10 +30,10 @@ UIKIT_EXTERN CGFloat LineWidth;
 + (CGPoint *)getLocaWithHeight:(int)h startAngle:(CGFloat)a angleReducer:(void(^)(int level, CGFloat * angle))handler;
 + (void)updateTreeUnitSize:(CGFloat)u_s font:(CGFloat)t_f sepaMul:(CGFloat)s_w;
 + (void)defaultTreeConfig;
-+ (CGSize)sizeForText:(NSString *)str attr:(NSDictionary *)attr maxSize:(CGSize)max orFontS:(CGFloat)fs;
+ 
 
 + (void)saveDouble:(double)value forKey:(NSString *)key;
-+ (double)doubleValue:(NSString *)text error:(BOOL *)error;
+
 
 + (void)addObserver:(id)target selector:(SEL)func notiName:(NSNotificationName)name;
 + (void)postNotification:(NSNotificationName)name message:(NSDictionary *)info;

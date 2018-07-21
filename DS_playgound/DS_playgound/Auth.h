@@ -12,7 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Auth : NSObject
 
-//+ (void)camera;
++ (void)requestPhotosWith_Success:  (void(^)(void))s
+                         _restrict: (void(^)(void))r
+                         _denied:   (void(^)(void))d;
+
++ (void)jumpToSettings:(NSString *)destination;
+
+
 
 @end
 

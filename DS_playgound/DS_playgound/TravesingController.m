@@ -10,7 +10,9 @@
 #import "TreeView.h"
 #import "UILabel+init.h"
 #import "UIView+funcs.h"
+#import "UIImage+operations.h"
 #import "BinaryTree.h"
+#import "UIViewController+funcs.h"
 #import <Masonry/Masonry.h>
 
 
@@ -35,6 +37,7 @@
 @property (nonatomic, assign) int realCount;
 @property (nonatomic, assign) TravesalType travesalType;
 @property (nonatomic, strong) BinaryTree *tree;
+@property (nonatomic, strong) NSString *tra_name;
 
 @property (nonatomic, copy) NSMutableArray *completeArray;
 @property (nonatomic, copy) NSArray<NSString *> *dataArray;
@@ -46,18 +49,11 @@
 
 #define DefaultTitle @"动态演示"
 
-
 - (void)captureScreen:(UIBarButtonItem *)sender {
     if (_travesalType < 0)
         return;
-    
-    //request Auth
-    
-    UIImage *img = [_treeView normalSnapshotImage];
-    
-    //save img;
-    
-    img = 0;
+    [self saveImage:[[self.treeView normalSnapshotImage] imageWithWaterMark:self.tra_name postion:WaterMarkPositionLU attributes:0 offset:CGSizeMake(40, 40)]];
+ 
 }
 
 - (void)customTree:(UIBarButtonItem *)sender {
@@ -96,6 +92,7 @@
         _collectionEmptyView = 0;
     }
     self.title = [t stringByAppendingString:@"演示"];
+    _tra_name = t;
     _travesalType = type;
     
     if (!_dataArray) {

@@ -14,6 +14,7 @@
 #import "DataTransmitter.h"
 #import "SelectFlowController.h"
 #import "SelectHeapController.h"
+#import "NSString+funcs.h"
 
 @interface SettingViewController2 () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, DataTransmitter>
 
@@ -116,7 +117,7 @@
     
     NSString *origiText = [NSString stringWithFormat:@"%.2f", [UserDefault doubleForKey:kTimeInterval]];
     BOOL e = 0;
-    double interval = [Config doubleValue:textField.text error:&e];
+    double interval = [textField.text doubleValueWithError:&e];
     if (interval < 0.3 || interval > 10) {
         textField.text = origiText;
     } else {

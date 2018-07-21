@@ -49,6 +49,9 @@
 
 #define kFirstOpened        @"fsfwsewopo"
 
+#define kStatus             @"status"
+#define kMessage            @"msg"
+
 #define kSkipNullStep       @"skip n ull"
 #define kTimeInterval       @"dawfew a f"
 #define kFlowExecWay        @"greswe qqa"
@@ -81,6 +84,7 @@
 //Dependent
 #define UnderTreeH          68*UnitSize/UnitSizeDefault
 #define EmptyNode           @"e符†"
+#define PromptText          @"提示"
 
 
 typedef NS_ENUM(NSUInteger, SortType) {

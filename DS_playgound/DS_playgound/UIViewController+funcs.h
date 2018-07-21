@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Common.h"
 
 @interface UIViewController (funcs)
 
@@ -18,34 +17,8 @@
 
 - (void)pushWithoutBottomBar:(UIViewController *)vc;
 
+- (void)saveImage:(UIImage *)img;
+
+
 @end
 
-
-@interface UIViewController (ELSplitController)
-
-- (bool)isDevicePortait;
-
-- (bool)isPortrait;
-
-- (bool)isFloatingOrThirth;
-    
-- (bool)isHalfIpad;
-    
-- (bool)isTwoThirth;
-    
-- (bool)isFullScreen;
-    
-//以下几个函数涉及到split view controller.
-- (bool)canPullHideLeft;
-    
-- (bool)canShowBoth;
-    
-- (bool)isNoSplit;
-
-- (ScreenMode)screenMode;
-
-- (void)automaticSplitStyle;
-- (void)overlaySplitStyle;
-- (void)hidePrimarySplitStyle;
-
-@end

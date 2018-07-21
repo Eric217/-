@@ -9,6 +9,7 @@
 #import "SortDescriptionController.h"
 #import <Masonry/Masonry.h>
 #import "UIView+frameProperty.h"
+#import "NSString+funcs.h"
 
 @interface SortDescriptionController ()
 
@@ -101,7 +102,7 @@
     attributes[NSParagraphStyleAttributeName] = paragraphStyle;
     attributes[NSFontAttributeName] = [UIFont systemFontOfSize:19];
  
-    CGSize txtSize = [Config sizeForText:source attr:attributes maxSize:self.view.bounds.size orFontS:0]; txtSize.height += 5;
+    CGSize txtSize = [source sizeWithAttr:attributes maxSize:self.view.bounds.size orFontS:0]; txtSize.height += 5;
     
     [_descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.titleLabel.mas_bottom).offset(7.5);

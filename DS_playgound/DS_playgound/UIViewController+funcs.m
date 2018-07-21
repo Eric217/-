@@ -8,13 +8,16 @@
 
 #import "UIViewController+funcs.h"
 #import "Common.h"
+#import "Auth.h"
 
 @implementation UIViewController (funcs)
+
 
 + (UIViewController *)viewControllerFromSBName:(NSString *)sbName id:(NSString *)sbId {
     return [[UIStoryboard storyboardWithName:sbName bundle:0] instantiateViewControllerWithIdentifier:sbId];
 }
 
+/// 两个选择：确定，取消
 - (void)presentAlertWithCancelAndConfirm:(NSString *)title message:(NSString *)msg Action:(void (^) (void))handler {
     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
  
@@ -29,6 +32,7 @@
     [self presentViewController:alertC animated:1 completion:nil];
 }
 
+/// 需要用户点击才消失的，需要用户完全明确了解的提示
 - (void)presentTip:(NSString *)title message:(NSString *)msg Action:(void (^) (void))handler {
     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
  
@@ -40,6 +44,51 @@
     [self presentViewController:alertC animated:1 completion:nil];
 }
 
+/// 弹出 hub 简单文字提示用户
+- (void)presentMessage:(NSString *)msg duration:(NSTimeInterval)dur status:(BOOL)s {
+ 
+}
+
+
+- (void)attemptSaveImage:(UIImage *)image finishWithError:(NSError *)error context:(void *)ctx {
+    // @{"status": "0", "msg": "str"} //0是只有一个按钮或hub提示，1是俩按钮，确定取消
+    if (error) {
+        if (ctx) { // 来自于保存图片的
+            [self presentMessage:@"未知错误" duration:0.44 status:0];
+        } else { // a custom error
+            NSDictionary *info = error.userInfo;
+            NSString *str = info[kMessage];
+            if ([info[kStatus] isEqualToString:@"0"]) { // restricted
+                [self presentTip:PromptText message:str Action:^{}];
+            } else if ([info[kStatus] isEqualToString:@"1"]) { // denied
+                [self presentAlertWithCancelAndConfirm:@"无权访问相册" message:@"要到设置中打开相册权限吗?" Action:^{
+                    [Auth jumpToSettings:@"App-Prefs:root=Photos"];
+                }];
+            }
+        }
+        
+    } else { //保存成功
+        [self presentMessage:@"保存成功" duration:0.44 status:1];
+    }
+}
+
+- (void)saveImage:(UIImage *)img {
+    
+    [Auth requestPhotosWith_Success:^{ // request Auth
+        bool fail = 1;
+        UIImageWriteToSavedPhotosAlbum(img, self, @selector(attemptSaveImage:finishWithError:context:), &fail);
+        
+    } _restrict:^{
+        NSError *err = [NSError errorWithDomain:NSCocoaErrorDomain code:1 userInfo:@{kStatus: @"0", kMessage: @"保存失败: 访问受限"}];
+        [self attemptSaveImage:0 finishWithError:err context:0];
+        
+    } _denied:^{
+        NSError *err = [NSError errorWithDomain:NSCocoaErrorDomain code:1 userInfo:@{kStatus: @"1", kMessage: @"要前往设置中开启吗?"}];
+        [self attemptSaveImage:0 finishWithError:err context:0];
+    }];
+    
+}
+
 - (void)pushWithoutBottomBar:(UIViewController *)vc {
     [vc setHidesBottomBarWhenPushed:1];
     [self.navigationController pushViewController:vc animated:1];
@@ -47,98 +96,4 @@
 
 @end
 
-@implementation UIViewController (ELSplitController)
-
-#define Delta 20
-
-///真的ipad是正着还是横屏
-- (bool)isDevicePortait {
-    return ScreenW < ScreenH;
-}
-
-///对于ipad是指除了横屏2/3和大pro的半屏之外 所有宽小于高的情况，不是物理设备的portrait
-- (bool)isPortrait {
-    CGFloat sw = ScreenW, vw = self.view.bounds.size.width;
-    bool heng2_3 = sw > ScreenH && (vw - sw/2) > Delta && sw > vw;
-    if (heng2_3 || (IPADPro && [self isHalfIpad]))
-        return 0;
-    return vw < self.view.bounds.size.height;
-}
-
-- (bool)isFloatingOrThirth {
-    if (IPHONE) {
-        return [self isPortrait];
-    } else {
-        return (ScreenW/2 - self.view.bounds.size.width) > Delta;
-    }
-}
-
-- (bool)isHalfIpad {
-    if (IPHONE) {
-        return 0;
-    }
-    return fabs(ScreenW/2 - self.view.bounds.size.width) < Delta;
-}
-
-- (bool)isTwoThirth {
-    if (IPHONE) {
-        return 0;
-    }
-    CGFloat sw = ScreenW, vw = self.view.bounds.size.width;
-    return fabs(sw/2-vw) > Delta && sw > vw;
-}
  
-- (bool)isFullScreen {
-    return ScreenW == self.view.bounds.size.width;
-}
-
-- (bool)canPullHideLeft {
-    if (IPHONE)
-        return 0;
-    if ([self isPortrait])
-        return [self isFullScreen];
-    else {
-        if (IPADPro) {
-            return [self isHalfIpad];
-        }
-        return [self isTwoThirth];
-    
-    }
-}
-
-- (bool)canShowBoth {
-    if (IPHONE)
-        return IPHONE6P;
-    return (![self isPortrait] && [self isFullScreen]) || (IPADPro && [self isTwoThirth]);
-}
-
-- (bool)isNoSplit {
-    return ![self canShowBoth] && ![self canPullHideLeft];
-}
-
-- (ScreenMode)screenMode {
-//    if ([self isFloatingOrThirth]) {
-//        return ScreenModeFloatingOrThirth;
-//    } else if ([self isHalfIpad]) {
-//        return ScreenModeHalfIpad;
-//    } else if ([self canPullHideLeft]) {
-//        return ScreenModeCanPullHideLeft;
-//    } else if ([self canShowBoth]) {
-//        return ScreenModeCanShowBoth;
-//    }
-     
-    return 0;
-}
-
-- (void)automaticSplitStyle {
-    [self.splitViewController setPreferredDisplayMode:UISplitViewControllerDisplayModeAutomatic];
-}
-- (void)overlaySplitStyle {
-    [self.splitViewController setPreferredDisplayMode:UISplitViewControllerDisplayModePrimaryOverlay];
-}
-- (void)hidePrimarySplitStyle {
-    [self.splitViewController setPreferredDisplayMode:UISplitViewControllerDisplayModePrimaryHidden];
-}
-@end
-
-

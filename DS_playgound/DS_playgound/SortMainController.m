@@ -13,7 +13,7 @@
 #import "UIView+frameProperty.h"
 #import "SortingViewController.h"
 #import "ConfigSortController.h"
-#import "UIViewController+funcs.h"
+#import "UIViewController+SplitController.h"
 #import "SortNameCollectionCell.h"
 
 

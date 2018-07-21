@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "UIViewController+funcs.h"
+#import "UIViewController+SplitController.h"
 
 #import "SortMainController.h"
 #import "TravesingController.h"

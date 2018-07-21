@@ -8,13 +8,17 @@
 
 #import "ConfigSortController.h"
 #import "SelectOrderController.h"
+#import "SortDescriptionController.h"
+
 #import "DataTransmitter.h"
 #import "UIImage+operations.h"
+#import "NSString+funcs.h"
 #import "UIView+frameProperty.h"
 #import "UIViewController+funcs.h"
+#import "UIViewController+SplitController.h"
 #import "UIButton+init.h"
 #import "UILabel+init.h"
-#import "SortDescriptionController.h"
+
 #import <Masonry/Masonry.h>
 
 
@@ -349,12 +353,12 @@
     NSArray *errorMsg = [self guardSortOrderWithInputData:inputData];
     if (errorMsg) {
         if (errorMsg.count == 2) {
-            [self presentAlertWithCancelAndConfirm:@"提示" message:errorMsg[0] Action:^() {
+            [self presentAlertWithCancelAndConfirm:PromptText message:errorMsg[0] Action:^() {
                 [self transmitData:@[@30, @"自动推断"] withIdentifier:0];
                 [self startDisplayWithoutError:inputData];
             }];
         } else if (errorMsg.count == 1) {
-            [self presentTip:@"提示" message:errorMsg[0] Action:^() {
+            [self presentTip:PromptText message:errorMsg[0] Action:^() {
                 [self.inputField becomeFirstResponder];
             }];
         }
@@ -408,7 +412,7 @@
     if (_sortOrder == SortOrderNumberA || _sortOrder == SortOrderNumberD) {
         BOOL e = 0;
         for (NSString *i in inputData) {
-            [Config doubleValue:i error:&e];
+            [i doubleValueWithError:&e];
             if (e) {
                 return @[@"选择的排序方式与输入内容不符。要自动推断排序方式并继续吗", @" "];
             }

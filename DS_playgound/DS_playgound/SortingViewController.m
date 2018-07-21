@@ -8,7 +8,7 @@
 
 #import <Masonry/Masonry.h>
 #import "SortingViewController.h"
-#import "UIView+funcs.h"
+#import "UIViewController+SplitController.h"
 #import "UIView+frameProperty.h"
 #import "UIViewController+funcs.h"
 #import "UIImage+operations.h"

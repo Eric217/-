@@ -9,8 +9,8 @@
 #import "BinaryTree.h"
 
 @interface TreeNode ()
-@property (nonatomic, assign) int fakeIndex;
-@property (nonatomic, assign) int existedInStack;
+@property (nonatomic, assign) int fakeIndex; ///< 每个元素在完全二叉树(假设)中的位置
+@property (nonatomic, assign) int existedInStack; ///< 中后序遍历标记
 @end
 
 @implementation TreeNode
@@ -32,8 +32,8 @@
 @end
 
 @interface BinaryTree () {
-
-    NSMutableArray<TreeNode*> *_preStack;
+    
+    NSMutableArray<TreeNode*> *_stack_and_queue;
 }
 
 @end
@@ -46,45 +46,59 @@
     else if (t == TravesalIn)
         return [self nextStepForIn:f];
     else if (t == TravesalPost)
-        return 1;
+        return [self nextStepForPost:f];
     else if (t == TravesalLevel)
-        return 1;
+        return [self nextStepForLevel:f];
     else return 0;
 }
 
+//level
+- (int)nextStepForLevel:(bool *)finished {
+    if (_stack_and_queue.count == 0)
+        [_stack_and_queue addObject:root];
+    TreeNode *_curNode = _stack_and_queue.firstObject;
+    [_stack_and_queue removeObjectAtIndex:0];
+    if (_curNode->leftChild)
+        [_stack_and_queue addObject:_curNode->leftChild];
+    if (_curNode->rightChild)
+        [_stack_and_queue addObject:_curNode->rightChild];
+    if (_stack_and_queue.count == 0)
+        *finished = 1;
+    return _curNode.fakeIndex;
+}
 
 //pre
 - (int)nextStepForPre:(bool *)finished {
-    if (_preStack.count == 0)
-        [_preStack addObject:root];
-    TreeNode *_curNode = _preStack.lastObject;
-    [_preStack removeLastObject];
+    if (_stack_and_queue.count == 0)
+        [_stack_and_queue addObject:root];
+    TreeNode *_curNode = _stack_and_queue.lastObject;
+    [_stack_and_queue removeLastObject];
     
     if (_curNode->rightChild)
-        [_preStack addObject:_curNode->rightChild];
+        [_stack_and_queue addObject:_curNode->rightChild];
     if (_curNode->leftChild)
-        [_preStack addObject:_curNode->leftChild];
-    if (_preStack.count == 0)
+        [_stack_and_queue addObject:_curNode->leftChild];
+    if (_stack_and_queue.count == 0)
         *finished = 1;
     return _curNode.fakeIndex;
 }
 
 //in
 - (void)addToInOrderStack:(TreeNode *)n {
-    [_preStack addObject:n];
+    [_stack_and_queue addObject:n];
     n.existedInStack++;
 }
 
 - (int)nextStepForIn:(bool *)finished {
-    if (_preStack.count == 0) {
+    if (_stack_and_queue.count == 0) {
         [self addToInOrderStack:root];
         return [self nextStepForIn:finished];
     }
-    TreeNode *_curNode = _preStack.lastObject;
-    [_preStack removeLastObject];
+    TreeNode *_curNode = _stack_and_queue.lastObject;
+    [_stack_and_queue removeLastObject];
     
     if (_curNode.existedInStack == 0) {
-        if (_preStack.count == 0)
+        if (_stack_and_queue.count == 0)
             *finished = 1;
         return _curNode.fakeIndex;
     }
@@ -93,15 +107,30 @@
     [self addToInOrderStack:_curNode];
     if (_curNode->leftChild)
         [self addToInOrderStack:_curNode->leftChild];
-    if (_preStack.count == 0)
-        *finished = 1;
     return [self nextStepForIn:finished];
 }
 
 //post
-
-
-
+- (int)nextStepForPost:(bool *)finished {
+    if (_stack_and_queue.count == 0) {
+        [self addToInOrderStack:root];
+        return [self nextStepForPost:finished];
+    }
+    TreeNode *_curNode = _stack_and_queue.lastObject;
+    [_stack_and_queue removeLastObject];
+    
+    if (_curNode.existedInStack == 0) {
+        if (_stack_and_queue.count == 0)
+            *finished = 1;
+        return _curNode.fakeIndex;
+    }
+    [self addToInOrderStack:_curNode];
+    if (_curNode->rightChild)
+        [self addToInOrderStack:_curNode->rightChild];
+    if (_curNode->leftChild)
+        [self addToInOrderStack:_curNode->leftChild];
+    return [self nextStepForPost:finished];
+}
 
 //reset
 - (void)resetTreePreOrder:(TreeNode *)n {
@@ -113,8 +142,9 @@
 }
 
 - (void)reset {
-    _preStack = [NSMutableArray<TreeNode *> new];
-    [self resetTreePreOrder:root];
+    _stack_and_queue = [NSMutableArray<TreeNode *> new];
+    if (root.existedInStack != -2)
+        [self resetTreePreOrder:root];
     
 }
 
@@ -153,6 +183,7 @@
     }
    
     root = root1;
+    [self resetTreePreOrder:root];
     [self reset];
     return self;
 }

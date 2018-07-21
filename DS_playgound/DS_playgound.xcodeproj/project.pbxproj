@@ -41,6 +41,7 @@
 		075B15A420F74C2D0081CD48 /* SelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B159F20F74C2D0081CD48 /* SelectController.m */; };
 		075B15A520F74C2D0081CD48 /* SelectHeapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B15A020F74C2D0081CD48 /* SelectHeapController.m */; };
 		0768BFE720FE1613000DF520 /* TravesalDescController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0768BFE620FE1613000DF520 /* TravesalDescController.m */; };
+		076B62F42103264B0029584A /* UIViewController+SplitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076B62F32103264B0029584A /* UIViewController+SplitController.m */; };
 		07B5BB5720FF24F500105B84 /* TreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B5BB5620FF24F500105B84 /* TreeView.m */; };
 		07BB0CC320F73DDD00B2BCA7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB0CC220F73DDD00B2BCA7 /* AppDelegate.m */; };
 		07BB0CC620F73DDD00B2BCA7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB0CC520F73DDD00B2BCA7 /* ViewController.m */; };
@@ -56,6 +57,7 @@
 		07BB28FD20F7683600909AFE /* PinyinFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB28FB20F7683600909AFE /* PinyinFormatter.m */; };
 		07BB290020F7690300909AFE /* PinyinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB28FE20F7690300909AFE /* PinyinHelper.m */; };
 		07BB290220F769A100909AFE /* unicode_to_hanyu_pinyin.txt in Resources */ = {isa = PBXBuildFile; fileRef = 07BB290120F769A100909AFE /* unicode_to_hanyu_pinyin.txt */; };
+		07BDE1EC2102CFA60009968B /* NSString+funcs.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BDE1EB2102CFA60009968B /* NSString+funcs.m */; };
 		07D609B820FC603C00838E3A /* SelectTravesalController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D609B720FC603C00838E3A /* SelectTravesalController.m */; };
 		07D609BB20FCB2A700838E3A /* TravesingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D609BA20FCB2A700838E3A /* TravesingController.m */; };
 		07E8A5F92100242400A8C94A /* Travesal.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E8A5F82100242400A8C94A /* Travesal.m */; };
@@ -133,6 +135,8 @@
 		075B15A020F74C2D0081CD48 /* SelectHeapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectHeapController.m; sourceTree = "<group>"; };
 		0768BFE520FE1613000DF520 /* TravesalDescController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravesalDescController.h; sourceTree = "<group>"; };
 		0768BFE620FE1613000DF520 /* TravesalDescController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TravesalDescController.m; sourceTree = "<group>"; };
+		076B62F22103264B0029584A /* UIViewController+SplitController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SplitController.h"; sourceTree = "<group>"; };
+		076B62F32103264B0029584A /* UIViewController+SplitController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SplitController.m"; sourceTree = "<group>"; };
 		07B5BB5520FF24F500105B84 /* TreeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TreeView.h; sourceTree = "<group>"; };
 		07B5BB5620FF24F500105B84 /* TreeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TreeView.m; sourceTree = "<group>"; };
 		07BB0CBE20F73DDD00B2BCA7 /* DS_playgound.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DS_playgound.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,6 +164,8 @@
 		07BB28FE20F7690300909AFE /* PinyinHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PinyinHelper.m; path = PinYinConverter/PinyinHelper.m; sourceTree = "<group>"; };
 		07BB28FF20F7690300909AFE /* PinyinHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PinyinHelper.h; path = PinYinConverter/PinyinHelper.h; sourceTree = "<group>"; };
 		07BB290120F769A100909AFE /* unicode_to_hanyu_pinyin.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = unicode_to_hanyu_pinyin.txt; path = PinYinConverter/unicode_to_hanyu_pinyin.txt; sourceTree = "<group>"; };
+		07BDE1EA2102CFA60009968B /* NSString+funcs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+funcs.h"; sourceTree = "<group>"; };
+		07BDE1EB2102CFA60009968B /* NSString+funcs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+funcs.m"; sourceTree = "<group>"; };
 		07D609B620FC603C00838E3A /* SelectTravesalController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectTravesalController.h; sourceTree = "<group>"; };
 		07D609B720FC603C00838E3A /* SelectTravesalController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectTravesalController.m; sourceTree = "<group>"; };
 		07D609B920FCB2A700838E3A /* TravesingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravesingController.h; sourceTree = "<group>"; };
@@ -312,17 +318,15 @@
 		075B156420F749580081CD48 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				07BDE1ED2102CFB50009968B /* NSString */,
 				073B04C0210256400009C1EA /* UIView */,
+				076B62F1210326190029584A /* UIViewController */,
 				070D71DE20F74CA300175D20 /* UIButton+init.h */,
 				070D71DF20F74CA300175D20 /* UIButton+init.m */,
 				070D71DD20F74CA300175D20 /* UIImage+operations.h */,
 				070D71DB20F74CA300175D20 /* UIImage+operations.m */,
 				070D71DA20F74CA300175D20 /* UILabel+init.h */,
 				070D71D820F74CA300175D20 /* UILabel+init.m */,
-				070D71E320F74CA300175D20 /* UIViewController+funcs.h */,
-				070D71DC20F74CA300175D20 /* UIViewController+funcs.m */,
-				07BB28F820F7671200909AFE /* NSString+PinYin4Cocoa.h */,
-				07BB28F920F7671200909AFE /* NSString+PinYin4Cocoa.m */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -426,6 +430,17 @@
 			name = Base;
 			sourceTree = "<group>";
 		};
+		076B62F1210326190029584A /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				070D71E320F74CA300175D20 /* UIViewController+funcs.h */,
+				070D71DC20F74CA300175D20 /* UIViewController+funcs.m */,
+				076B62F22103264B0029584A /* UIViewController+SplitController.h */,
+				076B62F32103264B0029584A /* UIViewController+SplitController.m */,
+			);
+			name = UIViewController;
+			sourceTree = "<group>";
+		};
 		076F944420FF7B8500013A03 /* TravesingView */ = {
 			isa = PBXGroup;
 			children = (
@@ -501,6 +516,17 @@
 				07BB290120F769A100909AFE /* unicode_to_hanyu_pinyin.txt */,
 			);
 			name = PinYinConverter;
+			sourceTree = "<group>";
+		};
+		07BDE1ED2102CFB50009968B /* NSString */ = {
+			isa = PBXGroup;
+			children = (
+				07BB28F820F7671200909AFE /* NSString+PinYin4Cocoa.h */,
+				07BB28F920F7671200909AFE /* NSString+PinYin4Cocoa.m */,
+				07BDE1EA2102CFA60009968B /* NSString+funcs.h */,
+				07BDE1EB2102CFA60009968B /* NSString+funcs.m */,
+			);
+			name = NSString;
 			sourceTree = "<group>";
 		};
 		07DFBB7720FBA25200D23E9A /* Traversal */ = {
@@ -689,6 +715,7 @@
 				07BB28FA20F7671200909AFE /* NSString+PinYin4Cocoa.m in Sources */,
 				07BB0CD120F73DDF00B2BCA7 /* main.m in Sources */,
 				075B158B20F74A4E0081CD48 /* ELLinearUnitCell.m in Sources */,
+				07BDE1EC2102CFA60009968B /* NSString+funcs.m in Sources */,
 				07BB28FD20F7683600909AFE /* PinyinFormatter.m in Sources */,
 				075B158D20F74A4E0081CD48 /* ELCommonLinearCell.m in Sources */,
 				075B159020F74A4E0081CD48 /* SortNameCollectionCell.m in Sources */,
@@ -706,6 +733,7 @@
 				075B158A20F74A4E0081CD48 /* ELTreeUnitCell.m in Sources */,
 				070D71E620F74CA300175D20 /* UIImage+operations.m in Sources */,
 				070D71F620F74CE600175D20 /* BubbleSorter.m in Sources */,
+				076B62F42103264B0029584A /* UIViewController+SplitController.m in Sources */,
 				07FCF1FA20FCDD4B00C071DF /* SortDescriptionController.m in Sources */,
 				07BB28F420F7645200909AFE /* ChineseToPinyinResource.m in Sources */,
 				070D71EE20F74CB900175D20 /* Common.m in Sources */,
