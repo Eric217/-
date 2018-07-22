@@ -42,6 +42,7 @@
 		075B15A520F74C2D0081CD48 /* SelectHeapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B15A020F74C2D0081CD48 /* SelectHeapController.m */; };
 		0768BFE720FE1613000DF520 /* TravesalDescController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0768BFE620FE1613000DF520 /* TravesalDescController.m */; };
 		076B62F42103264B0029584A /* UIViewController+SplitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076B62F32103264B0029584A /* UIViewController+SplitController.m */; };
+		076B62F9210370130029584A /* AdjacencyWDigraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 076B62F8210370130029584A /* AdjacencyWDigraph.m */; };
 		07B5BB5720FF24F500105B84 /* TreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B5BB5620FF24F500105B84 /* TreeView.m */; };
 		07BB0CC320F73DDD00B2BCA7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB0CC220F73DDD00B2BCA7 /* AppDelegate.m */; };
 		07BB0CC620F73DDD00B2BCA7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB0CC520F73DDD00B2BCA7 /* ViewController.m */; };
@@ -137,6 +138,8 @@
 		0768BFE620FE1613000DF520 /* TravesalDescController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TravesalDescController.m; sourceTree = "<group>"; };
 		076B62F22103264B0029584A /* UIViewController+SplitController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SplitController.h"; sourceTree = "<group>"; };
 		076B62F32103264B0029584A /* UIViewController+SplitController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SplitController.m"; sourceTree = "<group>"; };
+		076B62F7210370130029584A /* AdjacencyWDigraph.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdjacencyWDigraph.h; sourceTree = "<group>"; };
+		076B62F8210370130029584A /* AdjacencyWDigraph.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdjacencyWDigraph.m; sourceTree = "<group>"; };
 		07B5BB5520FF24F500105B84 /* TreeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TreeView.h; sourceTree = "<group>"; };
 		07B5BB5620FF24F500105B84 /* TreeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TreeView.m; sourceTree = "<group>"; };
 		07BB0CBE20F73DDD00B2BCA7 /* DS_playgound.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DS_playgound.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -236,6 +239,7 @@
 			children = (
 				073B04BE210255AB0009C1EA /* Sort */,
 				07DFBB7720FBA25200D23E9A /* Traversal */,
+				076B62F52103598F0029584A /* Graph */,
 				075B156420F749580081CD48 /* Extension */,
 				075B156320F7494E0081CD48 /* Common */,
 			);
@@ -439,6 +443,15 @@
 				076B62F32103264B0029584A /* UIViewController+SplitController.m */,
 			);
 			name = UIViewController;
+			sourceTree = "<group>";
+		};
+		076B62F52103598F0029584A /* Graph */ = {
+			isa = PBXGroup;
+			children = (
+				076B62F7210370130029584A /* AdjacencyWDigraph.h */,
+				076B62F8210370130029584A /* AdjacencyWDigraph.m */,
+			);
+			name = Graph;
 			sourceTree = "<group>";
 		};
 		076F944420FF7B8500013A03 /* TravesingView */ = {
@@ -706,6 +719,7 @@
 				070D71E420F74CA300175D20 /* UILabel+init.m in Sources */,
 				070D71F820F74CE600175D20 /* LinearSorter.m in Sources */,
 				070D71E820F74CA300175D20 /* UIButton+init.m in Sources */,
+				076B62F9210370130029584A /* AdjacencyWDigraph.m in Sources */,
 				075B157120F74A010081CD48 /* SortBaseClass.m in Sources */,
 				070D71E920F74CA300175D20 /* UIView+funcs.m in Sources */,
 				07BB28E820F7550C00909AFE /* SwitchCell2.m in Sources */,
