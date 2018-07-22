@@ -25,15 +25,17 @@
     
     //测试
     [self addButton:@"测试：排序算法" frame:CGRectMake(300, 300, 140, 60) act:@selector(didClick)];
-    [self addButton:@"测试：遍历二叉树" frame:CGRectMake(440, 300, 140, 60) act:@selector(didClick1)];
+    [self addButton:@"测试：遍历二叉树" frame:CGRectMake(540, 300, 140, 60) act:@selector(didClick1)];
+    [self addButton:@"测试：图相关算法" frame:CGRectMake(300, 120, 140, 60) act:@selector(didClick2)];
 
+    
+    
 }
 
 - (UIButton *)addButton:(NSString *)title frame:(CGRect)f act:(SEL)selector {
     UIButton *butt = [[UIButton alloc] initWithFrame:f];
     [butt setTitle:title forState:UIControlStateNormal];
     [butt setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
-    [butt setBackgroundColor:UIColor.groupTableViewBackgroundColor];
     [butt addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:butt];
     return butt;
@@ -62,6 +64,10 @@
         splitVC.delegate = conf;
     [self.view.window setRootViewController:splitVC];
     
+}
+
+- (void)didClick2 {
+    [self presentViewController:[SortMainController new] animated:1 completion:nil];
 }
 
 @end
