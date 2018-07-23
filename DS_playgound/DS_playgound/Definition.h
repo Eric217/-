@@ -73,7 +73,7 @@
 #define SortNameFile        @"SortNames.plist"
 #define SortOrderFile       @"SortOrder.plist"
 #define TravesalFile        @"Travesals.plist"
-
+#define GraphAlgoFile       @"GraphAlgorithm.plist"
 
 #define UnitSizeDefault     44
 #define TreeFontDefault     24
@@ -84,6 +84,7 @@
 //Dependent
 #define UnderTreeH          68*UnitSize/UnitSizeDefault
 #define EmptyNode           @"e符†"
+#define LetterFont          @"TimesNewRomanPS-BoldMT"
 #define PromptText          @"提示"
 
 

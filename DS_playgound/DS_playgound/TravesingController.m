@@ -77,7 +77,7 @@
     [_treeView setupTree:_dataArray result:_completeArray reach:_reach];
 
     if (asDefault)
-        [Config writeArrayToFile:TravesalFile data:_dataArray];
+        [Config writeToPlistName:TravesalFile data:_dataArray];
     [self restart:0];
 }
 
@@ -96,12 +96,12 @@
     _travesalType = type;
     
     if (!_dataArray) {
-        _dataArray = [Config getArrayDataFromFile:TravesalFile];
+        _dataArray = [Config getArrayFromFile:TravesalFile];
         if (!_dataArray) {
             NSString *e = EmptyNode;
             _dataArray = @[@"A", @"B", @"E", @"K", @"C", e, @"F", @"N", e, @"D", e, e, e,
                            @"G", @"H"];
-            [Config writeArrayToFile:TravesalFile data:_dataArray];
+            [Config writeToPlistName:TravesalFile data:_dataArray];
         }
     }
     

@@ -74,7 +74,7 @@
     NSMutableParagraphStyle *textStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
     textStyle.lineBreakMode = NSLineBreakByWordWrapping;
     textStyle.alignment = NSTextAlignmentCenter;//水平居中
-    NSMutableDictionary *attr =  [@{NSFontAttributeName: [UIFont fontWithName:@"TimesNewRomanPS-BoldMT" size:TreeFont], NSParagraphStyleAttributeName: textStyle} mutableCopy];
+    NSMutableDictionary *attr =  [@{NSFontAttributeName: [UIFont fontWithName:LetterFont size:TreeFont], NSParagraphStyleAttributeName: textStyle} mutableCopy];
     
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGMutablePathRef path = CGPathCreateMutable();

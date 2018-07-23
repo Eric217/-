@@ -6,17 +6,17 @@
 //  Copyright © 2018 Eric. All rights reserved.
 //
 
-#import "SortNameCollectionCell.h"
+#import "CommonCollectionCell.h"
 #import "UIView+frameProperty.h"
  
-@interface SortNameCollectionCell ()
+@interface CommonCollectionCell ()
 
 @property (nonatomic, strong) UILabel *titleLabel;
 
 @end
 
 
-@implementation SortNameCollectionCell
+@implementation CommonCollectionCell
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -34,13 +34,13 @@
         _titleLabel.layer.borderWidth = 1.5;
         self.layer.cornerRadius = 3;
         self.layer.masksToBounds = 1;
-  
     }
     
     return self;
 }
 
-- (void)fillContents:(id)content {
+/// @param content text
+- (void)fillContents:(NSString *)content {
     [_titleLabel setFrame:self.bounds];
     [self.titleLabel setText:content];
 }

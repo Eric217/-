@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SortNameCollectionCell : UICollectionViewCell 
+@interface CommonCollectionCell : UICollectionViewCell
+
+- (void)fillContents:(NSString *)content;
 
 @end

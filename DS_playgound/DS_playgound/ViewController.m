@@ -11,6 +11,7 @@
 
 #import "SortMainController.h"
 #import "TravesingController.h"
+#import "GraphMainController.h"
 #import "SelectTravesalController.h"
 
 @interface ViewController ()
@@ -67,7 +68,7 @@
 }
 
 - (void)didClick2 {
-    [self presentViewController:[SortMainController new] animated:1 completion:nil];
+    [self presentViewController:[GraphMainController new] animated:1 completion:nil];
 }
 
 @end

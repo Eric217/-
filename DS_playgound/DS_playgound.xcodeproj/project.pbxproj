@@ -34,7 +34,7 @@
 		075B158D20F74A4E0081CD48 /* ELCommonLinearCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B158320F74A4E0081CD48 /* ELCommonLinearCell.m */; };
 		075B158E20F74A4E0081CD48 /* ELInsertionSortCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B158420F74A4E0081CD48 /* ELInsertionSortCell.m */; };
 		075B158F20F74A4E0081CD48 /* ELCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B158520F74A4E0081CD48 /* ELCollectionCell.m */; };
-		075B159020F74A4E0081CD48 /* SortNameCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B158620F74A4E0081CD48 /* SortNameCollectionCell.m */; };
+		075B159020F74A4E0081CD48 /* CommonCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B158620F74A4E0081CD48 /* CommonCollectionCell.m */; };
 		075B15A120F74C2D0081CD48 /* SelectOrderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B159A20F74C2D0081CD48 /* SelectOrderController.m */; };
 		075B15A220F74C2D0081CD48 /* SelectionSorter.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B159B20F74C2D0081CD48 /* SelectionSorter.m */; };
 		075B15A320F74C2D0081CD48 /* SelectFlowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B159D20F74C2D0081CD48 /* SelectFlowController.m */; };
@@ -43,6 +43,9 @@
 		0768BFE720FE1613000DF520 /* TravesalDescController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0768BFE620FE1613000DF520 /* TravesalDescController.m */; };
 		076B62F42103264B0029584A /* UIViewController+SplitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076B62F32103264B0029584A /* UIViewController+SplitController.m */; };
 		076B62F9210370130029584A /* AdjacencyWDigraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 076B62F8210370130029584A /* AdjacencyWDigraph.m */; };
+		077AA9D42105B87900BA1F9B /* GraphMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 077AA9D32105B87900BA1F9B /* GraphMainController.m */; };
+		077AA9D72105BB8A00BA1F9B /* SubtitleCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 077AA9D62105BB8A00BA1F9B /* SubtitleCollectionCell.m */; };
+		077AA9DC2105DC4E00BA1F9B /* GraphStackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 077AA9DB2105DC4E00BA1F9B /* GraphStackController.m */; };
 		07B5BB5720FF24F500105B84 /* TreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B5BB5620FF24F500105B84 /* TreeView.m */; };
 		07BB0CC320F73DDD00B2BCA7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB0CC220F73DDD00B2BCA7 /* AppDelegate.m */; };
 		07BB0CC620F73DDD00B2BCA7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB0CC520F73DDD00B2BCA7 /* ViewController.m */; };
@@ -115,14 +118,14 @@
 		075B157C20F74A4E0081CD48 /* ELCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCollectionCell.h; sourceTree = "<group>"; };
 		075B157D20F74A4E0081CD48 /* ELGroupedUnitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELGroupedUnitCell.h; sourceTree = "<group>"; };
 		075B157E20F74A4E0081CD48 /* ELTreeUnitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELTreeUnitCell.m; sourceTree = "<group>"; };
-		075B157F20F74A4E0081CD48 /* SortNameCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortNameCollectionCell.h; sourceTree = "<group>"; };
+		075B157F20F74A4E0081CD48 /* CommonCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonCollectionCell.h; sourceTree = "<group>"; };
 		075B158020F74A4E0081CD48 /* ELInsertionSortCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELInsertionSortCell.h; sourceTree = "<group>"; };
 		075B158120F74A4E0081CD48 /* ELLinearUnitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELLinearUnitCell.m; sourceTree = "<group>"; };
 		075B158220F74A4E0081CD48 /* ELGroupedUnitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELGroupedUnitCell.m; sourceTree = "<group>"; };
 		075B158320F74A4E0081CD48 /* ELCommonLinearCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCommonLinearCell.m; sourceTree = "<group>"; };
 		075B158420F74A4E0081CD48 /* ELInsertionSortCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELInsertionSortCell.m; sourceTree = "<group>"; };
 		075B158520F74A4E0081CD48 /* ELCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCollectionCell.m; sourceTree = "<group>"; };
-		075B158620F74A4E0081CD48 /* SortNameCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortNameCollectionCell.m; sourceTree = "<group>"; };
+		075B158620F74A4E0081CD48 /* CommonCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonCollectionCell.m; sourceTree = "<group>"; };
 		075B158720F74A4E0081CD48 /* ELRepeatLinearCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELRepeatLinearCell.h; sourceTree = "<group>"; };
 		075B158820F74A4E0081CD48 /* SortCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortCell.h; sourceTree = "<group>"; };
 		075B159720F74C2C0081CD48 /* SelectOrderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectOrderController.h; sourceTree = "<group>"; };
@@ -140,6 +143,12 @@
 		076B62F32103264B0029584A /* UIViewController+SplitController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SplitController.m"; sourceTree = "<group>"; };
 		076B62F7210370130029584A /* AdjacencyWDigraph.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdjacencyWDigraph.h; sourceTree = "<group>"; };
 		076B62F8210370130029584A /* AdjacencyWDigraph.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdjacencyWDigraph.m; sourceTree = "<group>"; };
+		077AA9D22105B87900BA1F9B /* GraphMainController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphMainController.h; sourceTree = "<group>"; };
+		077AA9D32105B87900BA1F9B /* GraphMainController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphMainController.m; sourceTree = "<group>"; };
+		077AA9D52105BB8A00BA1F9B /* SubtitleCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubtitleCollectionCell.h; sourceTree = "<group>"; };
+		077AA9D62105BB8A00BA1F9B /* SubtitleCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubtitleCollectionCell.m; sourceTree = "<group>"; };
+		077AA9DA2105DC4E00BA1F9B /* GraphStackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphStackController.h; sourceTree = "<group>"; };
+		077AA9DB2105DC4E00BA1F9B /* GraphStackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphStackController.m; sourceTree = "<group>"; };
 		07B5BB5520FF24F500105B84 /* TreeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TreeView.h; sourceTree = "<group>"; };
 		07B5BB5620FF24F500105B84 /* TreeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TreeView.m; sourceTree = "<group>"; };
 		07BB0CBE20F73DDD00B2BCA7 /* DS_playgound.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DS_playgound.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -208,7 +217,7 @@
 			name = Sort;
 			sourceTree = "<group>";
 		};
-		073B04BF210256170009C1EA /* TravesalControllers */ = {
+		073B04BF210256170009C1EA /* TravesalController */ = {
 			isa = PBXGroup;
 			children = (
 				07D609B920FCB2A700838E3A /* TravesingController.h */,
@@ -218,7 +227,7 @@
 				0768BFE520FE1613000DF520 /* TravesalDescController.h */,
 				0768BFE620FE1613000DF520 /* TravesalDescController.m */,
 			);
-			name = TravesalControllers;
+			name = TravesalController;
 			sourceTree = "<group>";
 		};
 		073B04C0210256400009C1EA /* UIView */ = {
@@ -368,8 +377,8 @@
 			children = (
 				070D71FE20F74EFE00175D20 /* SortMainController.h */,
 				070D71FD20F74EFE00175D20 /* SortMainController.m */,
-				075B157F20F74A4E0081CD48 /* SortNameCollectionCell.h */,
-				075B158620F74A4E0081CD48 /* SortNameCollectionCell.m */,
+				075B157F20F74A4E0081CD48 /* CommonCollectionCell.h */,
+				075B158620F74A4E0081CD48 /* CommonCollectionCell.m */,
 			);
 			name = SortMain;
 			sourceTree = "<group>";
@@ -448,8 +457,9 @@
 		076B62F52103598F0029584A /* Graph */ = {
 			isa = PBXGroup;
 			children = (
-				076B62F7210370130029584A /* AdjacencyWDigraph.h */,
-				076B62F8210370130029584A /* AdjacencyWDigraph.m */,
+				077AA9D82105DBE700BA1F9B /* GraphController */,
+				077AA9D12105B83700BA1F9B /* GraphMain */,
+				077AA9D02105B81500BA1F9B /* GraphModal */,
 			);
 			name = Graph;
 			sourceTree = "<group>";
@@ -461,6 +471,43 @@
 				07B5BB5620FF24F500105B84 /* TreeView.m */,
 			);
 			name = TravesingView;
+			sourceTree = "<group>";
+		};
+		077AA9D02105B81500BA1F9B /* GraphModal */ = {
+			isa = PBXGroup;
+			children = (
+				076B62F7210370130029584A /* AdjacencyWDigraph.h */,
+				076B62F8210370130029584A /* AdjacencyWDigraph.m */,
+			);
+			name = GraphModal;
+			sourceTree = "<group>";
+		};
+		077AA9D12105B83700BA1F9B /* GraphMain */ = {
+			isa = PBXGroup;
+			children = (
+				077AA9D22105B87900BA1F9B /* GraphMainController.h */,
+				077AA9D32105B87900BA1F9B /* GraphMainController.m */,
+				077AA9D52105BB8A00BA1F9B /* SubtitleCollectionCell.h */,
+				077AA9D62105BB8A00BA1F9B /* SubtitleCollectionCell.m */,
+			);
+			name = GraphMain;
+			sourceTree = "<group>";
+		};
+		077AA9D82105DBE700BA1F9B /* GraphController */ = {
+			isa = PBXGroup;
+			children = (
+				077AA9D92105DC0E00BA1F9B /* New Group */,
+				077AA9DA2105DC4E00BA1F9B /* GraphStackController.h */,
+				077AA9DB2105DC4E00BA1F9B /* GraphStackController.m */,
+			);
+			name = GraphController;
+			sourceTree = "<group>";
+		};
+		077AA9D92105DC0E00BA1F9B /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 		07BB0CB520F73DDD00B2BCA7 = {
@@ -545,7 +592,7 @@
 		07DFBB7720FBA25200D23E9A /* Traversal */ = {
 			isa = PBXGroup;
 			children = (
-				073B04BF210256170009C1EA /* TravesalControllers */,
+				073B04BF210256170009C1EA /* TravesalController */,
 				076F944420FF7B8500013A03 /* TravesingView */,
 				07E8A5F6210023CB00A8C94A /* TravesalModel */,
 			);
@@ -732,7 +779,8 @@
 				07BDE1EC2102CFA60009968B /* NSString+funcs.m in Sources */,
 				07BB28FD20F7683600909AFE /* PinyinFormatter.m in Sources */,
 				075B158D20F74A4E0081CD48 /* ELCommonLinearCell.m in Sources */,
-				075B159020F74A4E0081CD48 /* SortNameCollectionCell.m in Sources */,
+				075B159020F74A4E0081CD48 /* CommonCollectionCell.m in Sources */,
+				077AA9D72105BB8A00BA1F9B /* SubtitleCollectionCell.m in Sources */,
 				075B15A120F74C2D0081CD48 /* SelectOrderController.m in Sources */,
 				075B15A520F74C2D0081CD48 /* SelectHeapController.m in Sources */,
 				071BDA3720F8A71500D10F53 /* TextFieldCell.m in Sources */,
@@ -745,11 +793,13 @@
 				075B158F20F74A4E0081CD48 /* ELCollectionCell.m in Sources */,
 				071C668F20FF2C810036A7A3 /* UIView+easyDraw.m in Sources */,
 				075B158A20F74A4E0081CD48 /* ELTreeUnitCell.m in Sources */,
+				077AA9DC2105DC4E00BA1F9B /* GraphStackController.m in Sources */,
 				070D71E620F74CA300175D20 /* UIImage+operations.m in Sources */,
 				070D71F620F74CE600175D20 /* BubbleSorter.m in Sources */,
 				076B62F42103264B0029584A /* UIViewController+SplitController.m in Sources */,
 				07FCF1FA20FCDD4B00C071DF /* SortDescriptionController.m in Sources */,
 				07BB28F420F7645200909AFE /* ChineseToPinyinResource.m in Sources */,
+				077AA9D42105B87900BA1F9B /* GraphMainController.m in Sources */,
 				070D71EE20F74CB900175D20 /* Common.m in Sources */,
 				070D720420F74F1E00175D20 /* SortingViewController.m in Sources */,
 				070D71E520F74CA300175D20 /* UIView+frameProperty.m in Sources */,

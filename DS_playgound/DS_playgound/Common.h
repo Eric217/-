@@ -40,8 +40,10 @@ UIKIT_EXTERN CGFloat LineWidth;
 + (void)removeObserver:(id)obj;
  
 + (NSString *)documentPath;
-+ (NSArray *)getArrayDataFromFile:(NSString *)name;
-+ (void)writeArrayToFile:(NSString *)file data:(NSArray *)arr;
++ (NSDictionary *)getDictionaryFromFile:(NSString *)name;
++ (NSArray *)getArrayFromFile:(NSString *)name;
+
++ (void)writeToPlistName:(NSString *)file data:(id)data;
 + (NSArray *)trimmedArray:(NSArray *)a;
 
 + (CGFloat)v_pad:(CGFloat)ipad plus:(CGFloat)b p:(CGFloat)s min:(CGFloat)ss;

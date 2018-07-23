@@ -12,7 +12,6 @@
 
 - (instancetype)initWithRoot:(UIViewController *)root;
 
-
 @end
 
 

@@ -10,8 +10,6 @@
 
 @implementation UIView (funcs)
  
-- (void)fillContents:(id)content {}
-
 /**
  普通的截图
  该API仅可以在未使用layer和OpenGL渲染的视图上使用

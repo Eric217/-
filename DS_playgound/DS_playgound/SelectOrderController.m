@@ -29,10 +29,10 @@
     [self.table registerClass:UITableViewHeaderFooterView.class forHeaderFooterViewReuseIdentifier:@"headerid"];
  
     //目的是 可能以后用户可以自定义排序算法
-    NSArray<NSArray *> *arr = [Config getArrayDataFromFile:SortOrderFile];
+    NSArray<NSArray *> *arr = [Config getArrayFromFile:SortOrderFile];
     if (!arr) {
         arr = @[@[@"数值升序", @"数值降序", @"数值大小"], @[@"字符升序", @"字符降序", @"字符顺序"], @[@"字典升序", @"字典降序", @"(汉字拼音)字典顺序"], @[@"自动推断", @" "]];
-        [Config writeArrayToFile:SortOrderFile data:arr];
+        [Config writeToPlistName:SortOrderFile data:arr];
     }
     _array = [arr mutableCopy];
  

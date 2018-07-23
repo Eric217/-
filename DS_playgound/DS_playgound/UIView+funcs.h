@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UIView (funcs)
-
-- (void)fillContents:(id)content;
-
+ 
 - (UIImage *)normalSnapshotImage;
 
 @end

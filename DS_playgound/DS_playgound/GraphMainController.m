@@ -1,29 +1,27 @@
 //
-//  ViewController.m
-//  SortReveal
+//  GraphMainController.m
+//  DS_playgound
 //
-//  Created by Eric on 2018/4/10.
-//  Copyright © 2018 Eric. All rights reserved.
+//  Created by Eric on 2018/7/23.
+//  Copyright © 2018 SDU_iOS_LAB. All rights reserved.
 //
+
+#import "GraphMainController.h"
+#import "SubtitleCollectionCell.h"
 
 #import "Common.h"
 #import "UIView+funcs.h"
-#import "SortMainController.h"
-#import <Masonry/Masonry.h>
-#import "UIView+frameProperty.h"
-#import "SortingViewController.h"
-#import "ConfigSortController.h"
-#import "UIViewController+SplitController.h"
 #import "UIButton+init.h"
-#import "CommonCollectionCell.h"
+#import "UIViewController+SplitController.h"
+#import <Masonry/Masonry.h>
 
 
-@interface SortMainController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface GraphMainController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (strong, nonatomic) UILabel *appTitle;
 @property (nonatomic, strong) UICollectionView *collection;
 
-@property (nonatomic, copy) NSMutableArray *titleArr;
+@property (nonatomic, copy) NSArray<NSArray *> *titleArr;
 
 @property (assign) CGFloat itemSize;
 @property (assign) CGFloat edgeDistance; //20
@@ -31,19 +29,20 @@
 
 @end
 
-@implementation SortMainController
+
+@implementation GraphMainController
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //data arr
-    NSArray *arr = [Config getArrayFromFile:SortNameFile];
-    if (!arr) {
-        arr = @[@"冒泡排序", @"选择排序", @"插入排序", @"堆排序", @"快速排序"];
-        [Config writeToPlistName:SortNameFile data:arr];
+    //data dict
+    _titleArr = [Config getArrayFromFile:GraphAlgoFile];
+    if (!_titleArr) {
+        _titleArr = @[@[@"DFS", @"BFS", @"Kruskal", @"Prim", @"Dijkstra"], @[@"深度优先遍历", @"广度优先遍历", @"最小生成树算法", @"最小生成树算法", @"单源最短路径算法"]];
+        [Config writeToPlistName:GraphAlgoFile data:_titleArr];
     }
-    _titleArr = arr.mutableCopy;
+ 
     self.view.backgroundColor = UIColor.whiteColor;
     
     //collection view
@@ -57,14 +56,14 @@
     _collection.dataSource = self;
     _collection.alwaysBounceVertical = 1;
     _collection.contentInset = UIEdgeInsetsMake(15, _edgeDistance, 15, _edgeDistance);
-    [_collection registerClass:CommonCollectionCell.class forCellWithReuseIdentifier:NSStringFromClass(CommonCollectionCell.class)];
+    [_collection registerClass:SubtitleCollectionCell.class forCellWithReuseIdentifier:NSStringFromClass(SubtitleCollectionCell.class)];
     [self.view addSubview:_collection];
     
     //title label
     _appTitle = [[UILabel alloc] init];
-    [_appTitle setText:@"排序"];
+    [_appTitle setText:@"图相关算法"];
     [_appTitle setTextAlignment:NSTextAlignmentCenter];
-    [_appTitle setFont:[UIFont boldSystemFontOfSize:40]];
+    [_appTitle setFont:[UIFont systemFontOfSize:39 weight:UIFontWeightSemibold]];
     [self.view addSubview:_appTitle];
     
     //layout
@@ -79,7 +78,7 @@
         make.width.left.bottom.equalTo(self.view);
     }];
     
-    UIButton *butt = [UIButton customBackBarButtonItemWithTitle:@"返回" target:self action:@selector(back)];
+    UIButton *butt = [UIButton customBackBarButtonItemWithTitle:@"返回" target:self action:@selector(back)];  
     [self.view addSubview:butt];
     [butt mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(32);
@@ -98,15 +97,16 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _titleArr.count;
+    if (!_titleArr || _titleArr.count == 0)
+        return 0;
+    return _titleArr[0].count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CommonCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(CommonCollectionCell.class) forIndexPath:indexPath];
-    NSString *content = _titleArr[indexPath.item];
-    
-    [cell fillContents:content];
-    
+    SubtitleCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(SubtitleCollectionCell.class) forIndexPath:indexPath];
+    NSString *tit = _titleArr[0][indexPath.row];
+    NSString *sub = _titleArr[1][indexPath.row];
+    [cell setTitle:tit subtitle:sub];
     return cell;
 }
 
@@ -121,24 +121,24 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    UISplitViewController *splitVC = [[UISplitViewController alloc] init];
-    
-    ConfigSortController *conf = [[ConfigSortController alloc] initWithSortType:indexPath.item anotherRoot:self.view.window.rootViewController];
-    UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:conf];
-    
-    
-    if (IPAD || (IPHONE6P && ![self isDevicePortait])) {
-        SortingViewController *vc = [[SortingViewController alloc] init];
-        UINavigationController *emptyDetailNav = [[UINavigationController alloc] initWithRootViewController:vc];
-        [emptyDetailNav setToolbarHidden:0];
-        [splitVC setViewControllers:@[masterNav, emptyDetailNav]];
-    } else {
-        [splitVC setViewControllers:@[masterNav]];
-    }
-    if (IPAD)
-        splitVC.delegate = conf;
-    //splitVC.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
-    [self.view.window setRootViewController:splitVC];
+//    UISplitViewController *splitVC = [[UISplitViewController alloc] init];
+//
+//    ConfigSortController *conf = [[ConfigSortController alloc] initWithSortType:indexPath.item anotherRoot:self.view.window.rootViewController];
+//    UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:conf];
+//
+//
+//    if (IPAD || (IPHONE6P && ![self isDevicePortait])) {
+//        SortingViewController *vc = [[SortingViewController alloc] init];
+//        UINavigationController *emptyDetailNav = [[UINavigationController alloc] initWithRootViewController:vc];
+//        [emptyDetailNav setToolbarHidden:0];
+//        [splitVC setViewControllers:@[masterNav, emptyDetailNav]];
+//    } else {
+//        [splitVC setViewControllers:@[masterNav]];
+//    }
+//    if (IPAD)
+//        splitVC.delegate = conf;
+//    //splitVC.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+//    [self.view.window setRootViewController:splitVC];
 }
 
 //比collection view的代理方法先执行
@@ -154,7 +154,7 @@
         if ([self isFloatingOrThirth]) {
             _itemSize = (s.width - 2.64*_edgeDistance);
         } else if ([self isFullScreen]) {
-            _itemSize = (w-2*_edgeDistance-2*68)/3;
+            _itemSize = (w-2*_edgeDistance-2*62)/3;
         } else if ([self isHalfIpad] || [self isPortrait]) { //!!!!
             _itemSize = (s.width - 2.9*_edgeDistance)/2;
         } else {

@@ -18,7 +18,7 @@
 @property (nonatomic, copy) NSArray<NSArray *> *dataArr;
 @property (nonatomic, strong) UIViewController *lastRootVC;
 @property (nonatomic, strong) UILabel *promptLabel;
-@property (nonatomic, strong) UIView *footerView;
+@property (nonatomic, strong) UILabel *footerView;
 
 @end
 
@@ -37,35 +37,35 @@
     self.title = @"二叉树遍历";
     _dataArr = @[@[@" 前序遍历"], @[@" 中序遍历"], @[@" 后序遍历"], @[@" 层次遍历"]];
 
-    //left back item
+    // left back item
     UIButton * _backButton = [UIButton customBackBarButtonItemWithTitle:@"返回" target:self action:@selector(dismiss:)];
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
     bool oldDevice = SystemVersion < 9 || IPHONE4;
     self.navigationItem.leftBarButtonItems = oldDevice ? @[[[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)]] : @[backItem];
-    //child back item
+    // back item for children
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:nil];
     self.navigationItem.backBarButtonItem.tintColor = UIColor.blackColor;
+    
     //title label
     _promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 130)];
     [_promptLabel setTextAlignment:NSTextAlignmentCenter];
     [_promptLabel setText:@"选择遍历方式"];
     [_promptLabel setFont:[UIFont systemFontOfSize:30]];
+    
     //bottom label
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
     paragraphStyle.lineSpacing = 4;
-    paragraphStyle.lineBreakMode = NSLineBreakByCharWrapping;
+    paragraphStyle.firstLineHeadIndent = 45;
+    paragraphStyle.headIndent = 15;
+    paragraphStyle.tailIndent = -10;
+
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
     attributes[NSParagraphStyleAttributeName] = paragraphStyle;
     attributes[NSFontAttributeName] = [UIFont systemFontOfSize:16];
     attributes[NSForegroundColorAttributeName] = UIColor.darkGrayColor;
-    
-    UILabel *bottomLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, 0, 0, 68)];
-    bottomLabel.attributedText = [[NSAttributedString alloc] initWithString:@"        二叉树遍历有很多应用，例如获取节点数、树的高度，中序遍历数学表达式树，后序遍历来析构一棵树等等。" attributes:attributes];
-    bottomLabel.numberOfLines = 0;
- 
-    _footerView = [[UIView alloc] init];
-    _footerView.backgroundColor = UIColor.clearColor;
-    [_footerView addSubview:bottomLabel];
+    _footerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 72)];
+    _footerView.numberOfLines = 0;
+    _footerView.attributedText = [[NSAttributedString alloc] initWithString:@"二叉树遍历有很多应用，例如获取节点数、树的高度，中序遍历数学表达式树，后序遍历来析构一棵树等等。" attributes:attributes];
     
     self.table.tableHeaderView = _promptLabel;
     self.table.tableFooterView = _footerView;
@@ -77,7 +77,6 @@
     CGFloat w = self.view.width;
     [_promptLabel setWidth:w];
     [_footerView setWidth:w];
-    [_footerView.subviews.firstObject setWidth:w-30];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -103,7 +102,7 @@
     UITableViewCell *cell = [UITableViewCell new];
     [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     cell.textLabel.text = _dataArr[indexPath.section][0];
-    cell.textLabel.font = [UIFont systemFontOfSize:23];
+    cell.textLabel.font = [UIFont systemFontOfSize:22];
 
     return cell;
 }

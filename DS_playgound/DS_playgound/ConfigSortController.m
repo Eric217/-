@@ -500,7 +500,7 @@
     self = [super init];
     if (self) {
         _sortType = type;
-        NSArray *names = [Config getArrayDataFromFile:SortNameFile];
+        NSArray *names = [Config getArrayFromFile:SortNameFile];
         _sortName = names[type];
         _anotherRootVC = rootvc;
     }

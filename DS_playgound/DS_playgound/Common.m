@@ -158,15 +158,19 @@ static NSString * docPath = 0;
     
 }
 
-+ (NSArray *)getArrayDataFromFile:(NSString *)name {
-    
++ (NSArray *)getArrayFromFile:(NSString *)name {
     return [NSArray arrayWithContentsOfFile:[[self documentPath] stringByAppendingPathComponent:name]];
-
+    
 }
 
-+ (void)writeArrayToFile:(NSString *)file data:(NSArray *)arr {
++ (NSDictionary *)getDictionaryFromFile:(NSString *)name {
+    return [NSDictionary dictionaryWithContentsOfFile:[[self documentPath] stringByAppendingPathComponent:name]];
+}
+
+/// @param data NSArray *, NSDictionary *, NSString * or NSData *
++ (void)writeToPlistName:(NSString *)file data:(id)data {
     NSString *path = [[self documentPath] stringByAppendingPathComponent:file];
-    if (![arr writeToFile:path atomically:0]) {
+    if (![data writeToFile:path atomically:0]) {
         [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
     }
   
