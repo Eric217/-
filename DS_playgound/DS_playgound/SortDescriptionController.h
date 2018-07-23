@@ -11,6 +11,8 @@
 
 @interface SortDescriptionController : UIViewController
 
+@property (nonatomic, assign) CGSize preferredSize; ///< avail after viewDidLoad
+
 - (instancetype)initWithTitle:(NSString *)title sortType:(SortType)st;
 
 

@@ -326,8 +326,10 @@
 - (void)showDescription {
     SortDescriptionController *desc = [[SortDescriptionController alloc] initWithTitle:_sortName sortType:_sortType];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:desc];
-    nav.modalPresentationStyle = UIModalPresentationPageSheet;
-    nav.preferredContentSize = CGSizeMake(ScreenW-100, ScreenH-60);
+    nav.modalPresentationStyle = UIModalPresentationFormSheet;
+    // toggle viewDidLoad to get preferred size
+    desc.view.backgroundColor = UIColor.whiteColor;
+    nav.preferredContentSize = desc.preferredSize;
     [self presentViewController:nav animated:1 completion:nil] ;
 }
 
