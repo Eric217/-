@@ -26,7 +26,8 @@
     }];
     
     _table.delegate = self;
-    _table.dataSource = self;}
+    _table.dataSource = self;
+}
 
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {

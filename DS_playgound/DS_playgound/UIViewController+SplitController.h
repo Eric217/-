@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (SplitController)
 
+- (void)showSplitWithMaster:(UIViewController *)m detail:(Class)d delegate:(id <UISplitViewControllerDelegate>)de;
+
 - (bool)isDevicePortait;
 
 - (bool)isPortrait;

@@ -19,6 +19,7 @@
 
 - (void)saveImage:(UIImage *)img;
 
+- (void)makeViewLoad;
 
 @end
 

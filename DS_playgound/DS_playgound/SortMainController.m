@@ -20,14 +20,14 @@
 
 @interface SortMainController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
-@property (strong, nonatomic) UILabel *appTitle;
+@property (nonatomic, strong) UILabel *appTitle;
 @property (nonatomic, strong) UICollectionView *collection;
 
 @property (nonatomic, copy) NSMutableArray *titleArr;
 
-@property (assign) CGFloat itemSize;
-@property (assign) CGFloat edgeDistance; //20
-@property (assign) CGFloat verticalSpacing; //36
+@property (nonatomic, assign) CGFloat itemSize;
+@property (nonatomic, assign) CGFloat edgeDistance; //20
+@property (nonatomic, assign) CGFloat verticalSpacing; //36
 
 @end
 
@@ -121,24 +121,13 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    UISplitViewController *splitVC = [[UISplitViewController alloc] init];
-    
-    ConfigSortController *conf = [[ConfigSortController alloc] initWithSortType:indexPath.item anotherRoot:self.view.window.rootViewController];
+ 
+    ConfigSortController *conf = [[ConfigSortController alloc] initWithSort:indexPath.item title:_titleArr[indexPath.item] root:self.view.window.rootViewController];
+
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:conf];
     
-    
-    if (IPAD || (IPHONE6P && ![self isDevicePortait])) {
-        SortingViewController *vc = [[SortingViewController alloc] init];
-        UINavigationController *emptyDetailNav = [[UINavigationController alloc] initWithRootViewController:vc];
-        [emptyDetailNav setToolbarHidden:0];
-        [splitVC setViewControllers:@[masterNav, emptyDetailNav]];
-    } else {
-        [splitVC setViewControllers:@[masterNav]];
-    }
-    if (IPAD)
-        splitVC.delegate = conf;
-    //splitVC.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
-    [self.view.window setRootViewController:splitVC];
+    [self showSplitWithMaster:masterNav detail:SortingViewController.class delegate:conf];
+  
 }
 
 //比collection view的代理方法先执行

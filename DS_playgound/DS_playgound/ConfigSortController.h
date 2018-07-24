@@ -12,6 +12,6 @@
 
 @interface ConfigSortController : UIViewController <UISplitViewControllerDelegate>
 
-- (instancetype)initWithSortType:(SortType)type anotherRoot:(UIViewController *)rootvc;
+- (id)initWithSort:(SortType)t title:(NSString *)s root:(UIViewController *)r;
 
 @end

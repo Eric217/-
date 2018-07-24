@@ -84,8 +84,11 @@
 //Dependent
 #define UnderTreeH          68*UnitSize/UnitSizeDefault
 #define EmptyNode           @"e符†"
-#define LetterFont          @"TimesNewRomanPS-BoldMT"
+
+#define LetterFont          @"TimesNewRomanPSMT"
+#define LetterFont_B        @"TimesNewRomanPS-BoldMT"
 #define LetterFont_I        @"TimesNewRomanPS-ItalicMT"
+#define LetterFont_BI       @"TimesNewRoman-BoldItalicMT"
 #define PromptText          @"提示"
 
 

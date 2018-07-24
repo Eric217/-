@@ -20,15 +20,18 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        
+        UIView *accessory = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 134, 50)];
+        
         _textField = [UITextField new];
-        [self.contentView addSubview:_textField];
         UILabel *l = [[UILabel alloc] init];
         [l setText:@"秒"];
         [l setTextColor:[UIColor.grayColor colorWithAlphaComponent:0.8]];
-        [self.contentView addSubview:l];
+        [accessory addSubview:l];
+        [accessory addSubview:_textField];
+        
         [l mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.contentView).inset(10);
-            make.centerY.equalTo(self.contentView);
+            make.right.centerY.equalTo(accessory);
             make.size.mas_equalTo(CGSizeMake(24, 50));
         }];
         [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -40,7 +43,7 @@
         _textField.returnKeyType = UIReturnKeyDone;
         [_textField setTextAlignment:NSTextAlignmentRight];
         [_textField setKeyboardType:UIKeyboardTypeDecimalPad];
-        
+        self.accessoryView = accessory;
     }
     return self;
     

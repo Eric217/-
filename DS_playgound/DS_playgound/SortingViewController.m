@@ -23,35 +23,35 @@
 @interface SortingViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 //Collection and empty view
-@property (strong, nonatomic) UICollectionView *collection;
-@property (strong, nonatomic) UILabel *collectionEmptyView;
+@property (nonatomic, strong) UICollectionView *collection;
+@property (nonatomic, strong) UILabel *collectionEmptyView;
 
 //Right 2
-@property (strong, nonatomic) UIBarButtonItem *settings;
-@property (strong, nonatomic) UIBarButtonItem *restartButton;
+@property (nonatomic, strong) UIBarButtonItem *settings;
+@property (nonatomic, strong) UIBarButtonItem *restartButton;
 //Bottom 4
-@property (strong, nonatomic) UIBarButtonItem *nextStepButton;
-@property (strong, nonatomic) UIBarButtonItem *nextRowButton;
-@property (strong, nonatomic) UIBarButtonItem *flowRunButton;
-@property (strong, nonatomic) UIBarButtonItem *lastStepButton;
+@property (nonatomic, strong) UIBarButtonItem *nextStepButton;
+@property (nonatomic, strong) UIBarButtonItem *nextRowButton;
+@property (nonatomic, strong) UIBarButtonItem *flowRunButton;
+@property (nonatomic, strong) UIBarButtonItem *lastStepButton;
 
 //To do -- full screen
-@property (strong, nonatomic) UIBarButtonItem *fullScreenItem;
-@property (strong, nonatomic) UIButton *fullScreenButton;
+@property (nonatomic, strong) UIBarButtonItem *fullScreenItem;
+@property (nonatomic, strong) UIButton *fullScreenButton;
 
 //Data
 @property (nonatomic, copy) NSMutableArray<NSString *> *originDataArr;
 @property (nonatomic, copy) NSMutableArray<NSDictionary *> *viewDataDictArr;
 
-@property (weak, nonatomic) NSTimer *timer;
+@property (nonatomic, weak) NSTimer *timer;
 
 @property (nonatomic, strong) id <Sorter> sorter;
 
-@property (assign) SortOrder sortOrder;
-@property (assign) SortType sortType;
+@property (nonatomic, assign) SortOrder sortOrder;
+@property (nonatomic, assign) SortType sortType;
 
-@property (assign) CGFloat edgeDistance;
-@property (assign) CGSize itemSize;
+@property (nonatomic, assign) CGFloat edgeDistance;
+@property (nonatomic, assign) CGSize itemSize;
 
 @end
 

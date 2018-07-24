@@ -7,8 +7,6 @@
 //
 
 #import "SwitchCell2.h"
-#import <Masonry/Masonry.h>
-
 
 @implementation SwitchCell2
 
@@ -16,12 +14,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         _switcher = [[UISwitch alloc] init];
-        [self.contentView addSubview:_switcher];
-        //尽管apple推荐update里update
-        [_switcher mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.contentView.mas_right).inset(20);
-            make.centerY.equalTo(self.contentView);
-        }];
+        [self setAccessoryView:_switcher];
     }
     return self;
     

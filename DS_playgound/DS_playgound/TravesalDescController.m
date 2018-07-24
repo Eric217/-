@@ -7,11 +7,13 @@
 //
 
 #import "TravesalDescController.h"
+#import "TravesingController.h"
+
 #import "UIButton+init.h"
 #import "UIImage+operations.h"
+#import "UIViewController+funcs.h"
 #import <Masonry/Masonry.h>
 
-#import "TravesingController.h"
 
 @class TravesingController; //相当于cpp里类的claim
 
@@ -61,12 +63,20 @@
 
 }
 
+/// we dont create a new travesingVC and show detail if there already exists one.
 - (void)startDisplay:(id)sender {
-    UINavigationController * nav = self.splitViewController.viewControllers[1];
-    TravesingController *travesing = nav.viewControllers[0];
-    [travesing playTravesalType:_travesal title:self.title];
-    
-    
+    NSArray *vcs = self.splitViewController.viewControllers;
+    TravesingController *vc;
+    if (vcs.count == 1) {
+        vc = [TravesingController new];
+        UINavigationController *detailNav = [[UINavigationController alloc] initWithRootViewController:vc];
+        self.splitViewController.viewControllers = @[vcs[0], detailNav];
+        [vc makeViewLoad];
+    } else {
+        UINavigationController * nav = self.splitViewController.viewControllers[1];
+        vc = nav.viewControllers[0];
+    }
+    [vc playTravesalType:_travesal title:self.title];
 }
 
 @end

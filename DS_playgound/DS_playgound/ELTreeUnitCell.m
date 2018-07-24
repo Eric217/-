@@ -11,7 +11,7 @@
 
 @interface ELTreeUnitCell ()
 
-@property (assign) int height;
+@property (nonatomic, assign) int height;
 
 @property (nonatomic, copy) NSArray *sortedArray;
 @property (nonatomic, copy) NSArray<NSString *> *treeArray;

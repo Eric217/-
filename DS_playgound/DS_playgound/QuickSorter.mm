@@ -11,10 +11,10 @@
 
 @interface QuickSorter ()
 
-@property (assign) BOOL whileI;
-@property (assign) BOOL shouldSwap;
+@property (nonatomic, assign) BOOL whileI;
+@property (nonatomic, assign) BOOL shouldSwap;
 
-@property (assign) int justGrouped;  //!< 不用记录到 history
+@property (nonatomic, assign) int justGrouped;  //!< 不用记录到 history
 
 @property (nonatomic, copy) NSMutableArray<NSString *> *scopeStack;
 

@@ -9,7 +9,7 @@
 #import "Sorters.h"
 @interface InsertionSorter ()
 
-//@property (assign) bool willSwap;
+//@property (nonatomic, assign) bool willSwap;
 @property (nonatomic, copy) NSMutableArray *turnArray;
 @end
  

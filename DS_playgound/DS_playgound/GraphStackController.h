@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
  
-@interface GraphStackController : UIViewController
+@interface GraphStackController : UIViewController <UISplitViewControllerDelegate>
+
+- (id)initWithAlgoType:(NSUInteger)t titles:(NSArray *)ts anotherRoot:(UIViewController *)r;
 
 @end
 

@@ -48,26 +48,15 @@
 
 - (void)didClick1 {
    
-    UISplitViewController *splitVC = [[UISplitViewController alloc] init];
-    
+ 
     SelectTravesalController *conf = [[SelectTravesalController alloc] initWithRoot:self.view.window.rootViewController];
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:conf];
     
-    
-    if (IPAD || (IPHONE6P && ![self isDevicePortait])) {
-        TravesingController *vc = [TravesingController new];
-        UINavigationController *emptyDetailNav = [[UINavigationController alloc] initWithRootViewController:vc];
-        [splitVC setViewControllers:@[masterNav, emptyDetailNav]];
-    } else {
-        [splitVC setViewControllers:@[masterNav]];
-    }
-    if (IPAD)
-        splitVC.delegate = conf;
-    [self.view.window setRootViewController:splitVC];
-    
+    [self showSplitWithMaster:masterNav detail:TravesingController.class delegate:conf];
+
 }
 
-- (void)didClick2 {
+- (void)didClick2 { 
     [self presentViewController:[GraphMainController new] animated:1 completion:nil];
 }
 

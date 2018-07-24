@@ -19,8 +19,8 @@
 
 @interface LinearSorter : SortBaseClass
 
-@property (assign) int currentI;
-@property (assign) int currentJ;
+@property (nonatomic, assign) int currentI;
+@property (nonatomic, assign) int currentJ;
 
 @end
 

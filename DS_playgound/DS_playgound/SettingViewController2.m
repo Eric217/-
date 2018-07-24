@@ -18,7 +18,7 @@
 
 @interface SettingViewController2 () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, DataTransmitter>
 
-@property (strong, nonatomic) UITableView *table;
+@property (nonatomic, strong) UITableView *table;
 @property (nonatomic, copy) NSArray<NSArray *> *array;
 
 @end

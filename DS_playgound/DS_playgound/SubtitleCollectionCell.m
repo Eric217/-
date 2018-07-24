@@ -43,7 +43,7 @@
     NSString *total = [[title stringByAppendingString:@"\n"] stringByAppendingString:sub];
  
     NSMutableAttributedString *attr_total = [[NSMutableAttributedString alloc] initWithString:total];
-    [attr_total addAttribute:NSFontAttributeName value:[UIFont fontWithName:LetterFont size:29] range:NSMakeRange(0, title.length)];
+    [attr_total addAttribute:NSFontAttributeName value:[UIFont fontWithName:LetterFont_B size:29] range:NSMakeRange(0, title.length)];
     [attr_total addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:21 weight:UIFontWeightRegular] range:NSMakeRange(title.length, sub.length+1)];
     
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];

@@ -12,8 +12,8 @@
 
 @interface SelectController : UIViewController
 
-@property (strong, nonatomic) UITableView *table;
-@property (weak, nonatomic) id <DataTransmitter> delegate;
-@property (copy, nonatomic) NSString *currentSelection;
+@property (nonatomic, strong) UITableView *table;
+@property (nonatomic, weak) id <DataTransmitter> delegate;
+@property (nonatomic, copy) NSString *currentSelection;
 
 @end

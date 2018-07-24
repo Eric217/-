@@ -12,12 +12,32 @@
 
 #define Delta 20
 
-///真的ipad是正着还是横屏
+/// @param m master vc@param d detail vc root class, svc will add nav
+- (void)showSplitWithMaster:(UIViewController *)m detail:(Class)d delegate:(id <UISplitViewControllerDelegate>)de {
+    
+    UISplitViewController *splitVC = [[UISplitViewController alloc] init];
+    
+    if (IPAD || (IPHONE6P && ![self isDevicePortait])) {
+        UIViewController *vc = [[d alloc] init];
+        UINavigationController *emptyDetailNav = [[UINavigationController alloc] initWithRootViewController:vc];
+        [emptyDetailNav setToolbarHidden:0];
+        [splitVC setViewControllers:@[m, emptyDetailNav]];
+    } else {
+        [splitVC setViewControllers:@[m]];
+    }
+    
+    if (IPAD)
+        splitVC.delegate = de;
+    //splitVC.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+    [self.view.window setRootViewController:splitVC];
+}
+
+/// 真的ipad是正着还是横屏
 - (bool)isDevicePortait {
     return ScreenW < ScreenH;
 }
 
-///对于ipad是指除了横屏2/3和大pro的半屏之外 所有宽小于高的情况，不是物理设备的portrait
+/// 对于ipad是指除了横屏2/3和大pro的半屏之外 所有宽小于高的情况，不是物理设备的portrait
 - (bool)isPortrait {
     CGFloat sw = ScreenW, vw = self.view.bounds.size.width;
     bool heng2_3 = sw > ScreenH && (vw - sw/2) > Delta && sw > vw;

@@ -7,6 +7,8 @@
 //
 
 #import "GraphMainController.h"
+#import "GraphViewController.h"
+#import "GraphStackController.h"
 #import "SubtitleCollectionCell.h"
 
 #import "Common.h"
@@ -18,14 +20,14 @@
 
 @interface GraphMainController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
-@property (strong, nonatomic) UILabel *appTitle;
+@property (nonatomic, strong) UILabel *appTitle;
 @property (nonatomic, strong) UICollectionView *collection;
 
 @property (nonatomic, copy) NSArray<NSArray *> *titleArr;
 
-@property (assign) CGFloat itemSize;
-@property (assign) CGFloat edgeDistance; //20
-@property (assign) CGFloat verticalSpacing; //36
+@property (nonatomic, assign) CGFloat itemSize;
+@property (nonatomic, assign) CGFloat edgeDistance; //20
+@property (nonatomic, assign) CGFloat verticalSpacing; //36
 
 @end
 
@@ -96,6 +98,8 @@
     return 0;
 }
 
+#define IPR indexPath.row
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (!_titleArr || _titleArr.count == 0)
         return 0;
@@ -104,8 +108,8 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SubtitleCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(SubtitleCollectionCell.class) forIndexPath:indexPath];
-    NSString *tit = _titleArr[0][indexPath.row];
-    NSString *sub = _titleArr[1][indexPath.row];
+    NSString *tit = _titleArr[0][IPR];
+    NSString *sub = _titleArr[1][IPR];
     [cell setTitle:tit subtitle:sub];
     return cell;
 }
@@ -119,26 +123,15 @@
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     return _verticalSpacing;
 }
-
+ 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    UISplitViewController *splitVC = [[UISplitViewController alloc] init];
-//
-//    ConfigSortController *conf = [[ConfigSortController alloc] initWithSortType:indexPath.item anotherRoot:self.view.window.rootViewController];
-//    UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:conf];
-//
-//
-//    if (IPAD || (IPHONE6P && ![self isDevicePortait])) {
-//        SortingViewController *vc = [[SortingViewController alloc] init];
-//        UINavigationController *emptyDetailNav = [[UINavigationController alloc] initWithRootViewController:vc];
-//        [emptyDetailNav setToolbarHidden:0];
-//        [splitVC setViewControllers:@[masterNav, emptyDetailNav]];
-//    } else {
-//        [splitVC setViewControllers:@[masterNav]];
-//    }
-//    if (IPAD)
-//        splitVC.delegate = conf;
-//    //splitVC.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
-//    [self.view.window setRootViewController:splitVC];
+    
+    GraphStackController *stack = [[GraphStackController alloc] initWithAlgoType:IPR titles:@[_titleArr[0][IPR], _titleArr[1][IPR]] anotherRoot:self.view.window.rootViewController];
+ 
+    UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:stack];
+  
+    [self showSplitWithMaster:masterNav detail:GraphViewController.class delegate:stack];
+
 }
 
 //比collection view的代理方法先执行

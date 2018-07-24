@@ -18,19 +18,19 @@
 
 @interface TravesingController ()
 //BASIC COMPONENTS
-@property (strong, nonatomic) UILabel *collectionEmptyView;
+@property (nonatomic, strong) UILabel *collectionEmptyView;
 //Left 1
-@property (strong, nonatomic) UIBarButtonItem *customButton;
+@property (nonatomic, strong) UIBarButtonItem *customButton;
 //Right 1
-@property (strong, nonatomic) UIBarButtonItem *captureButton;
-@property (strong, nonatomic) UIBarButtonItem *settingButton;
+@property (nonatomic, strong) UIBarButtonItem *captureButton;
+@property (nonatomic, strong) UIBarButtonItem *settingButton;
 //Bottom 3
-@property (strong, nonatomic) UIBarButtonItem *nextStepButton;
-@property (strong, nonatomic) UIBarButtonItem *resultButton;
-@property (strong, nonatomic) UIBarButtonItem *restartButton;
+@property (nonatomic, strong) UIBarButtonItem *nextStepButton;
+@property (nonatomic, strong) UIBarButtonItem *resultButton;
+@property (nonatomic, strong) UIBarButtonItem *restartButton;
 //travesing
-@property (strong, nonatomic) TreeView *treeView;
-//@property (strong, nonatomic) TravesalBottomView *bottomView;
+@property (nonatomic, strong) TreeView *treeView;
+//@property (nonatomic, strong) TravesalBottomView *bottomView;
 
 
 @property (nonatomic, assign) bool *reach;

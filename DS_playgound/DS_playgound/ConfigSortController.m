@@ -21,26 +21,25 @@
 
 #import <Masonry/Masonry.h>
 
-
 @interface ConfigSortController () <UITextViewDelegate, DataTransmitter>
 
-@property (strong, nonatomic) UILabel *sortNameLabel;
-@property (strong, nonatomic) UITextView *inputField;
-@property (strong, nonatomic) UIButton *selectOrder;
-@property (strong, nonatomic) UIButton *startShow;
-@property (strong, nonatomic) UIBarButtonItem *resumeShow;
-@property (strong, nonatomic) UILabel *label1;
-@property (strong, nonatomic) UILabel *label2;
-@property (strong, nonatomic) UIView *selectOrderContainerView;
+@property (nonatomic, strong) UILabel *sortNameLabel;
+@property (nonatomic, strong) UITextView *inputField;
+@property (nonatomic, strong) UIButton *selectOrder;
+@property (nonatomic, strong) UIButton *startShow;
+@property (nonatomic, strong) UIBarButtonItem *resumeShow;
+@property (nonatomic, strong) UILabel *label1;
+@property (nonatomic, strong) UILabel *label2;
+@property (nonatomic, strong) UIView *selectOrderContainerView;
 
 @property (nonatomic, copy) NSString *sortName;
 
-@property (strong, nonatomic) UIViewController *anotherRootVC;
+@property (nonatomic, strong) UIViewController *anotherRootVC;
 
-@property (strong, nonatomic) UINavigationController *sortingNavVC;
+@property (nonatomic, strong) UINavigationController *sortingNavVC;
 
-@property (assign) SortOrder sortOrder;
-@property (assign) SortType sortType;
+@property (nonatomic, assign) SortOrder sortOrder;
+@property (nonatomic, assign) SortType sortType;
 
 @end
 
@@ -328,7 +327,7 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:desc];
     nav.modalPresentationStyle = UIModalPresentationFormSheet;
     // toggle viewDidLoad to get preferred size
-    desc.view.backgroundColor = UIColor.whiteColor;
+    [desc makeViewLoad];
     nav.preferredContentSize = desc.preferredSize;
     [self presentViewController:nav animated:1 completion:nil] ;
 }
@@ -498,14 +497,11 @@
 }
 
 //MARK: - 构造、析构
-- (instancetype)initWithSortType:(SortType)type anotherRoot:(UIViewController *)rootvc {
+- (id)initWithSort:(SortType)t title:(NSString *)s root:(UIViewController *)r {
     self = [super init];
-    if (self) {
-        _sortType = type;
-        NSArray *names = [Config getArrayFromFile:SortNameFile];
-        _sortName = names[type];
-        _anotherRootVC = rootvc;
-    }
+    _sortType = t;
+    _sortName = s;
+    _anotherRootVC = r;
     return self;
 }
 - (void)dealloc {
