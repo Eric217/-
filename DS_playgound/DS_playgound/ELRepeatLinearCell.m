@@ -68,7 +68,7 @@
         CGPathMoveToPoint(path, 0, unitLength+r.origin.x - rightP, 0);
         CGPathAddLineToPoint(path, 0, unitLength+r.origin.x - rightP, hBlow);
         
-        attr[NSForegroundColorAttributeName] = i == blueIdx ? systemBlue : UIColor.blackColor;
+        attr[NSForegroundColorAttributeName] = i == blueIdx ? SystemBlue : UIColor.blackColor;
         [self.dataArr[i] drawInRect:r withAttributes:attr];
     }
     attr[NSForegroundColorAttributeName] = UIColor.blackColor;

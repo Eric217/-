@@ -12,7 +12,7 @@
 
 #define Delta 20
 
-/// @param m master vc@param d detail vc root class, svc will add nav
+/// @param m master vc@param d detail vc class, will init by [d new] and embedded in a nav
 - (void)showSplitWithMaster:(UIViewController *)m detail:(Class)d delegate:(id <UISplitViewControllerDelegate>)de {
     
     UISplitViewController *splitVC = [[UISplitViewController alloc] init];
@@ -28,6 +28,27 @@
     
     if (IPAD)
         splitVC.delegate = de;
+    //splitVC.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+    [self.view.window setRootViewController:splitVC];
+}
+
+/// svc.delegate will set to m.root
+/// @param d it will be embedded in a nav
+- (void)showSplitWithMaster:(UINavigationController *)m detail:(UIViewController *)d {
+    
+    UISplitViewController *splitVC = [[UISplitViewController alloc] init];
+    
+    if (IPAD || (IPHONE6P && ![self isDevicePortait])) {
+        
+        UINavigationController *emptyDetailNav = [[UINavigationController alloc] initWithRootViewController:d];
+        [emptyDetailNav setToolbarHidden:0];
+        [splitVC setViewControllers:@[m, emptyDetailNav]];
+    } else {
+        [splitVC setViewControllers:@[m]];
+    }
+    
+    if (IPAD)
+        splitVC.delegate = m.viewControllers[0];
     //splitVC.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
     [self.view.window setRootViewController:splitVC];
 }

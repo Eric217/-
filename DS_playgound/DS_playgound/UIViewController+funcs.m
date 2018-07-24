@@ -44,6 +44,27 @@
     [self presentViewController:alertC animated:1 completion:nil];
 }
 
+/// @param vc it will be embedded in a nav
+/// @param at BarItem *, or array: [sourceView *, NSStringFromRect *]
+- (void)presentPop:(UIViewController *)vc attach:(id)at {
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    nav.preferredContentSize = CGSizeMake(340, 576);
+    nav.modalPresentationStyle = UIModalPresentationPopover;
+    UIPopoverPresentationController *popvc = nav.popoverPresentationController;
+    
+    if ([at isKindOfClass:UIBarButtonItem.class])
+        popvc.barButtonItem = at;
+    else {
+        NSArray *arr = at;
+        popvc.sourceView = arr[0];
+        popvc.sourceRect = CGRectFromString(arr[1]);
+    }
+    popvc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    popvc.backgroundColor = nav.topViewController.view.backgroundColor;
+    [self presentViewController:nav animated:1 completion:nil] ;
+}
+
 /// 弹出 hub 简单文字提示用户
 - (void)presentMessage:(NSString *)msg duration:(NSTimeInterval)dur status:(BOOL)s {
  
@@ -88,6 +109,7 @@
     }];
     
 }
+
 
 - (void)makeViewLoad {
     self.view.backgroundColor = UIColor.whiteColor;

@@ -125,12 +125,12 @@
 }
  
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    GraphStackController *stack = [[GraphStackController alloc] initWithAlgoType:IPR titles:@[_titleArr[0][IPR], _titleArr[1][IPR]] anotherRoot:self.view.window.rootViewController];
+    NSArray *ts = @[_titleArr[0][IPR], _titleArr[1][IPR]];
+    GraphStackController *stack = [[GraphStackController alloc] initWithAlgoType:IPR titles:ts anotherRoot:self.view.window.rootViewController];
  
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:stack];
-  
-    [self showSplitWithMaster:masterNav detail:GraphViewController.class delegate:stack];
+    
+    [self showSplitWithMaster:masterNav detail:[[GraphViewController alloc] initWithAlgoType:IPR titles:ts]];
 
 }
 

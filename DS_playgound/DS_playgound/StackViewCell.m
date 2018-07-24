@@ -24,7 +24,7 @@
 
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
-    CGFloat dx = self.bounds.size.width/4.5, dy = self.bounds.size.height/10;
+    CGFloat dx = self.bounds.size.width/5.2, dy = self.bounds.size.height/10;
     CGRect inner = CGRectInset(self.bounds, dx, dy);
     
     CGContextRef ctx = UIGraphicsGetCurrentContext();

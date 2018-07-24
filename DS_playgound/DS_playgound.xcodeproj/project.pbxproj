@@ -48,6 +48,8 @@
 		077AA9D42105B87900BA1F9B /* GraphMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 077AA9D32105B87900BA1F9B /* GraphMainController.m */; };
 		077AA9D72105BB8A00BA1F9B /* SubtitleCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 077AA9D62105BB8A00BA1F9B /* SubtitleCollectionCell.m */; };
 		077AA9DC2105DC4E00BA1F9B /* GraphStackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 077AA9DB2105DC4E00BA1F9B /* GraphStackController.m */; };
+		07AB209D21077AC40000ED3C /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07AB209C21077AC40000ED3C /* GraphView.m */; };
+		07AB20A02107834C0000ED3C /* GraphSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07AB209F2107834C0000ED3C /* GraphSettingController.m */; };
 		07B5BB5720FF24F500105B84 /* TreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B5BB5620FF24F500105B84 /* TreeView.m */; };
 		07BB0CC320F73DDD00B2BCA7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB0CC220F73DDD00B2BCA7 /* AppDelegate.m */; };
 		07BB0CC620F73DDD00B2BCA7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB0CC520F73DDD00B2BCA7 /* ViewController.m */; };
@@ -155,6 +157,10 @@
 		077AA9D62105BB8A00BA1F9B /* SubtitleCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubtitleCollectionCell.m; sourceTree = "<group>"; };
 		077AA9DA2105DC4E00BA1F9B /* GraphStackController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphStackController.h; sourceTree = "<group>"; };
 		077AA9DB2105DC4E00BA1F9B /* GraphStackController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphStackController.m; sourceTree = "<group>"; };
+		07AB209B21077AC40000ED3C /* GraphView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
+		07AB209C21077AC40000ED3C /* GraphView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
+		07AB209E2107834C0000ED3C /* GraphSettingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphSettingController.h; sourceTree = "<group>"; };
+		07AB209F2107834C0000ED3C /* GraphSettingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphSettingController.m; sourceTree = "<group>"; };
 		07B5BB5520FF24F500105B84 /* TreeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TreeView.h; sourceTree = "<group>"; };
 		07B5BB5620FF24F500105B84 /* TreeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TreeView.m; sourceTree = "<group>"; };
 		07BB0CBE20F73DDD00B2BCA7 /* DS_playgound.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DS_playgound.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -216,6 +222,8 @@
 			children = (
 				070B994B21070D6D000BD552 /* StackViewCell.h */,
 				070B994C21070D6D000BD552 /* StackViewCell.m */,
+				07AB209B21077AC40000ED3C /* GraphView.h */,
+				07AB209C21077AC40000ED3C /* GraphView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -515,6 +523,8 @@
 				077AA9DB2105DC4E00BA1F9B /* GraphStackController.m */,
 				070B994E210713DF000BD552 /* GraphViewController.h */,
 				070B994F210713DF000BD552 /* GraphViewController.m */,
+				07AB209E2107834C0000ED3C /* GraphSettingController.h */,
+				07AB209F2107834C0000ED3C /* GraphSettingController.m */,
 				070B9951210713FE000BD552 /* View */,
 			);
 			name = GraphController;
@@ -773,6 +783,7 @@
 				07BB28F720F7668300909AFE /* HanyuPinyinOutputFormat.m in Sources */,
 				073B04BD210254EF0009C1EA /* Auth.m in Sources */,
 				07D609B820FC603C00838E3A /* SelectTravesalController.m in Sources */,
+				07AB209D21077AC40000ED3C /* GraphView.m in Sources */,
 				070D71E420F74CA300175D20 /* UILabel+init.m in Sources */,
 				070D71F820F74CE600175D20 /* LinearSorter.m in Sources */,
 				070D71E820F74CA300175D20 /* UIButton+init.m in Sources */,
@@ -796,6 +807,7 @@
 				075B15A520F74C2D0081CD48 /* SelectHeapController.m in Sources */,
 				071BDA3720F8A71500D10F53 /* TextFieldCell.m in Sources */,
 				0768BFE720FE1613000DF520 /* TravesalDescController.m in Sources */,
+				07AB20A02107834C0000ED3C /* GraphSettingController.m in Sources */,
 				07E8A5F92100242400A8C94A /* Travesal.m in Sources */,
 				075B158920F74A4E0081CD48 /* ELRepeatLinearCell.m in Sources */,
 				070D71F920F74CE600175D20 /* QuickSorter.mm in Sources */,

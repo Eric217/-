@@ -69,7 +69,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(UITableViewCell.class)];
     [[cell textLabel] setText:_array[indexPath.section][indexPath.row]];
       
-    [[cell textLabel] setTextColor:indexPath.section == _array.count-1 ? systemBlue : UIColor.blackColor];
+    [[cell textLabel] setTextColor:indexPath.section == _array.count-1 ? SystemBlue : UIColor.blackColor];
    
     return cell;
 }

@@ -15,6 +15,8 @@
 - (void)presentAlertWithCancelAndConfirm:(NSString *)title message:(NSString *)msg Action:(void (^) (void))handler;
 - (void)presentTip:(NSString *)title message:(NSString *)msg Action:(void (^) (void))handler;
 
+- (void)presentPop:(UIViewController *)vc attach:(id)at;
+
 - (void)pushWithoutBottomBar:(UIViewController *)vc;
 
 - (void)saveImage:(UIImage *)img;

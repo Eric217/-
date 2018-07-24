@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 #import "Definition.h"
 
+#define UnderTreeH          68*UnitSize/UnitSizeDefault
 
 //MARK: - noti names
 UIKIT_EXTERN NSNotificationName const ELTextFieldShouldResignNotification;
@@ -19,6 +20,7 @@ UIKIT_EXTERN CGFloat UnitSize;
 UIKIT_EXTERN CGFloat TreeFont;
 UIKIT_EXTERN CGFloat SepaWidth;
 UIKIT_EXTERN CGFloat LineWidth;
+
  
 //MARK: - common and useful funcs
 ///Config provides common tools

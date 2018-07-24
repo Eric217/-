@@ -9,7 +9,6 @@
 #import "GraphStackController.h"
 #import "StackViewCell.h"
 
-#import "Common.h"
 #import "UIButton+init.h"
 #import "UIImage+operations.h"
 
@@ -25,15 +24,15 @@
 @property (nonatomic, copy) NSMutableArray *stackData;
 @property (nonatomic, strong) UIViewController *anotherRootVC;
 
-@property (nonatomic, assign) NSUInteger algoType;
-@property (nonatomic, strong) NSArray *titles;
+@property (nonatomic, assign) GraphAlgo algoType;
+@property (nonatomic, copy) NSArray *titles;
 
 
 @end
 
 @implementation GraphStackController
 
-- (id)initWithAlgoType:(NSUInteger)t titles:(NSArray *)ts anotherRoot:(UIViewController *)r {
+- (id)initWithAlgoType:(GraphAlgo)t titles:(NSArray *)ts anotherRoot:(UIViewController *)r {
     self = [super init];
     _algoType = t;
     _anotherRootVC = r;

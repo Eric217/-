@@ -313,15 +313,7 @@
 - (void)openSettings:(id)sender {
     
     if ([self.splitViewController isFullScreen] || [self.splitViewController canPullHideLeft]) {
-        
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[SettingViewController2 new]];
-        nav.preferredContentSize = CGSizeMake(340, 576);
-        nav.modalPresentationStyle = UIModalPresentationPopover;
-        UIPopoverPresentationController *popvc = nav.popoverPresentationController;
-        popvc.barButtonItem = self.settings;
-        popvc.permittedArrowDirections = UIPopoverArrowDirectionUp;
-        popvc.backgroundColor = nav.topViewController.view.backgroundColor;
-        [self presentViewController:nav animated:1 completion:nil] ;
+        [self presentPop:[SettingViewController2 new] attach:_settings];
     } else
         [self pushWithoutBottomBar:[SettingViewController2 new]];
 }

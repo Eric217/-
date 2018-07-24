@@ -9,7 +9,7 @@
 #ifndef Definition_h
 #define Definition_h
 
-//MARK: - COMMON
+//MARK: - SYSTEM CONSTANT
 
 #define ScreenW UIScreen.mainScreen.bounds.size.width
 #define ScreenH UIScreen.mainScreen.bounds.size.height
@@ -21,32 +21,50 @@
 #define IPhoneX  (ScreenH == 812  || ScreenW == 812 )
 #define IPADPro  (ScreenH == 1366 || ScreenW == 1366)
 
-#define UserDefault   NSUserDefaults.standardUserDefaults
-#define systemBlue    [UIColor colorWithRed:0 green:111.0/255 blue:1 alpha:1]
 #define IPAD (UIDevice.currentDevice.userInterfaceIdiom==UIUserInterfaceIdiomPad)
 #define IPHONE        (!IPAD)
 #define SystemVersion [UIDevice currentDevice].systemVersion.doubleValue
+#define UserDefault   NSUserDefaults.standardUserDefaults
 
+// MARK: - INIT
 
-// FUNC - Common And Simple
-#define DISPATCH_AT_ONCE(block) dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ block(); })
-
+// NSString
 #define String(Int) [NSString stringWithFormat:@"%d", Int]
 #define StringOfChar(Char) [NSString stringWithFormat:@"%c", Char]
 #define StringOfCGF(CGF) [NSString stringWithFormat:@"%f", CGF];
 
+// NSIndexPath
 #define IndexPath_Sec0(Item) [NSIndexPath indexPathForItem:Item inSection:0]
 #define IndexPath(Item, Section) [NSIndexPath indexPathForItem:Item inSection:Section]
 
-#define IOS11AVAIL(block) if (@available(iOS 11.0, *)) { block(); }
+// UIBarButtonItem
+#define BARBUTTON(TITLE, SELECTOR) [[UIBarButtonItem alloc] initWithTitle:TITLE style:UIBarButtonItemStylePlain target:self action:SELECTOR]
+#define FlexibleSpace [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:0 action:0]
 
+// MARK: - FUNCTION
+#define DISPATCH_AT_ONCE(block) dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ block(); })
 #define ConstChar_(str) [str cStringUsingEncoding:kCFStringEncodingUTF8]
 #define putsNS(nsstr) puts(ConstChar_(nsstr))
 
 #define TRIM(str, charSet) [str stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:charSet]]
 
-//MARK: - PROJECT
+//MARK: - PROJECT CONSTANT
 
+// UI
+#define SystemBlue  [UIColor colorWithRed:0 green:111.0/255 blue:1 alpha:1]
+
+#define LetterFont          @"TimesNewRomanPSMT"
+#define LetterFont_B        @"TimesNewRomanPS-BoldMT"
+#define LetterFont_I        @"TimesNewRomanPS-ItalicMT"
+#define LetterFont_BI       @"TimesNewRoman-BoldItalicMT"
+
+#define UnitSizeDefault     44
+#define TreeFontDefault     24
+#define SepaWidtDefault     1.52*UnitSizeDefault
+#define LineWidthDefault    2
+
+
+// KEY
 #define kFirstOpened        @"fsfwsewopo"
 
 #define kStatus             @"status"
@@ -70,27 +88,23 @@
 
 #define kSortOrder          @"sort__Type"
 #define kSortType           @"sort_Order"
+
+// FILE NAME
 #define SortNameFile        @"SortNames.plist"
 #define SortOrderFile       @"SortOrder.plist"
 #define TravesalFile        @"Travesals.plist"
 #define GraphAlgoFile       @"GraphAlgorithm.plist"
 
-#define UnitSizeDefault     44
-#define TreeFontDefault     24
-#define SepaWidtDefault     1.52*UnitSizeDefault
-#define LineWidthDefault    2
-
-
-//Dependent
-#define UnderTreeH          68*UnitSize/UnitSizeDefault
-#define EmptyNode           @"e符†"
-
-#define LetterFont          @"TimesNewRomanPSMT"
-#define LetterFont_B        @"TimesNewRomanPS-BoldMT"
-#define LetterFont_I        @"TimesNewRomanPS-ItalicMT"
-#define LetterFont_BI       @"TimesNewRoman-BoldItalicMT"
+// COMMON WORDS
 #define PromptText          @"提示"
+#define EmptyNode           @"e符†"
+#define SingleStep          @"单步执行"
+#define GroupStep           @"单组跳过"
+#define MinHeapSorter       @"最小堆"
+#define MaxHeapSorter       @"最大堆"
+#define BothHeap            @"自动"
 
+// MARK: - ENUM
 
 typedef NS_ENUM(NSUInteger, SortType) {
     SortTypeBubble = 0,
@@ -111,6 +125,21 @@ typedef NS_ENUM(NSUInteger, SortOrder) {
     SortOrderAutomatic = 30,
 };
 
+typedef NS_ENUM(NSUInteger, TravesalType) {
+    TravesalPre = 0,
+    TravesalIn,
+    TravesalPost,
+    TravesalLevel
+};
+
+typedef NS_ENUM(NSUInteger, GraphAlgo) {
+    GraphAlgoDFS = 0,
+    GraphAlgoBFS,
+    GraphAlgoKRU,
+    GraphAlgoPRI,
+    GraphAlgoDIJ,
+};
+
 typedef NS_ENUM(NSUInteger, ScreenMode) {
     
         ScreenModeFloatingOrThirth = 0,
@@ -122,28 +151,20 @@ typedef NS_ENUM(NSUInteger, ScreenMode) {
     //    ScreenModeNoSplit,
 };
 
-#define SingleStep          @"单步执行"
-#define GroupStep           @"单组跳过"
+
 typedef NS_ENUM(NSUInteger, ExecuteWay) {
     ExecuteWayStep = 0,
     ExecuteWayGroup = 1,
 };
 
-#define MinHeapSorter @"最小堆"
-#define MaxHeapSorter @"最大堆"
-#define BothHeap      @"自动"
+
 typedef NS_ENUM(NSUInteger, PreferredHeap) {
     PreferMinHeap = 1,
     PreferMaxHeap = 2,
     PreferBoth = 0,
 };
 
-#define TravesalPre1  1
-typedef NS_ENUM(NSUInteger, TravesalType) {
-    TravesalPre = 0,
-    TravesalIn,
-    TravesalPost,
-    TravesalLevel
-};
+// MARK: - OPTION
+
 
 #endif /* Definition_h */

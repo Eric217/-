@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
- 
+#import "Common.h"
+
 @interface GraphStackController : UIViewController <UISplitViewControllerDelegate>
 
-- (id)initWithAlgoType:(NSUInteger)t titles:(NSArray *)ts anotherRoot:(UIViewController *)r;
+- (id)initWithAlgoType:(GraphAlgo)t titles:(NSArray *)ts anotherRoot:(UIViewController *)r;
 
 @end
 

@@ -138,7 +138,7 @@
     [self.view addSubview:_selectOrderContainerView];
     UILabel *wayDec = [UILabel labelWithCentredTitle:@"排序方式" fontSize:20];
     [_selectOrderContainerView addSubview:wayDec];
-    _selectOrder = [UIButton buttonWithTitle:@"自动推断" fontSize:20 textColor:systemBlue target:self action:@selector(selectOrder:) image:img];
+    _selectOrder = [UIButton buttonWithTitle:@"自动推断" fontSize:20 textColor:SystemBlue target:self action:@selector(selectOrder:) image:img];
     [_selectOrder setTitleEdgeInsets:UIEdgeInsetsMake(0, -30, 0, 0)];
     [_selectOrder setImageEdgeInsets:UIEdgeInsetsMake(0, 90, 0, 0)];
     [_selectOrderContainerView addSubview:_selectOrder];

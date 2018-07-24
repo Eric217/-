@@ -87,7 +87,6 @@
     if (_collectionEmptyView) {
         [_collectionEmptyView removeFromSuperview];
         self.navigationItem.leftBarButtonItems = @[_customButton];
-        self.navigationItem.rightBarButtonItems = @[_captureButton];
         _treeView.backgroundColor = UIColor.whiteColor;
         _collectionEmptyView = 0;
     }
@@ -181,12 +180,14 @@
     self.title = DefaultTitle; _travesalType = -1;
     
     //buttons
-    _customButton = [[UIBarButtonItem alloc] initWithTitle:@"自定义树" style:UIBarButtonItemStylePlain target:self action:@selector(customTree:)];
-    _captureButton = [[UIBarButtonItem alloc] initWithTitle:@"保存图片" style:UIBarButtonItemStylePlain target:self action:@selector(captureScreen:)];
+    _customButton = BARBUTTON(@"自定义树", @selector(customTree:));
+    _captureButton = BARBUTTON(@"保存图片", @selector(captureScreen:));
     [_captureButton setTintColor:UIColor.blackColor];
-    _restartButton = [[UIBarButtonItem alloc] initWithTitle:@"重新开始" style:UIBarButtonItemStylePlain target:self action:@selector(restart:)];
-    _resultButton = [[UIBarButtonItem alloc] initWithTitle:@"显示结果" style:UIBarButtonItemStylePlain target:self action:@selector(showResult:)];
-    _nextStepButton = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextStep:)];
+    self.navigationItem.rightBarButtonItems = @[_captureButton];
+
+    _restartButton = BARBUTTON(@"重新开始", @selector(restart:));
+    _resultButton = BARBUTTON(@"显示结果", @selector(showResult:));
+    _nextStepButton = BARBUTTON(@"下一步", @selector(nextStep:));
     self.toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:0 action:0], _restartButton, _resultButton, _nextStepButton];
     
     //empty view
