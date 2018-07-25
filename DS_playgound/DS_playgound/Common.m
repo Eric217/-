@@ -9,11 +9,12 @@
 #import "Common.h"
 
 NSNotificationName const ELTextFieldShouldResignNotification = @"TFShouldResignNoti";
- 
-CGFloat UnitSize = UnitSizeDefault;
+
+CGFloat UnitSize = UnitSizeDefault; ///< 直径
 CGFloat TreeFont = TreeFontDefault;
 CGFloat SepaWidth = SepaWidtDefault;
 CGFloat LineWidth = LineWidthDefault;
+
 
 static NSString * docPath = 0;
 

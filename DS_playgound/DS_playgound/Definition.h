@@ -41,6 +41,11 @@
 #define BARBUTTON(TITLE, SELECTOR) [[UIBarButtonItem alloc] initWithTitle:TITLE style:UIBarButtonItemStylePlain target:self action:SELECTOR]
 #define FlexibleSpace [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:0 action:0]
 
+// CGPoint
+#define MidPoint(points) CGPointMake(points[0].x/2+points[1].x/2, points[0].y/2+points[1].y/2)
+
+#define SquareRect(centerPoint, radius) CGRectMake(centerPoint.x-radius, centerPoint.y-radius, 2*radius, 2*radius)
+
 // MARK: - FUNCTION
 #define DISPATCH_AT_ONCE(block) dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ block(); })
 #define ConstChar_(str) [str cStringUsingEncoding:kCFStringEncodingUTF8]
@@ -62,6 +67,9 @@
 #define TreeFontDefault     24
 #define SepaWidtDefault     1.52*UnitSizeDefault
 #define LineWidthDefault    2
+#define EdgeWeightSizeRate  0.75
+#define NoEdge              100000
+#define Reached             1
 
 
 // KEY
@@ -88,6 +96,8 @@
 
 #define kSortOrder          @"sort__Type"
 #define kSortType           @"sort_Order"
+
+#define kGraphRadius        @"f3wedsw41"
 
 // FILE NAME
 #define SortNameFile        @"SortNames.plist"

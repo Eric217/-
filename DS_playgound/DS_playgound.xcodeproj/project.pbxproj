@@ -70,6 +70,8 @@
 		07D609BB20FCB2A700838E3A /* TravesingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D609BA20FCB2A700838E3A /* TravesingController.m */; };
 		07E8A5F92100242400A8C94A /* Travesal.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E8A5F82100242400A8C94A /* Travesal.m */; };
 		07E8A5FC2100252600A8C94A /* BinaryTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E8A5FB2100252600A8C94A /* BinaryTree.m */; };
+		07ECFEA321083E7900609875 /* NodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07ECFEA221083E7900609875 /* NodeView.m */; };
+		07ECFEA6210840D600609875 /* GraphEdge.m in Sources */ = {isa = PBXBuildFile; fileRef = 07ECFEA5210840D600609875 /* GraphEdge.m */; };
 		07FCF1FA20FCDD4B00C071DF /* SortDescriptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FCF1F920FCDD4B00C071DF /* SortDescriptionController.m */; };
 		0AC5B8A422514E31F88FF369 /* Pods_DS_playgound.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1FD786A0A326F251D0F22F5 /* Pods_DS_playgound.framework */; };
 /* End PBXBuildFile section */
@@ -198,6 +200,10 @@
 		07E8A5F82100242400A8C94A /* Travesal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Travesal.m; sourceTree = "<group>"; };
 		07E8A5FA2100252600A8C94A /* BinaryTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BinaryTree.h; sourceTree = "<group>"; };
 		07E8A5FB2100252600A8C94A /* BinaryTree.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BinaryTree.m; sourceTree = "<group>"; };
+		07ECFEA121083E7900609875 /* NodeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeView.h; sourceTree = "<group>"; };
+		07ECFEA221083E7900609875 /* NodeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NodeView.m; sourceTree = "<group>"; };
+		07ECFEA4210840D600609875 /* GraphEdge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphEdge.h; sourceTree = "<group>"; };
+		07ECFEA5210840D600609875 /* GraphEdge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphEdge.m; sourceTree = "<group>"; };
 		07FCF1F820FCDD4B00C071DF /* SortDescriptionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SortDescriptionController.h; sourceTree = "<group>"; };
 		07FCF1F920FCDD4B00C071DF /* SortDescriptionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SortDescriptionController.m; sourceTree = "<group>"; };
 		33779D1955637EAD3502E930 /* Pods-DS_playgound.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DS_playgound.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DS_playgound/Pods-DS_playgound.debug.xcconfig"; sourceTree = "<group>"; };
@@ -224,6 +230,10 @@
 				070B994C21070D6D000BD552 /* StackViewCell.m */,
 				07AB209B21077AC40000ED3C /* GraphView.h */,
 				07AB209C21077AC40000ED3C /* GraphView.m */,
+				07ECFEA121083E7900609875 /* NodeView.h */,
+				07ECFEA221083E7900609875 /* NodeView.m */,
+				07ECFEA4210840D600609875 /* GraphEdge.h */,
+				07ECFEA5210840D600609875 /* GraphEdge.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -783,6 +793,7 @@
 				07BB28F720F7668300909AFE /* HanyuPinyinOutputFormat.m in Sources */,
 				073B04BD210254EF0009C1EA /* Auth.m in Sources */,
 				07D609B820FC603C00838E3A /* SelectTravesalController.m in Sources */,
+				07ECFEA6210840D600609875 /* GraphEdge.m in Sources */,
 				07AB209D21077AC40000ED3C /* GraphView.m in Sources */,
 				070D71E420F74CA300175D20 /* UILabel+init.m in Sources */,
 				070D71F820F74CE600175D20 /* LinearSorter.m in Sources */,
@@ -809,6 +820,7 @@
 				0768BFE720FE1613000DF520 /* TravesalDescController.m in Sources */,
 				07AB20A02107834C0000ED3C /* GraphSettingController.m in Sources */,
 				07E8A5F92100242400A8C94A /* Travesal.m in Sources */,
+				07ECFEA321083E7900609875 /* NodeView.m in Sources */,
 				075B158920F74A4E0081CD48 /* ELRepeatLinearCell.m in Sources */,
 				070D71F920F74CE600175D20 /* QuickSorter.mm in Sources */,
 				075B158C20F74A4E0081CD48 /* ELGroupedUnitCell.m in Sources */,

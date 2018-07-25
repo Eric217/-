@@ -87,6 +87,9 @@
         make.left.equalTo(self.view).offset(26);
         make.size.mas_equalTo(CGSizeMake(78, 30));
     }];
+    if (![UserDefault doubleForKey:kGraphRadius])
+        [Config saveDouble:20 forKey:kGraphRadius];
+ 
 }
 
 - (void)back {

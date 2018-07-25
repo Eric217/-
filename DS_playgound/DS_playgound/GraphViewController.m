@@ -66,6 +66,9 @@
         self.toolbarItems = @[FlexibleSpace, _restartButton, _nextStepButton];
     
     // graph view
+    _graph = [[GraphView alloc] init];
+    
+    
     
 }
 
