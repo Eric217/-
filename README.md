@@ -22,7 +22,7 @@ GRAPH_EDGE  | DESCRIPTION
 -------- | ---
 eid | integer, p_k 
 gid    |  integer, not null
-nid_s   | integer
-nid_e   | integer 
+n_s_o   | integer  
+n_e_o   | integer 
 weight   |integer
 
