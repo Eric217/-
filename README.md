@@ -16,7 +16,7 @@ gid    |  integer, not null
 nname   | text
 centerx   | real
 centery   |real
-order   |integer
+gorder   |integer
 
 GRAPH_EDGE  | DESCRIPTION
 -------- | ---
