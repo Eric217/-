@@ -14,5 +14,16 @@
 
 @implementation GraphEdge
 
+- (id)initWithWeight:(int)w start:(NodeView *)s end:(NodeView *)e {
+    self = [super init];
+    _color = UIColor.blackColor;
+    _drawCenter = 0;
+    _weight = w;
+    _startNode = s;
+    _endNode = e;
+    return self;
+}
+
+
 
 @end

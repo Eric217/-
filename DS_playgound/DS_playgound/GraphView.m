@@ -7,14 +7,10 @@
 //
 
 #import "GraphView.h"
-#import "GraphEdge.h"
-#import "NodeView.h"
+
 #import "Common.h"
 
-@interface GraphView () {
-    NSMutableArray<GraphEdge *> *_edges;
-    NSMutableArray<NodeView *> *_vertices;
-}
+@interface GraphView ()  
 
 @end
 
@@ -58,5 +54,11 @@
     
 }
 
+- (NodeView *)verticeWithOrder:(int)o {
+    for (NodeView *node in _vertices)
+        if (node._id == o)
+            return node;
+    return 0;
+}
 
 @end

@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GraphEdge.h"
+#import "NodeView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GraphView : UIView
+
+@property (nonatomic, strong) NSMutableArray<GraphEdge *> *edges;
+@property (nonatomic, strong) NSMutableArray<NodeView *> *vertices;
+
+- (NodeView *)verticeWithOrder:(int)o;
 
 @end
 

@@ -7,6 +7,7 @@
 //
 
 #import "GraphStackController.h"
+//#import "GraphViewController.h"
 #import "StackViewCell.h"
 
 #import "UIButton+init.h"
@@ -26,6 +27,7 @@
 
 @property (nonatomic, assign) GraphAlgo algoType;
 @property (nonatomic, copy) NSArray *titles;
+@property (nonatomic, assign) int start_pos;
 
 
 @end
@@ -70,7 +72,6 @@
     _selectStart.detailTextLabel.font = [UIFont systemFontOfSize:18];
     _selectStart.detailTextLabel.textColor = UIColor.darkGrayColor;
     _selectStart.textLabel.text = @"图中点击选择起点:";
-    [self setStartPoint:@" "];
 
     // table view
     _table = [UITableView new];
@@ -120,16 +121,30 @@
         make.bottom.equalTo(self.startShow.mas_top).inset(22);
     }];
     _stackData = [NSMutableArray new];
+    [Config addObserver:self selector:@selector(didReceivePointInfo:) notiName:ELGraphDidSelectPointNotification];
 }
 
-- (void)setStartPoint:(NSString *)p {
-    _selectStart.detailTextLabel.text = p;
-
+- (void)didReceivePointInfo:(NSNotification *)noti {
+    _start_pos = [noti.userInfo[@"id"] intValue];
+    _selectStart.detailTextLabel.text = noti.userInfo[@"name"];
 }
+
 
 - (void)startDisplay:(id)sender {
+    
+    if (self.splitViewController.viewControllers.count == 1) { 
+        // 手机版另行适配
+    }
+    
+    [Config postNotification:ELGraphShouldStartShowNotification message:@{NotiInfoId: String(_start_pos)}];
+   
+    // TODO: - 提示框，是否重置
+    [self clearStack];
+}
 
-
+- (void)clearStack {
+    [_stackData removeAllObjects];
+    [_table reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 
@@ -183,6 +198,10 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 3;
+}
+
+- (void)dealloc {
+    [Config removeObserver:self];
 }
 
 @end

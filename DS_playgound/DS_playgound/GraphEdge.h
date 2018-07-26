@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) bool drawCenter;
 @property (nonatomic, assign) int weight;
 
+- (id)initWithWeight:(int)w start:(NodeView *)s end:(NodeView *)e;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

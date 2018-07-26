@@ -44,7 +44,12 @@
 // CGPoint
 #define MidPoint(points) CGPointMake(points[0].x/2+points[1].x/2, points[0].y/2+points[1].y/2)
 
+// CGRect
 #define SquareRect(centerPoint, radius) CGRectMake(centerPoint.x-radius, centerPoint.y-radius, 2*radius, 2*radius)
+
+// UINavigation Controller
+#define NavRooted(vc) [[UINavigationController alloc] initWithRootViewController:vc]
+
 
 // MARK: - FUNCTION
 #define DISPATCH_AT_ONCE(block) dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ block(); })
@@ -98,12 +103,17 @@
 #define kSortType           @"sort_Order"
 
 #define kGraphRadius        @"f3wedsw41"
+#define kLatestGraph        @"daewfesfr"
 
 // FILE NAME
 #define SortNameFile        @"SortNames.plist"
 #define SortOrderFile       @"SortOrder.plist"
 #define TravesalFile        @"Travesals.plist"
-#define GraphAlgoFile       @"GraphAlgorithm.plist"
+//#define GraphAlgoFile       @"GraphAlgorithm.plist"
+
+#define SQLiteFile          @"app.sqlite"
+#define DefaultGraph        @"默认图"
+
 
 // COMMON WORDS
 #define PromptText          @"提示"
@@ -113,6 +123,10 @@
 #define MinHeapSorter       @"最小堆"
 #define MaxHeapSorter       @"最大堆"
 #define BothHeap            @"自动"
+#define NotiInfoId          @"id"
+#define NotiInfoName        @"name"
+#define OptType             @"optType"
+#define OptResult           @"optresult"
 
 // MARK: - ENUM
 
@@ -144,10 +158,10 @@ typedef NS_ENUM(NSUInteger, TravesalType) {
 
 typedef NS_ENUM(NSUInteger, GraphAlgo) {
     GraphAlgoDFS = 0,
-    GraphAlgoBFS,
-    GraphAlgoKRU,
-    GraphAlgoPRI,
-    GraphAlgoDIJ,
+    GraphAlgoBFS = 1,
+    GraphAlgoKRU = 2,
+    GraphAlgoPRI = 3,
+    GraphAlgoDIJ = 4,
 };
 
 typedef NS_ENUM(NSUInteger, ScreenMode) {

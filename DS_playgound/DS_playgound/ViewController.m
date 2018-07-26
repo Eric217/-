@@ -14,6 +14,7 @@
 #import "GraphMainController.h"
 #import "SelectTravesalController.h"
 
+
 @interface ViewController ()
 
 @end
@@ -28,8 +29,6 @@
     [self addButton:@"测试：排序算法" frame:CGRectMake(300, 300, 140, 60) act:@selector(didClick)];
     [self addButton:@"测试：遍历二叉树" frame:CGRectMake(540, 300, 140, 60) act:@selector(didClick1)];
     [self addButton:@"测试：图相关算法" frame:CGRectMake(300, 120, 140, 60) act:@selector(didClick2)];
-
-    
     
 }
 

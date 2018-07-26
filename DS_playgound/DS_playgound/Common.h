@@ -15,6 +15,9 @@
 
 //MARK: - noti names
 UIKIT_EXTERN NSNotificationName const ELTextFieldShouldResignNotification;
+UIKIT_EXTERN NSNotificationName const ELGraphDidSelectPointNotification;
+UIKIT_EXTERN NSNotificationName const ELGraphShouldStartShowNotification;
+
 
 // FOR TREE
 UIKIT_EXTERN CGFloat UnitSize;

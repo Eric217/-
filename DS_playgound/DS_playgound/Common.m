@@ -9,6 +9,8 @@
 #import "Common.h"
 
 NSNotificationName const ELTextFieldShouldResignNotification = @"TFShouldResignNoti";
+NSNotificationName const ELGraphDidSelectPointNotification = @"didselectpointnot";
+NSNotificationName const ELGraphShouldStartShowNotification = @"graphshoudklshow";
 
 CGFloat UnitSize = UnitSizeDefault; ///< 直径
 CGFloat TreeFont = TreeFontDefault;
@@ -138,7 +140,7 @@ static NSString * docPath = 0;
     [NSUserDefaults.standardUserDefaults synchronize];
 }
  
-
+/// @param func func parameter is NSNotification *
 + (void)addObserver:(id)target selector:(SEL)func notiName:(NSNotificationName)name {
     [[NSNotificationCenter defaultCenter] addObserver:target selector:func name:name object:nil];
 }

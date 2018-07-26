@@ -12,16 +12,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class GraphEdge;
 
-@interface NodeView : UIView
+@interface NodeView : UILabel
 
 @property (nonatomic, assign) int _id;
 @property (nonatomic, assign) bool load;
-@property (nonatomic, strong) UIColor *color;
+@property (nonatomic, assign) CGPoint s_center; ///<在superview中的位置，0-1
+//@property (nonatomic, strong) UIColor *color;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSMutableArray<GraphEdge *> *edges;
 
 
-- (id)initWithId:(int)i name:(NSString *)n;
+- (id)initWithId:(int)i name:(NSString *)n s_center:(CGPoint)sc;
+
+- (void)setColor:(UIColor *)color;
 
 
 @end

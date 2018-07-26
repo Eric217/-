@@ -37,14 +37,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //data dict
-    _titleArr = [Config getArrayFromFile:GraphAlgoFile];
-    if (!_titleArr) {
-        _titleArr = @[@[@"DFS", @"BFS", @"Kruskal", @"Prim", @"Dijkstra"], @[@"深度优先遍历", @"广度优先遍历", @"最小生成树算法", @"最小生成树算法", @"单源最短路径算法"]];
-        [Config writeToPlistName:GraphAlgoFile data:_titleArr];
-    }
  
+ 
+    _titleArr = @[@[@"DFS", @"BFS", @"Kruskal", @"Prim", @"Dijkstra"], @[@"深度优先遍历", @"广度优先遍历", @"最小生成树算法", @"最小生成树算法", @"单源最短路径算法"]];
+    
     self.view.backgroundColor = UIColor.whiteColor;
     
     //collection view
@@ -87,9 +83,11 @@
         make.left.equalTo(self.view).offset(26);
         make.size.mas_equalTo(CGSizeMake(78, 30));
     }];
-    if (![UserDefault doubleForKey:kGraphRadius])
-        [Config saveDouble:20 forKey:kGraphRadius];
- 
+    if (![UserDefault doubleForKey:kGraphRadius]) {
+        [Config saveDouble:28 forKey:kGraphRadius];
+        [UserDefault setObject:DefaultGraph forKey:kLatestGraph];
+    }
+    
 }
 
 - (void)back {
@@ -133,6 +131,7 @@
  
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:stack];
     
+    // TODO: - 手机版另行适配
     [self showSplitWithMaster:masterNav detail:[[GraphViewController alloc] initWithAlgoType:IPR titles:ts]];
 
 }
