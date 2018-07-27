@@ -12,4 +12,7 @@
  
 - (UIImage *)normalSnapshotImage;
 
+- (void)roundStyleWithColor:(UIColor *)c width:(CGFloat)w radius:(CGFloat)r;
+
+
 @end

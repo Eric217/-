@@ -8,6 +8,7 @@
 
 #import "NodeView.h"
 #import "Common.h"
+#import "UIView+funcs.h"
 
 @interface NodeView ()
 
@@ -20,19 +21,17 @@
     self = [super init];
     __id = i;
     _load = 1;
+//    _visited = 0;
 //    _color = UIColor.blackColor;
     [self setColor:UIColor.blackColor];
     _name = n;
-    _edges = [NSMutableArray new];
+//    _edges = [NSMutableArray new];
     _s_center = sc;
     
     self.layer.backgroundColor = UIColor.whiteColor.CGColor;
-    self.layer.cornerRadius = [UserDefault doubleForKey:kGraphRadius];
-    self.layer.masksToBounds = 1;
-//    self.layer.borderColor = _color.CGColor;
-    self.layer.borderWidth = LineWidth;
     
-//    self.textColor = _color;
+    [self roundStyleWithColor:0 width:LineWidth radius:[UserDefault doubleForKey:kGraphRadius]];
+ 
     self.text = _name;
     self.font = [UIFont fontWithName:LetterFont size:26];
     self.textAlignment = NSTextAlignmentCenter;

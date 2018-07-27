@@ -7,18 +7,19 @@
 //
 
 #import "GraphStackController.h"
-//#import "GraphViewController.h"
 #import "StackViewCell.h"
+#import "GraphDescController.h"
 
 #import "UIButton+init.h"
 #import "UIImage+operations.h"
+#import "UIView+funcs.h"
 
 #import <Masonry/Masonry.h>
 
 @interface GraphStackController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *table;
-@property (nonatomic, strong) UILabel *sortNameLabel;
+@property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UITableViewCell *selectStart;
 @property (nonatomic, strong) UIButton *startShow;
 
@@ -45,7 +46,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = UIColor.whiteColor;
+    self.view.backgroundColor = UIColor.groupTableViewBackgroundColor;
     
     // navigation items
     self.navigationItem.title = _titles[1];
@@ -57,13 +58,13 @@
     self.navigationItem.leftBarButtonItem = oldDevice ? [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)] : backItem;
 
     // algorithm name label
-    _sortNameLabel = [UILabel new];
+    _nameLabel = [UILabel new];
     NSString *algoName = [_titles[0] stringByAppendingString:@" 算法"];
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
     paragraphStyle.alignment = NSTextAlignmentCenter;
     NSDictionary *attr = @{NSFontAttributeName: [UIFont fontWithName:LetterFont size:28], NSParagraphStyleAttributeName: paragraphStyle};
-    _sortNameLabel.attributedText = [[NSAttributedString alloc] initWithString:algoName attributes:attr];;
-    [self.view addSubview:_sortNameLabel];
+    _nameLabel.attributedText = [[NSAttributedString alloc] initWithString:algoName attributes:attr];;
+    [self.view addSubview:_nameLabel];
     
     // select start view
     _selectStart = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:0];
@@ -79,6 +80,10 @@
     _table.delegate = self;
     _table.dataSource = self;
     _table.allowsSelection = 0;
+    _table.backgroundColor = UIColor.whiteColor;
+    
+    [_table roundStyleWithColor:UIColor.groupTableViewBackgroundColor width:1.5 radius:5];
+  
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_table setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
     _table.showsVerticalScrollIndicator = 0;
@@ -95,14 +100,14 @@
     
     // constraints
     
-    [_sortNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.height.mas_equalTo(36);
         make.top.equalTo(self.view).offset(64+[Config v_pad:33 plus:18 p:12 min:8]);
     }];
     
     [_selectStart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.sortNameLabel.mas_bottom).offset([Config v_pad:20 plus:13 p:12 min:8]);
+        make.top.equalTo(self.nameLabel.mas_bottom).offset([Config v_pad:20 plus:13 p:12 min:8]);
         make.centerX.equalTo(self.view);
         make.width.mas_equalTo(250);
         make.height.mas_equalTo(40);
@@ -122,6 +127,8 @@
     }];
     _stackData = [NSMutableArray new];
     [Config addObserver:self selector:@selector(didReceivePointInfo:) notiName:ELGraphDidSelectPointNotification];
+    [Config addObserver:self selector:@selector(stackShouldOperate:) notiName:ELStackDidChangeNotification];
+    [Config addObserver:self selector:@selector(clearStack) notiName:ELGraphDidRestartShowNotification];
 }
 
 - (void)didReceivePointInfo:(NSNotification *)noti {
@@ -131,25 +138,43 @@
 
 
 - (void)startDisplay:(id)sender {
-    
     if (self.splitViewController.viewControllers.count == 1) { 
         // 手机版另行适配
     }
     
-    [Config postNotification:ELGraphShouldStartShowNotification message:@{NotiInfoId: String(_start_pos)}];
-   
     // TODO: - 提示框，是否重置
     [self clearStack];
+    
+    [Config postNotification:ELGraphShouldStartShowNotification message:@{NotiInfoId: String(_start_pos)}];
+   
+}
+
+- (void)stackShouldOperate:(NSNotification *)noti {
+    NSString *optNodeName = noti.userInfo[NotiInfoName];
+    int opt = [noti.userInfo[NotiInfoId] intValue];
+    if (opt == 0) {
+        optNodeName = optNodeName.mutableCopy;
+        [_stackData addObject:optNodeName];
+        NSIndexPath *idx = IndexPath(_stackData.count-1, 1);
+        [_table insertRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationBottom];
+        [_table scrollToRowAtIndexPath:idx atScrollPosition:UITableViewScrollPositionTop animated:1];
+
+    } else if (opt == 1) {
+        [_stackData removeLastObject];
+        NSIndexPath *idx = IndexPath(_stackData.count, 1);
+        [_table deleteRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationBottom];
+    }
+
 }
 
 - (void)clearStack {
     [_stackData removeAllObjects];
-    [_table reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+    [_table reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationBottom];
 }
 
 
 - (void)showAlgorithm {
-//    self.navigationController pushViewController:<#(nonnull UIViewController *)#> animated:<#(BOOL)#>
+    [self.navigationController pushViewController:[[GraphDescController alloc] initWithAlgoType:_algoType titles:_titles] animated:1];
 }
 
 - (void)dismiss {
@@ -179,7 +204,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:0];
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.textLabel.text = @"栈顶";
-        
+        cell.textLabel.font = [UIFont systemFontOfSize:21];
     }
     
     cell.transform = CGAffineTransformMakeRotation(M_PI);
@@ -187,7 +212,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 55;
+    return 58;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

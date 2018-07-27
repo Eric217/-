@@ -18,6 +18,14 @@
     return l;
 }
 
++ (UILabel *)labelWithTitle:(NSString *)t fontSize:(CGFloat)f align:(NSTextAlignment)a {
+    UILabel *l = [[UILabel alloc] init];
+    [l setText:t];
+    [l setFont:[UIFont systemFontOfSize:f]];
+    [l setTextAlignment:a];
+    return l;
+}
+
 ///font size 28 recommended
 + (UILabel *)labelWithEmptyPrompt:(NSString *)title fontSize:(CGFloat)f_s {
     UILabel *_collectionEmptyView = [[UILabel alloc] init];

@@ -23,4 +23,14 @@
     return snapshotImage;
 }
 
+
+- (void)roundStyleWithColor:(UIColor *)c width:(CGFloat)w radius:(CGFloat)r {
+    self.layer.borderWidth = w;
+    self.layer.cornerRadius = r;
+    self.layer.masksToBounds = 1;
+    if (c)
+        self.layer.borderColor = c.CGColor;
+}
+
+
 @end

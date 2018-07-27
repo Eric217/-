@@ -68,6 +68,7 @@
 		07BDE1EC2102CFA60009968B /* NSString+funcs.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BDE1EB2102CFA60009968B /* NSString+funcs.m */; };
 		07D609B820FC603C00838E3A /* SelectTravesalController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D609B720FC603C00838E3A /* SelectTravesalController.m */; };
 		07D609BB20FCB2A700838E3A /* TravesingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D609BA20FCB2A700838E3A /* TravesingController.m */; };
+		07DBCF6D210B054F0062D9B9 /* GraphDescController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07DBCF6C210B054F0062D9B9 /* GraphDescController.m */; };
 		07E8A5F92100242400A8C94A /* Travesal.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E8A5F82100242400A8C94A /* Travesal.m */; };
 		07E8A5FC2100252600A8C94A /* BinaryTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E8A5FB2100252600A8C94A /* BinaryTree.m */; };
 		07ECFEA321083E7900609875 /* NodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07ECFEA221083E7900609875 /* NodeView.m */; };
@@ -197,6 +198,8 @@
 		07D609B720FC603C00838E3A /* SelectTravesalController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectTravesalController.m; sourceTree = "<group>"; };
 		07D609B920FCB2A700838E3A /* TravesingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravesingController.h; sourceTree = "<group>"; };
 		07D609BA20FCB2A700838E3A /* TravesingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TravesingController.m; sourceTree = "<group>"; };
+		07DBCF6B210B054F0062D9B9 /* GraphDescController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphDescController.h; sourceTree = "<group>"; };
+		07DBCF6C210B054F0062D9B9 /* GraphDescController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphDescController.m; sourceTree = "<group>"; };
 		07E8A5F72100242400A8C94A /* Travesal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Travesal.h; sourceTree = "<group>"; };
 		07E8A5F82100242400A8C94A /* Travesal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Travesal.m; sourceTree = "<group>"; };
 		07E8A5FA2100252600A8C94A /* BinaryTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BinaryTree.h; sourceTree = "<group>"; };
@@ -238,10 +241,7 @@
 				07ECFEA221083E7900609875 /* NodeView.m */,
 				07ECFEA4210840D600609875 /* GraphEdge.h */,
 				07ECFEA5210840D600609875 /* GraphEdge.m */,
-				070B994B21070D6D000BD552 /* StackViewCell.h */,
-				070B994C21070D6D000BD552 /* StackViewCell.m */,
-				077AA9D52105BB8A00BA1F9B /* SubtitleCollectionCell.h */,
-				077AA9D62105BB8A00BA1F9B /* SubtitleCollectionCell.m */,
+				07DBCF69210B006D0062D9B9 /* Cell */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -556,6 +556,8 @@
 				077AA9DB2105DC4E00BA1F9B /* GraphStackController.m */,
 				070B994E210713DF000BD552 /* GraphViewController.h */,
 				070B994F210713DF000BD552 /* GraphViewController.mm */,
+				07DBCF6B210B054F0062D9B9 /* GraphDescController.h */,
+				07DBCF6C210B054F0062D9B9 /* GraphDescController.m */,
 			);
 			name = GraphDisplay;
 			sourceTree = "<group>";
@@ -637,6 +639,17 @@
 				07BDE1EB2102CFA60009968B /* NSString+funcs.m */,
 			);
 			name = NSString;
+			sourceTree = "<group>";
+		};
+		07DBCF69210B006D0062D9B9 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				070B994B21070D6D000BD552 /* StackViewCell.h */,
+				070B994C21070D6D000BD552 /* StackViewCell.m */,
+				077AA9D52105BB8A00BA1F9B /* SubtitleCollectionCell.h */,
+				077AA9D62105BB8A00BA1F9B /* SubtitleCollectionCell.m */,
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 		07DFBB7720FBA25200D23E9A /* Traversal */ = {
@@ -823,6 +836,7 @@
 				07BB28E820F7550C00909AFE /* SwitchCell2.m in Sources */,
 				07BB0CC620F73DDD00B2BCA7 /* ViewController.m in Sources */,
 				070D71F520F74CE600175D20 /* InsertionSorter.m in Sources */,
+				07DBCF6D210B054F0062D9B9 /* GraphDescController.m in Sources */,
 				070D71F720F74CE600175D20 /* HeapSorter.m in Sources */,
 				07BB28FA20F7671200909AFE /* NSString+PinYin4Cocoa.m in Sources */,
 				07BB0CD120F73DDF00B2BCA7 /* main.m in Sources */,

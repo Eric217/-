@@ -11,6 +11,7 @@
 #import "GraphSettingController.h"
 
 #import "UIView+funcs.h"
+#import "UILabel+init.h"
 #import "UIImage+operations.h"
 #import "UIViewController+funcs.h"
 #import "UIViewController+SplitController.h"
@@ -22,6 +23,8 @@
 @interface GraphViewController ()
 
 @property (nonatomic, strong) GraphView *graphView;
+@property (nonatomic, strong) UILabel *promptLabel;
+
 //Right 2
 @property (nonatomic, strong) UIBarButtonItem *capture;
 @property (nonatomic, strong) UIBarButtonItem *settings;
@@ -36,6 +39,7 @@
 @property (nonatomic, assign) AdjacencyWGraph<int> *aw_graph;
 @property (nonatomic, assign) int nodecount;
 @property (nonatomic, assign) int start_pos;
+
 @property (nonatomic, assign) bool finished;
 
 
@@ -66,6 +70,7 @@
     // Toolbar Item
     _nextStepButton = BARBUTTON(@"下一步", @selector(nextStep:));
     _restartButton = BARBUTTON(@"重新开始", @selector(restart:));
+    _restartButton.enabled = 0;
     if (_algoType != GraphAlgoDFS && _algoType != GraphAlgoBFS) {
         _resultButton = BARBUTTON(@"显示结果", @selector(showResult:));
         self.toolbarItems = @[FlexibleSpace, _restartButton, _resultButton, _nextStepButton];
@@ -84,19 +89,27 @@
         make.right.equalTo(self.view).inset(15);
     }];
     
+    _promptLabel = [UILabel labelWithTitle:0 fontSize:20 align:NSTextAlignmentLeft];
+    [self.view addSubview:_promptLabel];
+    [_promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.equalTo(self.graphView);
+        make.size.mas_equalTo(CGSizeMake(300, 45));
+    }];
+    
     _start_pos = 0;
+
     [self retriveGraph:[UserDefault objectForKey:kLatestGraph]];
     if (_nodecount > 0) {
         [Config postNotification:ELGraphDidSelectPointNotification message:@{NotiInfoId: @"1", NotiInfoName: [_graphView verticeWithOrder:1].name}];
     }
     
     [Config addObserver:self selector:@selector(indicateStart:) notiName:ELGraphShouldStartShowNotification];
-
+    
     
 }
 
 
-
+/// 通知传来开始消息，那么确定要开始吗(拦截)？
 - (void)indicateStart:(NSNotification *)noti {
     int s = [noti.userInfo[NotiInfoId] intValue];
     if (!_start_pos) {
@@ -109,17 +122,39 @@
         // else 开始
     }
     // temp: start, in all cases.
+    
     [self startShowFrom:s];
 }
 
+/// 重新开始、通知要求开始 最后都从这里开始
 - (void)startShowFrom:(int)pos {
     _start_pos = pos;
+    _finished = 0;
+    [self enableButtons:1];
+    _restartButton.enabled = 1;
+    [self updatePrompt:0 type:0];
+    [_graphView reset];
+    [Config postNotification:ELGraphDidRestartShowNotification message:0];
     
- 
     if (_algoType == GraphAlgoDFS) {
-        IntPair p = _aw_graph->startDFSFrom(pos);
-        [[_graphView verticeWithOrder:p.v2] setColor:UIColor.redColor];
         
+        [self handleIntPair:_aw_graph->startDFSFrom(pos)];
+        
+    } else if (_algoType == GraphAlgoBFS) {
+        
+    } else if (_algoType == GraphAlgoKRU) {
+        
+    } else if (_algoType == GraphAlgoPRI) {
+        
+    } else if (_algoType == GraphAlgoDIJ) {
+        
+    } else {}
+
+}
+- (void)nextStep:(UIBarButtonItem *)sender {
+    
+    if (_algoType == GraphAlgoDFS) {
+        [self handleIntPair:_aw_graph->nextDFSStep(&_finished)];
         
         
     } else if (_algoType == GraphAlgoBFS) {
@@ -131,8 +166,39 @@
     } else if (_algoType == GraphAlgoDIJ) {
         
     } else {}
- 
+    if (_finished) {
+        [self enableButtons:0];
+    }
     
+}
+
+- (void)handleIntPair:(DFSDataPack)p {
+    
+    NodeView *n = [_graphView verticeWithOrder:p.order];
+    
+    if (p.type == 0) {
+        
+        [_graphView visit_node:n from:[_graphView verticeWithOrder:p.lastTop]];
+     
+    } else { }
+    
+    [self updatePrompt:n.name type:p.type];
+    
+    [Config postNotification:ELStackDidChangeNotification message:@{NotiInfoId: String(p.type), NotiInfoName: n.name}];
+    
+}
+
+- (void)updatePrompt:(NSString *)s type:(int)t {
+    if (!s)
+        return;
+    
+    if (t == 0) {
+        _promptLabel.text = [s stringByAppendingString:@" 入栈"];
+    } else if (t == 1) {
+        _promptLabel.text = [s stringByAppendingString:@" 出栈"];
+    } else if (t == 2) {
+        _promptLabel.text = [s stringByAppendingString:@" 出栈, 遍历完成"];
+    }
 }
 
 
@@ -180,19 +246,16 @@
 }
 
 - (void)restart:(UIBarButtonItem *)sender {
- 
+    [self startShowFrom:_start_pos];
 }
 
 
-- (void)nextStep:(UIBarButtonItem *)sender {
-    
-    
-    
-}
+
 
 - (void)enableButtons:(bool)b {
     _nextStepButton.enabled = b;
     _resultButton.enabled = b;
+    
 }
 
 - (void)showResult:(UIBarButtonItem *)sender {
@@ -217,7 +280,9 @@
 }
 
 - (void)dealloc {
-    if (_aw_graph)
+    if (_aw_graph) {
         delete _aw_graph;
+        _aw_graph = 0;
+    }
 }
 @end

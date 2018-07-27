@@ -14,23 +14,22 @@
 #import <Foundation/Foundation.h>
 #import "Common.h"
 
-struct IntPair {
-    int v1; int v2;
+struct DFSDataPack {
+    int type; int order; int lastTop;
 };
 
 template <typename T>
 class AdjacencyWGraph : public AdjacencyWDigraph<T>, public UndirectedNetwork {
 
     LinkedStack<int> * stack;
-    
     bool * reachForDFS;
     
     
 public:
-    AdjacencyWGraph<T>(int ver = 10): AdjacencyWDigraph<T>(ver) {}
+    AdjacencyWGraph<T>(int ver = 10): AdjacencyWDigraph<T>(ver), reachForDFS(0) {}
     ~AdjacencyWGraph<T>() {
-        if (stack) delete stack;
-        if (reachForDFS) delete [] reachForDFS;
+        if (stack) {delete stack; stack = 0;}
+        if (reachForDFS){ delete [] reachForDFS; reachForDFS = 0;}
     }
     
     AdjacencyWGraph<T> & addEdge(int i, int j, const T & w);
@@ -39,17 +38,20 @@ public:
     int degree(int i) const { return this->outDegree(i); }
     
     /// IntPair 第一个值为0是入栈，1是出栈
-    IntPair startDFSFrom(int i);
-    IntPair nextDFSStep(bool *finished);
+    DFSDataPack startDFSFrom(int i);
+    DFSDataPack nextDFSStep(bool *finished);
 
     
     
 };
 
 template <typename T>
-IntPair AdjacencyWGraph<T>::startDFSFrom(int i) {
+DFSDataPack AdjacencyWGraph<T>::startDFSFrom(int i) {
     stack = new LinkedStack<int>();
-    if (reachForDFS) delete [] reachForDFS;
+    if (reachForDFS) {
+        delete [] reachForDFS;
+        reachForDFS = 0;
+    }
     reachForDFS = new bool[this->n+1];
     for (int i = 1; i < this->n+1; i++)
         reachForDFS[i] = 0;
@@ -59,17 +61,18 @@ IntPair AdjacencyWGraph<T>::startDFSFrom(int i) {
 }
 
 template <typename T>
-IntPair AdjacencyWGraph<T>::nextDFSStep(bool *finished) {
+DFSDataPack AdjacencyWGraph<T>::nextDFSStep(bool *finished) {
     int top = stack->Top();
     for (int i = 1; i <= this->n; i++) {
         if (this->arr[top][i] != NoEdge && !reachForDFS[i]) {
             stack->push(i);
-            return {0, i};
+            reachForDFS[i] = 1;
+            return {0, i, top};
         }
     }
     stack->pop();
     *finished = stack->isEmpty();
-    return {1, top};
+    return {*finished ? 2 : 1, top};
 }
 
 

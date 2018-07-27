@@ -7,7 +7,7 @@
 //
 
 #import "GraphView.h"
-
+#import "UIView+frameProperty.h"
 #import "Common.h"
 
 @interface GraphView ()  
@@ -20,7 +20,32 @@
     self = [super init];
     _edges = [NSMutableArray new];
     _vertices = [NSMutableArray new];
+    _g_tint = UIColor.redColor;
+    self.backgroundColor = UIColor.whiteColor;
     return self;
+}
+
+- (void)reset {
+    for (NodeView *node in _vertices)
+        [node setColor:UIColor.blackColor];
+    for (GraphEdge *edge in _edges) {
+        edge.color = UIColor.blackColor;
+    }
+    [self setNeedsDisplay];
+}
+
+- (void)visit_node:(NodeView *)n from:(NodeView *)f {
+    [n setColor:_g_tint];
+    if (!f)
+        return;
+    
+    for (GraphEdge *edge in _edges) {
+        if ((edge.startNode == f && edge.endNode == n) || (edge.startNode == n && edge.endNode == f)) {
+            edge.color = _g_tint;
+        }
+    }
+  
+    [self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect {

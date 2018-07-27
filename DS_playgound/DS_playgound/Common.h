@@ -17,7 +17,8 @@
 UIKIT_EXTERN NSNotificationName const ELTextFieldShouldResignNotification;
 UIKIT_EXTERN NSNotificationName const ELGraphDidSelectPointNotification;
 UIKIT_EXTERN NSNotificationName const ELGraphShouldStartShowNotification;
-
+UIKIT_EXTERN NSNotificationName const ELStackDidChangeNotification;
+UIKIT_EXTERN NSNotificationName const ELGraphDidRestartShowNotification;
 
 // FOR TREE
 UIKIT_EXTERN CGFloat UnitSize;

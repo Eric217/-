@@ -18,13 +18,14 @@
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:r];
     
     self.textLabel.textAlignment = NSTextAlignmentCenter;
- 
+    self.textLabel.font = [UIFont systemFontOfSize:21];
+    
     return self;
 }
 
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
-    CGFloat dx = self.bounds.size.width/5.2, dy = self.bounds.size.height/10;
+    CGFloat dx = self.bounds.size.width/5.2, dy = self.bounds.size.height/9.7;
     CGRect inner = CGRectInset(self.bounds, dx, dy);
     
     CGContextRef ctx = UIGraphicsGetCurrentContext();
