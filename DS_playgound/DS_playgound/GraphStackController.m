@@ -143,26 +143,38 @@
     }
     
     // TODO: - 提示框，是否重置
-    [self clearStack];
-    
+ 
     [Config postNotification:ELGraphShouldStartShowNotification message:@{NotiInfoId: String(_start_pos)}];
    
 }
 
 - (void)stackShouldOperate:(NSNotification *)noti {
-    NSString *optNodeName = noti.userInfo[NotiInfoName];
-    int opt = [noti.userInfo[NotiInfoId] intValue];
-    if (opt == 0) {
-        optNodeName = optNodeName.mutableCopy;
-        [_stackData addObject:optNodeName];
-        NSIndexPath *idx = IndexPath(_stackData.count-1, 1);
-        [_table insertRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationBottom];
-        [_table scrollToRowAtIndexPath:idx atScrollPosition:UITableViewScrollPositionTop animated:1];
-
-    } else if (opt == 1) {
-        [_stackData removeLastObject];
-        NSIndexPath *idx = IndexPath(_stackData.count, 1);
-        [_table deleteRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationBottom];
+    if (_algoType == GraphAlgoDFS) {
+        NSString *optNodeName = noti.userInfo[NotiInfoName];
+        int opt = [noti.userInfo[NotiInfoId] intValue];
+        if (opt == 0) {
+            optNodeName = optNodeName.mutableCopy;
+            [_stackData addObject:optNodeName];
+            NSIndexPath *idx = IndexPath(_stackData.count-1, 1);
+            [_table insertRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationBottom];
+            [_table scrollToRowAtIndexPath:idx atScrollPosition:UITableViewScrollPositionTop animated:1];
+        } else if (opt == 1) {
+            [_stackData removeLastObject];
+            [_table deleteRowsAtIndexPaths:@[IndexPath(_stackData.count, 1)] withRowAnimation:UITableViewRowAnimationBottom];
+        }
+    } else if (_algoType == GraphAlgoBFS) {
+        NSArray<NSString *> *in_names = noti.userInfo[NotiInfoId];
+        int c = (int)in_names.count;
+        for (int i = 0; i < c; i++) {
+            [_stackData insertObject:in_names[i].mutableCopy atIndex:0];
+            [_table insertRowsAtIndexPaths:@[IndexPath(0, 1)] withRowAnimation:UITableViewRowAnimationTop];
+            [_table scrollToRowAtIndexPath:IndexPath(_stackData.count-1, 1) atScrollPosition:UITableViewScrollPositionTop animated:1];
+        }
+        NSString *out_name = noti.userInfo[NotiInfoName];
+        if (out_name.length > 0) {
+            [_stackData removeLastObject];
+            [_table deleteRowsAtIndexPaths:@[IndexPath(_stackData.count, 1)] withRowAnimation:UITableViewRowAnimationBottom];
+        }
     }
 
 }
@@ -199,11 +211,20 @@
         cell.textLabel.text = _stackData[indexPath.row];
     } else if (indexPath.section == 0) {
         cell = [[StackViewCell alloc] initWithReuseId:NSStringFromClass(StackViewCell.class)];
-        cell.textLabel.text = @"栈底";
+        if (_algoType == GraphAlgoDFS) {
+            cell.textLabel.text = @"栈底";
+        } else if (_algoType == GraphAlgoBFS) {
+            cell.textLabel.text = @"队列尾";
+        }
     } else { // section == 2
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:0];
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.text = @"栈顶";
+        if (_algoType == GraphAlgoDFS) {
+            cell.textLabel.text = @"栈顶";
+        } else if (_algoType == GraphAlgoBFS) {
+            cell.textLabel.text = @"队列头";
+        }
+
         cell.textLabel.font = [UIFont systemFontOfSize:21];
     }
     

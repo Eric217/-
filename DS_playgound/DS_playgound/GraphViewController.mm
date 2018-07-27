@@ -132,16 +132,15 @@
     _finished = 0;
     [self enableButtons:1];
     _restartButton.enabled = 1;
-    [self updatePrompt:0 type:0];
+    [self updatePromptsWithIn:0 Out:0];
     [_graphView reset];
     [Config postNotification:ELGraphDidRestartShowNotification message:0];
     
+    
     if (_algoType == GraphAlgoDFS) {
-        
-        [self handleIntPair:_aw_graph->startDFSFrom(pos)];
-        
+        [self handleDFSPack:_aw_graph->startDFSFrom(pos)];
     } else if (_algoType == GraphAlgoBFS) {
-        
+        [self handleBFSPack:_aw_graph->startBFSFrom(pos)];
     } else if (_algoType == GraphAlgoKRU) {
         
     } else if (_algoType == GraphAlgoPRI) {
@@ -154,11 +153,9 @@
 - (void)nextStep:(UIBarButtonItem *)sender {
     
     if (_algoType == GraphAlgoDFS) {
-        [self handleIntPair:_aw_graph->nextDFSStep(&_finished)];
-        
-        
+        [self handleDFSPack:_aw_graph->nextDFSStep(&_finished)];
     } else if (_algoType == GraphAlgoBFS) {
-        
+        [self handleBFSPack:_aw_graph->nextBFSStep(&_finished)];
     } else if (_algoType == GraphAlgoKRU) {
         
     } else if (_algoType == GraphAlgoPRI) {
@@ -166,39 +163,85 @@
     } else if (_algoType == GraphAlgoDIJ) {
         
     } else {}
+    
     if (_finished) {
         [self enableButtons:0];
     }
     
 }
 
-- (void)handleIntPair:(DFSDataPack)p {
-    
+- (void)handleDFSPack:(DFSDataPack)p {
     NodeView *n = [_graphView verticeWithOrder:p.order];
-    
     if (p.type == 0) {
-        
         [_graphView visit_node:n from:[_graphView verticeWithOrder:p.lastTop]];
-     
-    } else { }
-    
-    [self updatePrompt:n.name type:p.type];
-    
+        [self updatePromptsWithIn:@[n.name] Out:0];
+    } else if (p.type == 1) {
+        [_graphView revisit_node:n];
+        [self updatePromptsWithIn:0 Out:@[n.name]];
+    }
+  
     [Config postNotification:ELStackDidChangeNotification message:@{NotiInfoId: String(p.type), NotiInfoName: n.name}];
+}
+
+- (void)handleBFSPack:(BFSDataPack)p {
+    NodeView *s = [_graphView verticeWithOrder:p.out_node];
+    [_graphView revisit_node:s];
+    NSMutableArray *inNames = [NSMutableArray new];
+
+    for (int i = 0; i < p.in_count; i ++) {
+        NodeView *n = [_graphView verticeWithOrder:p.in_nodes[i]];
+        [_graphView visit_node:n from:s];
+        [inNames addObject:n.name];
+    }
+    
+    if (p.in_count > 0)
+        delete [] p.in_nodes;
+    
+    [self updatePromptsWithIn:inNames Out:s ? @[s.name] : 0];
+    [Config postNotification:ELStackDidChangeNotification message:@{NotiInfoId: inNames, NotiInfoName: s ? s.name : @""}];
     
 }
 
-- (void)updatePrompt:(NSString *)s type:(int)t {
-    if (!s)
-        return;
-    
-    if (t == 0) {
-        _promptLabel.text = [s stringByAppendingString:@" 入栈"];
-    } else if (t == 1) {
-        _promptLabel.text = [s stringByAppendingString:@" 出栈"];
-    } else if (t == 2) {
-        _promptLabel.text = [s stringByAppendingString:@" 出栈, 遍历完成"];
+- (void)updatePromptsWithIn:(NSArray *)i Out:(NSArray *)o {
+    if (i == 0 && o == 0) {
+        _promptLabel.text = @""; return;
     }
+    
+    NSMutableString *in_str = [NSMutableString new];
+    NSMutableString *out_str = [NSMutableString new];
+
+    for (NSString *o_s in o) {
+        [out_str appendString:o_s];
+        [out_str appendString:@", "];
+    }
+    int co = (int)o.count;
+    if (co > 0)
+        [out_str replaceCharactersInRange:NSMakeRange(out_str.length-2, 2) withString:@""];
+    
+    for (NSString *i_s in i) {
+        [in_str appendString:i_s];
+        [in_str appendString:@", "];
+    }
+    int ci = (int)i.count;
+    if (ci > 0)
+        [in_str replaceCharactersInRange:NSMakeRange(in_str.length-2, 2) withString:@""];
+
+    if (_algoType == GraphAlgoDFS) {
+        [in_str appendString:ci > 0 ? @" 入栈  " : @""];
+        [out_str appendString:co > 0 ? @" 出栈； " : @""];
+    } else if (_algoType == GraphAlgoBFS) {
+        [in_str appendString:ci > 0 ? @" 入队列  " : @""];
+        [out_str appendString:co > 0 ? @" 出队列； " : @""];
+    }
+    
+    [out_str appendString:in_str];
+    if (co > 0 && _finished)
+        [out_str appendString:@"遍历完成"];
+    int l = (int)out_str.length;
+    unichar u = [@"；" characterAtIndex:0];
+    if (l > 1 && [out_str characterAtIndex:l-2] == u)
+        [out_str replaceCharactersInRange:NSMakeRange(l-2, 2) withString:@""];
+    _promptLabel.text = out_str;
 }
 
 
@@ -249,9 +292,7 @@
     [self startShowFrom:_start_pos];
 }
 
-
-
-
+ 
 - (void)enableButtons:(bool)b {
     _nextStepButton.enabled = b;
     _resultButton.enabled = b;

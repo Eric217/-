@@ -39,7 +39,6 @@ public:
     T last() const;
     LinkedQueue<T> & push(const T &);
     LinkedQueue<T> & pop(T &);
-    T * output() const;
     
 };
 
@@ -52,21 +51,6 @@ int LinkedQueue<T>::size() const {
         node = node->link;
     }
     return s;
-}
-
-///delete manually!!!
-template <typename T>
-T * LinkedQueue<T>::output() const {
-    if (!front)
-        return 0;
-    int s = size();
-    T * arr = new T[s];
-    Node<T> * node = front;
-    for (int i = 0; i < s; i++) {
-        arr[i] = node->data;
-        node = node->link;
-    }
-    return arr;
 }
 
 template <typename T>

@@ -68,10 +68,6 @@
     }
  
    
-    DISPATCH_AT_ONCE(^{
-      
-    });
- 
 }
 
 - (void)viewDidLayoutSubviews {

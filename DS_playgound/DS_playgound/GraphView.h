@@ -17,8 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray<GraphEdge *> *edges;
 @property (nonatomic, strong) NSMutableArray<NodeView *> *vertices;
 @property (nonatomic, strong) UIColor *g_tint;
+@property (nonatomic, strong) UIColor *fresh_tint;
+
 
 - (void)visit_node:(NodeView *)n from:(NodeView *)f;
+- (void)revisit_node:(NodeView *)n;
 
 - (NodeView *)verticeWithOrder:(int)o;
 

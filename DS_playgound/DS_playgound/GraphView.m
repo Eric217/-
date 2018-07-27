@@ -21,6 +21,7 @@
     _edges = [NSMutableArray new];
     _vertices = [NSMutableArray new];
     _g_tint = UIColor.redColor;
+    _fresh_tint = UIColor.blueColor;
     self.backgroundColor = UIColor.whiteColor;
     return self;
 }
@@ -34,8 +35,13 @@
     [self setNeedsDisplay];
 }
 
+- (void)revisit_node:(NodeView *)n {
+    if (n)
+        [n setColor:_g_tint];
+}
+
 - (void)visit_node:(NodeView *)n from:(NodeView *)f {
-    [n setColor:_g_tint];
+    [n setColor:_fresh_tint];
     if (!f)
         return;
     
