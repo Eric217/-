@@ -26,6 +26,7 @@ public:
     T min() const { return element[0]; }
     bool empty() const { return !currentSize; }
     bool full() const { return currentSize == maxSize; }
+    bool contains(const T & t) const;
     void deactive() { element = 0; maxSize = currentSize = 0; }
  
     MinHeap<T> & push(const T &);
@@ -62,6 +63,15 @@ MinHeap<T>::MinHeap(T * arr, int length, int mxs) {
         arr[a] = t;
     }
   
+}
+
+
+template <typename T>
+bool MinHeap<T>::contains(const T & t) const {
+    for (int i = 0; i < currentSize; i++)
+        if (element[i] == t)
+            return 1;
+    return 0;
 }
 
 template <typename T>

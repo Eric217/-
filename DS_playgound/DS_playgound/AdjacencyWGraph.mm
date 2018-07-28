@@ -13,27 +13,37 @@
 #include "UndirectedNetwork.mm"
 #import "Common.h"
 
+/// for FDS
 struct DFSDataPack {
     int type; int order; int lastTop;
 };
 
+/// for BFS
 struct BFSDataPack {
     int * in_nodes;
     int in_count;
     int out_node;
 };
 
-template <class T>
+/// for KRU
+template <typename T>
 class EdgeForHeap {
 public:
     EdgeForHeap() {};
     EdgeForHeap(int s, int e, T w): start(s), end(e), weight(w) {};
     operator T() const { return weight; }
+    bool operator==(const EdgeForHeap &t) const { return (start==t.start&&end==t.end)||(start ==t.end&&end==t.start); }
     T weight;//边上的权值
     int start, end;//边的端点
 };
 
-
+/// for PRI
+template <typename T>
+struct PRIDataPack {
+    EdgeForHeap<T> *new_edges; ///< 无论怎样都要 delete []
+    int new_count;
+    int * old_edge; ///< 2个元素，需要delete []
+};
 
 template <typename T>
 class AdjacencyWGraph : public AdjacencyWDigraph<T>, public UndirectedNetwork {
@@ -42,7 +52,6 @@ class AdjacencyWGraph : public AdjacencyWDigraph<T>, public UndirectedNetwork {
     LinkedQueue<int> * queue;
     MinHeap<EdgeForHeap<T>> *heap;
     bool * reached;
-    
     
 public:
     AdjacencyWGraph(int ver = 10): AdjacencyWDigraph<T>(ver), reached(0), stack(0), queue(0), heap(0) {}
@@ -60,9 +69,57 @@ public:
     BFSDataPack nextBFSStep(bool *finished);
     EdgeForHeap<T> * startKruskal();
     EdgeForHeap<T> * nextKruskal();
+    PRIDataPack<T> startPrimFrom(int i);
+    PRIDataPack<T> nextPrim();
 
-    
 };
+
+
+template <typename T>
+PRIDataPack<T> AdjacencyWGraph<T>::startPrimFrom(int k) {
+    if (heap) delete heap;
+    int total = this->n, c = 0;
+    total = int(total*total/2-total/2);
+    heap = new MinHeap<EdgeForHeap<T>>(total);
+    EdgeForHeap<T> *temp_connected = new EdgeForHeap<T>[this->n-1];
+ 
+    for (int i = 1; i <= this->n; i++) {
+        if (this->arr[i][k] != NoEdge) {
+            EdgeForHeap<T> edge(i, k, this->arr[i][k]);
+            temp_connected[c++] = edge;
+            heap->push(edge);
+        }
+    }
+    int * old = new int[2];
+    old[0] = 0; old[1] = k;
+    return {temp_connected, c, old};
+}
+
+/// pack contains the edge bridging two nodes (but don't know which new) and all new edge
+template <typename T>
+PRIDataPack<T> AdjacencyWGraph<T>::nextPrim() {
+    
+    EdgeForHeap<T> *e;
+    heap->pop(e);
+    
+    int * old = new int[2];
+    old[0] = e->start;
+    old[1] = e->end;
+    
+    int c = 0;
+    EdgeForHeap<T> *temp_connected = new EdgeForHeap<T>[this->n-1];
+    
+    for (int i = 1; i <= this->n; i++) {
+        if (this->arr[i][e->start] != NoEdge) {
+            EdgeForHeap<T> edge(i, e->start, this->arr[i][e->start]);
+            if (!heap->contains(edge)) {
+                temp_connected[c++] = edge;
+                heap->push(edge);
+            }
+        }
+    }
+    return {temp_connected, c, old};
+}
 
 template <typename T>
 EdgeForHeap<T> * AdjacencyWGraph<T>::startKruskal() {
@@ -84,7 +141,8 @@ EdgeForHeap<T> * AdjacencyWGraph<T>::startKruskal() {
     }
     
     heap = new MinHeap<EdgeForHeap<T>>(edges, c);
-    EdgeForHeap<T> * e; heap->pop(e);
+    EdgeForHeap<T> * e;
+    heap->pop(e);
     return e;
 }
 
@@ -93,9 +151,6 @@ EdgeForHeap<T> * AdjacencyWGraph<T>::nextKruskal() {
     EdgeForHeap<T> * e; heap->pop(e);
     return e;
 }
-
-
-
 
 template <typename T>
 DFSDataPack AdjacencyWGraph<T>::startDFSFrom(int i) {
@@ -155,7 +210,6 @@ BFSDataPack AdjacencyWGraph<T>::nextBFSStep(bool *finished) {
             temp[c++] = i;
         }
     }
-    
     BFSDataPack p;
     if (c > 0) {
         int * arr = new int[c];
