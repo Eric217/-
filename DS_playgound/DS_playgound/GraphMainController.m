@@ -9,6 +9,8 @@
 #import "GraphMainController.h"
 #import "GraphViewController.h"
 #import "GraphStackController.h"
+#import "GraphSpanTreeController.h"
+
 #import "SubtitleCollectionCell.h"
 
 #import "Common.h"
@@ -87,12 +89,13 @@
         [Config saveDouble:28 forKey:kGraphRadius];
         [UserDefault setObject:DefaultGraph forKey:kLatestGraph];
     }
-    
+    LineWidth = 2.5;
 }
 
 - (void)back {
     self.view.window.rootViewController = self.presentingViewController;
     [self dismissViewControllerAnimated:1 completion:nil];
+    [Config defaultTreeConfig];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -127,9 +130,14 @@
  
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSArray *ts = @[_titleArr[0][IPR], _titleArr[1][IPR]];
-    GraphStackController *stack = [[GraphStackController alloc] initWithAlgoType:IPR titles:ts anotherRoot:self.view.window.rootViewController];
- 
-    UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:stack];
+    UIViewController *vc;
+    if (IPR == 0 || IPR == 1) {
+        vc = [[GraphStackController alloc] initWithAlgoType:IPR titles:ts anotherRoot:WindowRoot];
+    } else if (IPR == 2 || IPR == 3) {
+        vc = [[GraphSpanTreeController alloc] initWithAlgoType:IPR titles:ts anotherRoot:WindowRoot];
+    }
+  
+    UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:vc];
     
     // TODO: - 手机版另行适配
     [self showSplitWithMaster:masterNav detail:[[GraphViewController alloc] initWithAlgoType:IPR titles:ts]];

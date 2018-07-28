@@ -69,7 +69,7 @@
     
     self.table.tableHeaderView = _promptLabel;
     self.table.tableFooterView = _footerView;
-    self.table.backgroundColor = UIColor.groupTableViewBackgroundColor;
+    self.table.backgroundColor = TableBackColor;
    
 }
 - (void)viewDidLayoutSubviews {

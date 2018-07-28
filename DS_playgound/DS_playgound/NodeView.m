@@ -21,11 +21,8 @@
     self = [super init];
     __id = i;
     _load = 1;
-//    _visited = 0;
-//    _color = UIColor.blackColor;
     [self setColor:UIColor.blackColor];
-    _name = n;
-//    _edges = [NSMutableArray new];
+    _name = n; 
     _s_center = sc;
     
     self.layer.backgroundColor = UIColor.whiteColor.CGColor;
@@ -33,7 +30,7 @@
     [self roundStyleWithColor:0 width:LineWidth radius:[UserDefault doubleForKey:kGraphRadius]];
  
     self.text = _name;
-    self.font = [UIFont fontWithName:LetterFont size:26];
+    self.font = [UIFont fontWithName:LetterFont_B size:27];
     self.textAlignment = NSTextAlignmentCenter;
     self.userInteractionEnabled = 1;
     

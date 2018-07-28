@@ -22,16 +22,31 @@
     _vertices = [NSMutableArray new];
     _g_tint = UIColor.redColor;
     _fresh_tint = UIColor.blueColor;
+    _dead_tint = AlphaColor(UIColor.lightGrayColor, 0.56);
     self.backgroundColor = UIColor.whiteColor;
     return self;
 }
 
-- (void)reset {
+- (void)resetColor {
     for (NodeView *node in _vertices)
         [node setColor:UIColor.blackColor];
     for (GraphEdge *edge in _edges) {
         edge.color = UIColor.blackColor;
     }
+    [self setNeedsDisplay];
+}
+
+- (void)invalideEdge:(GraphEdge *)e {
+    if (!e) return;
+    e.color = _dead_tint;
+    [self setNeedsDisplay];
+}
+
+- (void)highlightEdge:(GraphEdge *)e {
+    if (!e) return;
+    e.color = _g_tint;
+    [e.startNode setColor:_g_tint];
+    [e.endNode setColor:_g_tint];
     [self setNeedsDisplay];
 }
 
@@ -42,15 +57,8 @@
 
 - (void)visit_node:(NodeView *)n from:(NodeView *)f {
     [n setColor:_fresh_tint];
-    if (!f)
-        return;
-    
-    for (GraphEdge *edge in _edges) {
-        if ((edge.startNode == f && edge.endNode == n) || (edge.startNode == n && edge.endNode == f)) {
-            edge.color = _g_tint;
-        }
-    }
-  
+    if (!f) return;
+    [self edgeWithStart:f._id end:n._id].color = _g_tint;
     [self setNeedsDisplay];
 }
 
@@ -62,27 +70,39 @@
     
     NSMutableDictionary *attr;
     if (_edges && _edges.count != 0 && _edges[0].drawCenter) {
-        CGContextSetFillColorWithColor(ctx, UIColor.whiteColor.CGColor);
         attr = [NSMutableDictionary new];
         NSMutableParagraphStyle *p = [NSMutableParagraphStyle new];
         p.alignment = NSTextAlignmentCenter;
         attr[NSParagraphStyleAttributeName] = p;
+        attr[NSFontAttributeName] = [UIFont fontWithName:LetterFont_I size:18];
         smallRadius = radius * EdgeWeightSizeRate;
     }
     
     for (GraphEdge *edge in _edges) {
+        
         CGPoint points[2] = {edge.startNode.center, edge.endNode.center};
+     
         CGContextSetStrokeColorWithColor(ctx, edge.color.CGColor);
         CGContextSetLineWidth(ctx, LineWidth);
         CGContextStrokeLineSegments(ctx, points, 2);
         if (edge.drawCenter) {
             CGRect r = SquareRect(MidPoint(points), smallRadius);
+            CGContextSetFillColorWithColor(ctx, UIColor.whiteColor.CGColor);
             CGContextFillEllipseInRect(ctx, r);
             attr[NSForegroundColorAttributeName] = edge.color;
-            [String(edge.weight) drawInRect:r withAttributes:attr];
+            [String(edge.weight) drawInRect:CGRectInset(r, 0, r.size.height/7.7) withAttributes:attr];
         }
     }
     
+}
+
+- (GraphEdge *)edgeWithStart:(int)s end:(int)e {
+    for (GraphEdge *edge in _edges) {
+        if ((edge.startNode._id == s && edge.endNode._id == e) || (edge.startNode._id == e && edge.endNode._id == s)) {
+            return edge;
+        }
+    }
+    return 0;
 }
 
 - (NodeView *)verticeWithOrder:(int)o {

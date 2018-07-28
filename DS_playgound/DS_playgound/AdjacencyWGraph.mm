@@ -11,7 +11,6 @@
 
 #include "AdjacencyWDigraph.mm"
 #include "UndirectedNetwork.mm"
-#import <Foundation/Foundation.h>
 #import "Common.h"
 
 struct DFSDataPack {
@@ -24,16 +23,29 @@ struct BFSDataPack {
     int out_node;
 };
 
+template <class T>
+class EdgeForHeap {
+public:
+    EdgeForHeap() {};
+    EdgeForHeap(int s, int e, T w): start(s), end(e), weight(w) {};
+    operator T() const { return weight; }
+    T weight;//边上的权值
+    int start, end;//边的端点
+};
+
+
+
 template <typename T>
 class AdjacencyWGraph : public AdjacencyWDigraph<T>, public UndirectedNetwork {
 
     LinkedStack<int> * stack;
     LinkedQueue<int> * queue;
+    MinHeap<EdgeForHeap<T>> *heap;
     bool * reached;
     
     
 public:
-    AdjacencyWGraph(int ver = 10): AdjacencyWDigraph<T>(ver), reached(0), stack(0), queue(0) {}
+    AdjacencyWGraph(int ver = 10): AdjacencyWDigraph<T>(ver), reached(0), stack(0), queue(0), heap(0) {}
     ~AdjacencyWGraph();
     
     AdjacencyWGraph<T> & addEdge(int i, int j, const T & w);
@@ -46,16 +58,52 @@ public:
     DFSDataPack nextDFSStep(bool *finished);
     BFSDataPack startBFSFrom(int i);
     BFSDataPack nextBFSStep(bool *finished);
+    EdgeForHeap<T> * startKruskal();
+    EdgeForHeap<T> * nextKruskal();
 
+    
 };
 
 template <typename T>
-DFSDataPack AdjacencyWGraph<T>::startDFSFrom(int i) {
-    stack = new LinkedStack<int>();
-    if (reached)
-        delete [] reached;
+EdgeForHeap<T> * AdjacencyWGraph<T>::startKruskal() {
+    if (heap) delete heap;
     
+    int total = this->n, c = 0;
+    total = int(total*total/2-total/2);
+    
+    // edges 传递给heap，heap析构时会自动 delete [] elementes
+    EdgeForHeap<int> *edges = new EdgeForHeap<int>[total];
+    
+    for (int i = 1; i <= this->n; i++) {
+        for (int j = 1; j < i; j++) {
+            if (this->arr[i][j] != NoEdge) {
+                EdgeForHeap<int> *e = edges + c++;
+                e->start = i; e->end = j; e->weight = this->arr[i][j];
+            }
+        }
+    }
+    
+    heap = new MinHeap<EdgeForHeap<T>>(edges, c);
+    EdgeForHeap<T> * e; heap->pop(e);
+    return e;
+}
+
+template <typename T>
+EdgeForHeap<T> * AdjacencyWGraph<T>::nextKruskal() {
+    EdgeForHeap<T> * e; heap->pop(e);
+    return e;
+}
+
+
+
+
+template <typename T>
+DFSDataPack AdjacencyWGraph<T>::startDFSFrom(int i) {
+    if (stack) delete stack;
+    stack = new LinkedStack<int>();
+    if (reached) delete [] reached;
     reached = new bool[this->n+1];
+    
     for (int i = 1; i < this->n+1; i++)
         reached[i] = 0;
     reached[i] = 1;
@@ -66,10 +114,9 @@ DFSDataPack AdjacencyWGraph<T>::startDFSFrom(int i) {
 /// in 的蓝色，out的红色，
 template <typename T>
 BFSDataPack AdjacencyWGraph<T>::startBFSFrom(int i) {
+    if (queue) delete queue;
     queue = new LinkedQueue<int>();
-    if (reached)
-        delete [] reached;
-    
+    if (reached) delete [] reached;
     reached = new bool[this->n+1];
     for (int i = 1; i < this->n+1; i++)
         reached[i] = 0;
@@ -141,6 +188,7 @@ template <typename T>
 AdjacencyWGraph<T>::~AdjacencyWGraph<T>() {
     if (stack) { delete stack; stack = 0;}
     if (queue) { delete queue; queue = 0; }
+    if (heap) { delete heap; heap = 0; }
     if (reached){ delete [] reached; reached = 0;}
 }
 

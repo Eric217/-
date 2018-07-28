@@ -10,25 +10,7 @@
 #define MinHeap_hpp
 #include <iostream>
 using namespace std;
-
-template <typename T, typename Q> class Huffman;
-
-template <typename T>
-inline void mySwap(T & v1, T & v2) {
-    T temp = v2;
-    v2 = v1;
-    v1 = temp;
-}
-
-///返回的index
-template <typename T>
-inline int maxChild(T * arr, int leftChld, int length) {
-    if (leftChld + 1 == length || arr[leftChld] > arr[leftChld+1])
-        return leftChld;
-    return leftChld + 1;
-}
-
-
+ 
 template <typename T>
 class MinHeap {
     T * element;
@@ -47,6 +29,7 @@ public:
     void deactive() { element = 0; maxSize = currentSize = 0; }
  
     MinHeap<T> & push(const T &);
+    MinHeap<T> & pop(T *&);
     MinHeap<T> & pop(T &);
     MinHeap<T> & pop();
 };
@@ -72,13 +55,13 @@ MinHeap<T>::MinHeap(T * arr, int length, int mxs) {
                 c_idx++;
             if (t < arr[c_idx])
                 break;
-            arr[i-1] = arr[c_idx];
+            arr[(c_idx+1)/2-1] = arr[c_idx];
             c_idx = c_idx*2+1;
         }
         int a = (c_idx+1)/2-1;
-        
         arr[a] = t;
     }
+  
 }
 
 template <typename T>
@@ -99,6 +82,27 @@ MinHeap<T> & MinHeap<T>::pop(T & receiver) {
     receiver = element[0];
     T data = element[--currentSize];
     element[currentSize] = receiver;
+    if (!currentSize)
+        return *this;
+    int i = 1; //下标
+    while (i < currentSize) {
+        if (i+1 < currentSize && element[i] > element[i+1])
+            i++;
+        if (data < element[i])
+            break;
+        element[(i+1)/2-1] = element[i];
+        i = i*2+1;
+    }
+    element[(1+i)/2-1] = data;
+    return *this;
+}
+
+template <typename T>
+MinHeap<T> & MinHeap<T>::pop(T *& receiver) {
+    
+    T data = element[--currentSize];
+    element[currentSize] = element[0];
+    receiver = element + currentSize;
     if (!currentSize)
         return *this;
     int i = 1; //下标

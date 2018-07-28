@@ -223,7 +223,7 @@
         [Config saveDouble:1 forKey:kNumericCompare];
     }
     _sortOrder = SortOrderAutomatic;
-    self.view.backgroundColor = UIColor.groupTableViewBackgroundColor;
+    self.view.backgroundColor = TableBackLightColor;
 }
 
 //MARK: - Update Constraints

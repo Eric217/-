@@ -46,7 +46,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = UIColor.groupTableViewBackgroundColor;
+    self.view.backgroundColor = TableBackLightColor;
     
     // navigation items
     self.navigationItem.title = _titles[1];
@@ -56,7 +56,8 @@
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:_backButton];
     bool oldDevice = SystemVersion < 9 || IPHONE4;
     self.navigationItem.leftBarButtonItem = oldDevice ? [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)] : backItem;
-
+    self.navigationItem.backBarButtonItem = BARBUTTON(@"返回", 0);
+    
     // algorithm name label
     _nameLabel = [UILabel new];
     NSString *algoName = [_titles[0] stringByAppendingString:@" 算法"];
@@ -82,7 +83,7 @@
     _table.allowsSelection = 0;
     _table.backgroundColor = UIColor.whiteColor;
     
-    [_table roundStyleWithColor:UIColor.groupTableViewBackgroundColor width:1.5 radius:5];
+    [_table roundStyleWithColor:UIColor.whiteColor width:1.5 radius:6];
   
     _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_table setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
@@ -125,7 +126,9 @@
         make.top.equalTo(self.selectStart.mas_bottom).offset(18);
         make.bottom.equalTo(self.startShow.mas_top).inset(22);
     }];
+    
     _stackData = [NSMutableArray new];
+    
     [Config addObserver:self selector:@selector(didReceivePointInfo:) notiName:ELGraphDidSelectPointNotification];
     [Config addObserver:self selector:@selector(stackShouldOperate:) notiName:ELStackDidChangeNotification];
     [Config addObserver:self selector:@selector(clearStack) notiName:ELGraphDidRestartShowNotification];
@@ -170,6 +173,7 @@
             [_table insertRowsAtIndexPaths:@[IndexPath(0, 1)] withRowAnimation:UITableViewRowAnimationTop];
             [_table scrollToRowAtIndexPath:IndexPath(_stackData.count-1, 1) atScrollPosition:UITableViewScrollPositionTop animated:1];
         }
+        
         NSString *out_name = noti.userInfo[NotiInfoName];
         if (out_name.length > 0) {
             [_stackData removeLastObject];

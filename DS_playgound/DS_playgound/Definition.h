@@ -47,9 +47,17 @@
 // CGRect
 #define SquareRect(centerPoint, radius) CGRectMake(centerPoint.x-radius, centerPoint.y-radius, 2*radius, 2*radius)
 
-// UINavigation Controller
-#define NavRooted(vc) [[UINavigationController alloc] initWithRootViewController:vc]
+// UIColor
+#define SystemBlue              [UIColor colorWithRed:0 green:111.0/255 blue:1 alpha:1]
+#define AlmostWhiteColor        [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1]
+#define TableBackLightestColor  [UIColor colorWithRed:0.959 green:0.959 blue:0.965 alpha:1]
+#define TableBackLightColor     [UIColor colorWithRed:0.953 green:0.953 blue:0.96 alpha:1]
+#define TableBackColor          [UIColor colorWithRed:0.935 green:0.935 blue:0.95 alpha:1]
+#define AlphaColor(color,alpha) [color colorWithAlphaComponent:alpha]
 
+// UIViewController
+#define NavRooted(vc) [[UINavigationController alloc] initWithRootViewController:vc]
+#define WindowRoot self.view.window.rootViewController
 
 // MARK: - FUNCTION
 #define DISPATCH_AT_ONCE(block) dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ block(); })
@@ -61,8 +69,6 @@
 //MARK: - PROJECT CONSTANT
 
 // UI
-#define SystemBlue  [UIColor colorWithRed:0 green:111.0/255 blue:1 alpha:1]
-
 #define LetterFont          @"TimesNewRomanPSMT"
 #define LetterFont_B        @"TimesNewRomanPS-BoldMT"
 #define LetterFont_I        @"TimesNewRomanPS-ItalicMT"
@@ -72,7 +78,7 @@
 #define TreeFontDefault     24
 #define SepaWidtDefault     1.52*UnitSizeDefault
 #define LineWidthDefault    2
-#define EdgeWeightSizeRate  0.75
+#define EdgeWeightSizeRate  0.6
 #define NoEdge              100000
 #define Reached             1
 

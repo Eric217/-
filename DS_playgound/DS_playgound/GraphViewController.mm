@@ -19,6 +19,7 @@
 #import "SQLiteManager.h"
 #import "AdjacencyWGraph.mm"
 #import <Masonry/Masonry.h>
+#include <set>
 
 @interface GraphViewController ()
 
@@ -37,6 +38,8 @@
 @property (nonatomic, copy) NSArray<NSString *> *titles; ///< title, sub
 
 @property (nonatomic, assign) AdjacencyWGraph<int> *aw_graph;
+@property (nonatomic, assign) set<int> *_set;
+
 @property (nonatomic, assign) int nodecount;
 @property (nonatomic, assign) int start_pos;
 
@@ -51,6 +54,7 @@
     self = [super init];
     _algoType = t;
     _titles = ts;
+    __set = 0;
     return self;
 }
 
@@ -93,21 +97,18 @@
     [self.view addSubview:_promptLabel];
     [_promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.equalTo(self.graphView);
-        make.size.mas_equalTo(CGSizeMake(300, 45));
+        make.size.mas_equalTo(CGSizeMake(400, 55));
     }];
     
     _start_pos = 0;
-
-    [self retriveGraph:[UserDefault objectForKey:kLatestGraph]];
+    [self retriveGraph];
     if (_nodecount > 0) {
         [Config postNotification:ELGraphDidSelectPointNotification message:@{NotiInfoId: @"1", NotiInfoName: [_graphView verticeWithOrder:1].name}];
     }
     
     [Config addObserver:self selector:@selector(indicateStart:) notiName:ELGraphShouldStartShowNotification];
     
-    
 }
-
 
 /// 通知传来开始消息，那么确定要开始吗(拦截)？
 - (void)indicateStart:(NSNotification *)noti {
@@ -129,11 +130,12 @@
 /// 重新开始、通知要求开始 最后都从这里开始
 - (void)startShowFrom:(int)pos {
     _start_pos = pos;
+  
     _finished = 0;
     [self enableButtons:1];
     _restartButton.enabled = 1;
     [self updatePromptsWithIn:0 Out:0];
-    [_graphView reset];
+    [_graphView resetColor];
     [Config postNotification:ELGraphDidRestartShowNotification message:0];
     
     
@@ -143,6 +145,10 @@
         [self handleBFSPack:_aw_graph->startBFSFrom(pos)];
     } else if (_algoType == GraphAlgoKRU) {
         
+        if (__set) { __set->clear(); }
+        else __set = new set<int>();
+        [self handleKRUPack:_aw_graph->startKruskal()];
+   
     } else if (_algoType == GraphAlgoPRI) {
         
     } else if (_algoType == GraphAlgoDIJ) {
@@ -157,7 +163,7 @@
     } else if (_algoType == GraphAlgoBFS) {
         [self handleBFSPack:_aw_graph->nextBFSStep(&_finished)];
     } else if (_algoType == GraphAlgoKRU) {
-        
+        [self handleKRUPack:_aw_graph->nextKruskal()];
     } else if (_algoType == GraphAlgoPRI) {
         
     } else if (_algoType == GraphAlgoDIJ) {
@@ -168,6 +174,21 @@
         [self enableButtons:0];
     }
     
+}
+
+- (void)handleKRUPack:(EdgeForHeap<int> *)edge {
+    int v1 = edge->start, v2 = edge->end;
+    if (__set->find(v1) != __set->end() && __set->find(v2) != __set->end()) {
+        [_graphView invalideEdge:[_graphView edgeWithStart:v1 end:v2]];
+        [self updatePromptLabel:@"构成环，删除边"];
+    } else {
+        __set->insert(edge->start);
+        __set->insert(edge->end);
+        [_graphView highlightEdge:[_graphView edgeWithStart:v1 end:v2]];
+        if (__set->size() == _nodecount)
+            _finished = 1;
+        [self updatePromptLabel:[NSString stringWithFormat:@"加入权值为 %d 的边", edge->weight]];
+    }
 }
 
 - (void)handleDFSPack:(DFSDataPack)p {
@@ -203,29 +224,18 @@
 }
 
 - (void)updatePromptsWithIn:(NSArray *)i Out:(NSArray *)o {
-    if (i == 0 && o == 0) {
-        _promptLabel.text = @""; return;
-    }
-    
+    if (i == 0 && o == 0) { _promptLabel.text = @""; return; }
     NSMutableString *in_str = [NSMutableString new];
     NSMutableString *out_str = [NSMutableString new];
-
     for (NSString *o_s in o) {
-        [out_str appendString:o_s];
-        [out_str appendString:@", "];
+        [out_str appendString:o_s]; [out_str appendString:@", "];
     }
-    int co = (int)o.count;
-    if (co > 0)
-        [out_str replaceCharactersInRange:NSMakeRange(out_str.length-2, 2) withString:@""];
-    
+    int co = (int)o.count; int ci = (int)i.count;
+    if (co > 0) [out_str replaceCharactersInRange:NSMakeRange(out_str.length-2, 2) withString:@""];
     for (NSString *i_s in i) {
-        [in_str appendString:i_s];
-        [in_str appendString:@", "];
+        [in_str appendString:i_s]; [in_str appendString:@", "];
     }
-    int ci = (int)i.count;
-    if (ci > 0)
-        [in_str replaceCharactersInRange:NSMakeRange(in_str.length-2, 2) withString:@""];
-
+    if (ci > 0) [in_str replaceCharactersInRange:NSMakeRange(in_str.length-2, 2) withString:@""];
     if (_algoType == GraphAlgoDFS) {
         [in_str appendString:ci > 0 ? @" 入栈  " : @""];
         [out_str appendString:co > 0 ? @" 出栈； " : @""];
@@ -233,20 +243,24 @@
         [in_str appendString:ci > 0 ? @" 入队列  " : @""];
         [out_str appendString:co > 0 ? @" 出队列； " : @""];
     }
-    
     [out_str appendString:in_str];
-    if (co > 0 && _finished)
-        [out_str appendString:@"遍历完成"];
-    int l = (int)out_str.length;
-    unichar u = [@"；" characterAtIndex:0];
+    if (co > 0 && _finished) [out_str appendString:@"遍历完成"];
+    int l = (int)out_str.length; unichar u = [@"；" characterAtIndex:0];
     if (l > 1 && [out_str characterAtIndex:l-2] == u)
         [out_str replaceCharactersInRange:NSMakeRange(l-2, 2) withString:@""];
     _promptLabel.text = out_str;
 }
 
+- (void)updatePromptLabel:(NSString *)str {
+    if (_finished)
+        _promptLabel.text = [str stringByAppendingString:@"； 构成最小生成树"];
+    else
+        _promptLabel.text = str;
+}
 
-- (void)retriveGraph:(NSString *)name {
- 
+
+- (void)retriveGraph {
+    NSString *name = [UserDefault objectForKey:kLatestGraph];
     NSString *sql = [NSString stringWithFormat:@"select nname, centerx x, centery y, gorder __id from graph_node where gid = (select gid from graph where gname = '%@')", name];
  
     NSArray *nodes = [SQLiteManager.shared querySQL:sql];
@@ -268,6 +282,8 @@
         int end_id = [edge[@"e"] intValue];
         _aw_graph->addEdge(start_id, end_id, weight);
         GraphEdge *edgeView = [[GraphEdge alloc] initWithWeight:weight start:[_graphView verticeWithOrder:start_id] end:[_graphView verticeWithOrder:end_id]];
+        if (_algoType != GraphAlgoBFS && _algoType != GraphAlgoDFS)
+            edgeView.drawCenter = 1;
         [_graphView.edges addObject:edgeView];
     }
  
@@ -300,7 +316,10 @@
 }
 
 - (void)showResult:(UIBarButtonItem *)sender {
-  
+    while (!_finished) {
+        [self nextStep:0];
+    }
+
 }
 
 - (void)customGraph {
@@ -321,9 +340,8 @@
 }
 
 - (void)dealloc {
-    if (_aw_graph) {
-        delete _aw_graph;
-        _aw_graph = 0;
-    }
+    if (_aw_graph) { delete _aw_graph; _aw_graph = 0; }
+    if (__set) { delete __set; __set = 0; }
+    
 }
 @end

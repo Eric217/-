@@ -9,20 +9,8 @@
 #ifndef LinkedQueue_hpp
 #define LinkedQueue_hpp
 
-#include <iostream>
-using namespace std;
-
-template <typename T> class LinkedQueue;
-template <typename T> class LinkedStack;
-
-template <typename T>
-class Node {
-    friend class LinkedQueue<T>;
-    friend class LinkedStack<T>;
-
-    T data;
-    Node<T> * link;
-};
+#include "CppNode.mm"
+ 
 
 ///front = 0 时队列为空
 template <typename T>
@@ -82,6 +70,8 @@ LinkedQueue<T> & LinkedQueue<T>::push(const T & t) {
     else
         front = rear = node;
     return *this;
+    // set<int> s;
+    
 }
 
 template <typename T>

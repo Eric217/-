@@ -58,7 +58,7 @@
     
     
      
-    self.view.backgroundColor = UIColor.groupTableViewBackgroundColor;
+    self.view.backgroundColor = TableBackLightColor;
     
 
 }

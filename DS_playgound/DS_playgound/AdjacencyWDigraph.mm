@@ -26,15 +26,7 @@ void delete2DArray(T * * & arr, int row) {
     delete [] arr;
     arr = 0;
 }
-template <typename T>
-class Dist {
-public:
-    Dist() {}
-    Dist(T d, int i): dist(d), idx(i) {}
-    T dist;
-    int idx;
-    operator int() const { return dist; }
-};
+
 
 template <typename T>
 class AdjacencyWDigraph : public virtual Network {
@@ -76,7 +68,15 @@ public:
     int nextIterator(int i);
 };
 
-
+template <typename T>
+class Dist {
+public:
+    Dist() {}
+    Dist(T d, int i): dist(d), idx(i) {}
+    T dist;
+    int idx;
+    operator T() const { return dist; }
+};
 /// Dijkstra. 这里的T就是按int做的了
 /// 需要一个数组标记顶点i是否在路径中
 /// dist标记路径外的点通过以生成的路径到起始点的最短距离

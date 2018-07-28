@@ -66,6 +66,7 @@
 		07BB290020F7690300909AFE /* PinyinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB28FE20F7690300909AFE /* PinyinHelper.m */; };
 		07BB290220F769A100909AFE /* unicode_to_hanyu_pinyin.txt in Resources */ = {isa = PBXBuildFile; fileRef = 07BB290120F769A100909AFE /* unicode_to_hanyu_pinyin.txt */; };
 		07BDE1EC2102CFA60009968B /* NSString+funcs.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BDE1EB2102CFA60009968B /* NSString+funcs.m */; };
+		07CFD587210C601F00376AD5 /* GraphSpanTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CFD586210C601F00376AD5 /* GraphSpanTreeController.m */; };
 		07D609B820FC603C00838E3A /* SelectTravesalController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D609B720FC603C00838E3A /* SelectTravesalController.m */; };
 		07D609BB20FCB2A700838E3A /* TravesingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D609BA20FCB2A700838E3A /* TravesingController.m */; };
 		07DBCF6D210B054F0062D9B9 /* GraphDescController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07DBCF6C210B054F0062D9B9 /* GraphDescController.m */; };
@@ -194,6 +195,9 @@
 		07BB290120F769A100909AFE /* unicode_to_hanyu_pinyin.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = unicode_to_hanyu_pinyin.txt; path = PinYinConverter/unicode_to_hanyu_pinyin.txt; sourceTree = "<group>"; };
 		07BDE1EA2102CFA60009968B /* NSString+funcs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+funcs.h"; sourceTree = "<group>"; };
 		07BDE1EB2102CFA60009968B /* NSString+funcs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+funcs.m"; sourceTree = "<group>"; };
+		07CFD585210C601F00376AD5 /* GraphSpanTreeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphSpanTreeController.h; sourceTree = "<group>"; };
+		07CFD586210C601F00376AD5 /* GraphSpanTreeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphSpanTreeController.m; sourceTree = "<group>"; };
+		07CFD58C210C8A6400376AD5 /* CppNode.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CppNode.mm; sourceTree = "<group>"; };
 		07D609B620FC603C00838E3A /* SelectTravesalController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectTravesalController.h; sourceTree = "<group>"; };
 		07D609B720FC603C00838E3A /* SelectTravesalController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectTravesalController.m; sourceTree = "<group>"; };
 		07D609B920FCB2A700838E3A /* TravesingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravesingController.h; sourceTree = "<group>"; };
@@ -536,6 +540,7 @@
 				07ECFEAD21086B1D00609875 /* UndirectedNetwork.mm */,
 				0715CD4121086B9700A8594D /* LinkedQueue.mm */,
 				07ECFEAB21086B1D00609875 /* MinHeap.mm */,
+				07CFD58C210C8A6400376AD5 /* CppNode.mm */,
 			);
 			name = GraphModal;
 			sourceTree = "<group>";
@@ -554,6 +559,8 @@
 			children = (
 				077AA9DA2105DC4E00BA1F9B /* GraphStackController.h */,
 				077AA9DB2105DC4E00BA1F9B /* GraphStackController.m */,
+				07CFD585210C601F00376AD5 /* GraphSpanTreeController.h */,
+				07CFD586210C601F00376AD5 /* GraphSpanTreeController.m */,
 				070B994E210713DF000BD552 /* GraphViewController.h */,
 				070B994F210713DF000BD552 /* GraphViewController.mm */,
 				07DBCF6B210B054F0062D9B9 /* GraphDescController.h */,
@@ -863,6 +870,7 @@
 				075B158A20F74A4E0081CD48 /* ELTreeUnitCell.m in Sources */,
 				077AA9DC2105DC4E00BA1F9B /* GraphStackController.m in Sources */,
 				070D71E620F74CA300175D20 /* UIImage+operations.m in Sources */,
+				07CFD587210C601F00376AD5 /* GraphSpanTreeController.m in Sources */,
 				0715CD4421087E6A00A8594D /* SQLiteManager.m in Sources */,
 				070D71F620F74CE600175D20 /* BubbleSorter.m in Sources */,
 				076B62F42103264B0029584A /* UIViewController+SplitController.m in Sources */,

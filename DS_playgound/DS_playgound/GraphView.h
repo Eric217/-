@@ -16,16 +16,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableArray<GraphEdge *> *edges;
 @property (nonatomic, strong) NSMutableArray<NodeView *> *vertices;
-@property (nonatomic, strong) UIColor *g_tint;
-@property (nonatomic, strong) UIColor *fresh_tint;
+@property (nonatomic, strong) UIColor *g_tint; ///< 正常选中颜色
+@property (nonatomic, strong) UIColor *fresh_tint; ///< fresh 选中颜色
+@property (nonatomic, strong) UIColor *dead_tint; ///< deleted edge color
 
 
 - (void)visit_node:(NodeView *)n from:(NodeView *)f;
 - (void)revisit_node:(NodeView *)n;
+- (void)invalideEdge:(GraphEdge *)e;
+- (void)highlightEdge:(GraphEdge *)e;
 
 - (NodeView *)verticeWithOrder:(int)o;
+- (GraphEdge *)edgeWithStart:(int)s end:(int)e;
 
-- (void)reset;
+- (void)resetColor;
 
 @end
 
