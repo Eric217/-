@@ -23,8 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)visit_node:(NodeView *)n from:(NodeView *)f;
 - (void)revisit_node:(NodeView *)n;
-- (void)invalideEdge:(GraphEdge *)e;
-- (void)highlightEdge:(GraphEdge *)e;
+- (void)invalidate_edge:(GraphEdge *)e;
+- (void)visit_edge:(GraphEdge *)e;
+- (void)revisit_edge:(GraphEdge *)e;
 
 - (NodeView *)verticeWithOrder:(int)o;
 - (GraphEdge *)edgeWithStart:(int)s end:(int)e;

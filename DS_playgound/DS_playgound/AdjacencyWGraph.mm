@@ -11,7 +11,15 @@
 
 #include "AdjacencyWDigraph.mm"
 #include "UndirectedNetwork.mm"
+#include <set>
 #import "Common.h"
+
+/// customed operator for PRIM !!
+struct IntPair {
+    int v1, v2;
+    bool operator==(const IntPair & t) const { return (v1==t.v1&v2==t.v2)||(v1==t.v2&&v2==t.v1); }
+    bool operator<(const IntPair & t) const { return !(*this == t); }
+};
 
 /// for FDS
 struct DFSDataPack {
@@ -41,8 +49,9 @@ public:
 template <typename T>
 struct PRIDataPack {
     EdgeForHeap<T> *new_edges; ///< 无论怎样都要 delete []
-    int new_count;
-    int * old_edge; ///< 2个元素，需要delete []
+    int edge_count;
+    int new_node;
+    int from_node;
 };
 
 template <typename T>
@@ -50,11 +59,13 @@ class AdjacencyWGraph : public AdjacencyWDigraph<T>, public UndirectedNetwork {
 
     LinkedStack<int> * stack;
     LinkedQueue<int> * queue;
-    MinHeap<EdgeForHeap<T>> *heap;
+    MinHeap<EdgeForHeap<T>> * heap;
+    set<int> * _set;
+    set<IntPair> *_edge_set;
     bool * reached;
     
 public:
-    AdjacencyWGraph(int ver = 10): AdjacencyWDigraph<T>(ver), reached(0), stack(0), queue(0), heap(0) {}
+    AdjacencyWGraph(int ver = 10): AdjacencyWDigraph<T>(ver), reached(0), stack(0), queue(0), heap(0), _set(0) {}
     ~AdjacencyWGraph();
     
     AdjacencyWGraph<T> & addEdge(int i, int j, const T & w);
@@ -78,6 +89,11 @@ public:
 template <typename T>
 PRIDataPack<T> AdjacencyWGraph<T>::startPrimFrom(int k) {
     if (heap) delete heap;
+    if (_set) _set->clear();
+    else _set = new set<int>();
+    if (_edge_set) _edge_set->clear();
+    else _edge_set = new set<IntPair>();
+    
     int total = this->n, c = 0;
     total = int(total*total/2-total/2);
     heap = new MinHeap<EdgeForHeap<T>>(total);
@@ -87,38 +103,47 @@ PRIDataPack<T> AdjacencyWGraph<T>::startPrimFrom(int k) {
         if (this->arr[i][k] != NoEdge) {
             EdgeForHeap<T> edge(i, k, this->arr[i][k]);
             temp_connected[c++] = edge;
+            _edge_set->insert({k, i});
             heap->push(edge);
         }
     }
-    int * old = new int[2];
-    old[0] = 0; old[1] = k;
-    return {temp_connected, c, old};
+    _set->insert(k);
+    return {temp_connected, c, k, 0};
 }
 
 /// pack contains the edge bridging two nodes (but don't know which new) and all new edge
 template <typename T>
 PRIDataPack<T> AdjacencyWGraph<T>::nextPrim() {
     
-    EdgeForHeap<T> *e;
-    heap->pop(e);
+    EdgeForHeap<T> heap_top;
+    heap->pop(heap_top);
     
-    int * old = new int[2];
-    old[0] = e->start;
-    old[1] = e->end;
-    
+    int from = heap_top.start, to = heap_top.end;
+    if (_set->find(heap_top.start) == _set->end()) {
+        from = to; to = heap_top.start;
+    }
+
     int c = 0;
     EdgeForHeap<T> *temp_connected = new EdgeForHeap<T>[this->n-1];
     
     for (int i = 1; i <= this->n; i++) {
-        if (this->arr[i][e->start] != NoEdge) {
-            EdgeForHeap<T> edge(i, e->start, this->arr[i][e->start]);
-            if (!heap->contains(edge)) {
+        if (this->arr[i][to] != NoEdge) {
+            bool f = 0;
+            for (set<IntPair>::iterator it = _edge_set->begin(); it != _edge_set->end(); it++) {
+                if ((it->v1 == i && it->v2 == to) || (it->v2 == i && it->v1 == to)) {
+                    f = 1; break;
+                }
+            }
+            if (!f) {
+                EdgeForHeap<T> edge(i, to, this->arr[i][to]);
                 temp_connected[c++] = edge;
                 heap->push(edge);
-            }
+                _edge_set->insert({i, to});
+            } 
         }
     }
-    return {temp_connected, c, old};
+    _set->insert(to);
+    return {temp_connected, c, to, from};
 }
 
 template <typename T>
@@ -240,10 +265,12 @@ AdjacencyWGraph<T> & AdjacencyWGraph<T>::deleteEdge(int i, int j) {
 
 template <typename T>
 AdjacencyWGraph<T>::~AdjacencyWGraph<T>() {
-    if (stack) { delete stack; stack = 0;}
+    if (stack) { delete stack; stack = 0; }
     if (queue) { delete queue; queue = 0; }
     if (heap) { delete heap; heap = 0; }
-    if (reached){ delete [] reached; reached = 0;}
+    if (_set) { delete _set; _set = 0; } //
+    if (_edge_set) { delete _edge_set; _edge_set = 0; }
+    if (reached){ delete [] reached; reached = 0; }
 }
 
 #endif /* AdjacencyWGraph_hpp */

@@ -36,13 +36,20 @@
     [self setNeedsDisplay];
 }
 
-- (void)invalideEdge:(GraphEdge *)e {
+- (void)invalidate_edge:(GraphEdge *)e {
     if (!e) return;
     e.color = _dead_tint;
     [self setNeedsDisplay];
 }
 
-- (void)highlightEdge:(GraphEdge *)e {
+- (void)visit_edge:(GraphEdge *)e {
+    if (!e) return;
+    e.color = _fresh_tint;
+    [self setNeedsDisplay];
+}
+
+/// 变红
+- (void)revisit_edge:(GraphEdge *)e {
     if (!e) return;
     e.color = _g_tint;
     [e.startNode setColor:_g_tint];
@@ -97,6 +104,8 @@
 }
 
 - (GraphEdge *)edgeWithStart:(int)s end:(int)e {
+    if (s == e)
+        return 0;
     for (GraphEdge *edge in _edges) {
         if ((edge.startNode._id == s && edge.endNode._id == e) || (edge.startNode._id == e && edge.endNode._id == s)) {
             return edge;

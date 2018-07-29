@@ -38,7 +38,9 @@
 @property (nonatomic, copy) NSArray<NSString *> *titles; ///< title, sub
 
 @property (nonatomic, assign) AdjacencyWGraph<int> *aw_graph;
-@property (nonatomic, assign) set<set<int> *> *_set;
+@property (nonatomic, assign) set<set<int> *> *kru_set;
+@property (nonatomic, assign) set<int> *prim_set;
+
 
 @property (nonatomic, assign) int nodecount;
 @property (nonatomic, assign) int added_edge_count;
@@ -56,7 +58,8 @@
     self = [super init];
     _algoType = t;
     _titles = ts;
-    __set = 0;
+    _kru_set = 0;
+    _prim_set = 0;
     return self;
 }
 
@@ -145,14 +148,16 @@
     } else if (_algoType == GraphAlgoBFS) {
         [self handleBFSPack:_aw_graph->startBFSFrom(pos)];
     } else if (_algoType == GraphAlgoKRU) {
-        if (__set) {
-            for (set<set<int> *>::iterator it = __set->begin(); it != __set->end(); it++) {
+        if (_kru_set) {
+            for (set<set<int> *>::iterator it = _kru_set->begin(); it != _kru_set->end(); it++) {
                 set<int> * s = *it; delete s;
-            } __set->clear(); }
-        else __set = new set<set<int> *>();
+            } _kru_set->clear(); }
+        else _kru_set = new set<set<int> *>();
         [self handleKRUPack:_aw_graph->startKruskal()];
     } else if (_algoType == GraphAlgoPRI) {
-        _aw_graph->startPrimFrom(_start_pos);
+        if (_prim_set) _prim_set->clear();
+        else _prim_set = new set<int>();
+        [self handlePRIPack:_aw_graph->startPrimFrom(_start_pos)];
     } else if (_algoType == GraphAlgoDIJ) {
         
     } else {}
@@ -167,7 +172,7 @@
     } else if (_algoType == GraphAlgoKRU) {
         [self handleKRUPack:_aw_graph->nextKruskal()];
     } else if (_algoType == GraphAlgoPRI) {
-        
+        [self handlePRIPack:_aw_graph->nextPrim()];
     } else if (_algoType == GraphAlgoDIJ) {
         
     } else {}
@@ -178,16 +183,39 @@
     
 }
 
+- (void)handlePRIPack:(PRIDataPack<int>)p {
+    int from = p.from_node, to = p.new_node;
+    if (!from) {
+        from = to; [_graphView revisit_node:[_graphView verticeWithOrder:to]];
+    }
+    GraphEdge *edge = [_graphView edgeWithStart:from end:to];
+    bool b1 = _prim_set->find(to) != _prim_set->end();
+    if (b1) { // 环
+        [_graphView invalidate_edge:edge];
+        // label: 构成环，删除边
+    } else {
+        [_graphView revisit_edge:edge];
+        for (int i = 0; i < p.edge_count; i++) {
+            EdgeForHeap<int> *e = p.new_edges + i;
+            if (_prim_set->find(e->start) == _prim_set->end() && _prim_set->find(e->end) == _prim_set->end())
+                [_graphView visit_edge:[_graphView edgeWithStart:e->start end:e->end]];
+        }
+        _prim_set->insert(to);
+        _finished = _prim_set->size() == _nodecount;
+    }
+    delete [] p.new_edges;
+}
+
 - (void)handleKRUPack:(EdgeForHeap<int> *)edge {
     int v1 = edge->start, v2 = edge->end;
 
-    set<set<int> *>::iterator it = __set->begin();
+    set<set<int> *>::iterator it = _kru_set->begin();
     bool finded = 0, exec = 0;
-    for (; it != __set->end(); it++) {
+    for (; it != _kru_set->end(); it++) {
         set<int> * s = *it;
         if (!(s->find(v1) == s->end() && s->find(v2) == s->end())) {
             if (s->find(v1) != s->end() && s->find(v2) != s->end()) { //都找到了
-                [_graphView invalideEdge:[_graphView edgeWithStart:v1 end:v2]];
+                [_graphView invalidate_edge:[_graphView edgeWithStart:v1 end:v2]];
                 [self updatePromptLabel:@"构成环，删除边"];
             } else { //只有一处找到了
                 s->insert(v1); s->insert(v2); exec = 1;
@@ -197,11 +225,11 @@
     }
     if (!finded) {
         set<int> * s = new set<int>(); s->insert(v1); s->insert(v2);
-        __set->insert(s); exec = 1;
+        _kru_set->insert(s); exec = 1;
     }
     if (exec) {
         _added_edge_count ++;
-        [_graphView highlightEdge:[_graphView edgeWithStart:v1 end:v2]];
+        [_graphView revisit_edge:[_graphView edgeWithStart:v1 end:v2]];
         if (_added_edge_count == _nodecount-1)
             _finished = 1;
         [self updatePromptLabel:[NSString stringWithFormat:@"加入权值为 %d 的边", edge->weight]];
@@ -358,11 +386,11 @@
 
 - (void)dealloc {
     if (_aw_graph) { delete _aw_graph; _aw_graph = 0; }
-    if (__set) {
-        for (set<set<int> *>::iterator it = __set->begin(); it != __set->end(); it++) {
-            set<int> * s = *it; delete s;
-        }
-        delete __set;
+    if (_kru_set) {
+        for (set<set<int> *>::iterator it = _kru_set->begin(); it != _kru_set->end(); it++) {
+            set<int> * s = *it; delete s; }
+        delete _kru_set;
     }
+    if (_prim_set) delete _prim_set;
 }
 @end
