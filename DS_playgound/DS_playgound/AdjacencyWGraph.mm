@@ -65,7 +65,7 @@ class AdjacencyWGraph : public AdjacencyWDigraph<T>, public UndirectedNetwork {
     bool * reached;
     
 public:
-    AdjacencyWGraph(int ver = 10): AdjacencyWDigraph<T>(ver), reached(0), stack(0), queue(0), heap(0), _set(0) {}
+    AdjacencyWGraph(int ver = 10): AdjacencyWDigraph<T>(ver), reached(0), stack(0), queue(0), heap(0), _set(0), _edge_set(0) {}
     ~AdjacencyWGraph();
     
     AdjacencyWGraph<T> & addEdge(int i, int j, const T & w);

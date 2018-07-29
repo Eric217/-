@@ -20,16 +20,15 @@
 
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) UILabel *nameLabel;
-@property (nonatomic, strong) UITableViewCell *selectStart;
 @property (nonatomic, strong) UIButton *startShow;
-
-@property (nonatomic, copy) NSMutableArray *stackData;
+@property (nonatomic, strong) UITableViewCell *selectStart;
 @property (nonatomic, strong) UIViewController *anotherRootVC;
 
-@property (nonatomic, assign) GraphAlgo algoType;
 @property (nonatomic, copy) NSArray *titles;
-@property (nonatomic, assign) int start_pos;
+@property (nonatomic, copy) NSMutableArray *stackData;
 
+@property (nonatomic, assign) int start_pos;
+@property (nonatomic, assign) GraphAlgo algoType;
 
 @end
 
