@@ -101,8 +101,8 @@
     _promptLabel = [UILabel labelWithTitle:0 fontSize:20 align:NSTextAlignmentLeft];
     [self.view addSubview:_promptLabel];
     [_promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.equalTo(self.graphView);
-        make.size.mas_equalTo(CGSizeMake(400, 55));
+        make.left.width.bottom.equalTo(self.graphView);
+        make.height.mas_equalTo(52);
     }];
     
     _start_pos = 0;
@@ -192,16 +192,26 @@
     bool b1 = _prim_set->find(to) != _prim_set->end();
     if (b1) { // 环
         [_graphView invalidate_edge:edge];
-        // label: 构成环，删除边
+        [self updatePromptLabel:[NSString stringWithFormat:@"选中边:(%@, %@)会构成环，删除该边", edge.startNode.name, edge.endNode.name]];
     } else {
         [_graphView revisit_edge:edge];
+        NSMutableString *mut = from == to ? [NSMutableString new] : [NSMutableString stringWithFormat:@"选中边:(%@, %@)", edge.startNode.name, edge.endNode.name];
+        if (p.edge_count > 0) {
+            if (from != to)
+                [mut appendString:@";  "];
+            [mut appendString:@"新增待选边: "];
+        }
         for (int i = 0; i < p.edge_count; i++) {
             EdgeForHeap<int> *e = p.new_edges + i;
-            if (_prim_set->find(e->start) == _prim_set->end() && _prim_set->find(e->end) == _prim_set->end())
-                [_graphView visit_edge:[_graphView edgeWithStart:e->start end:e->end]];
+            GraphEdge *ee = [_graphView edgeWithStart:e->start end:e->end];
+            [mut appendString:[NSString stringWithFormat:@"(%@, %@) ", ee.startNode.name, ee.endNode.name]];
+            [_graphView visit_edge:ee];
         }
+        
         _prim_set->insert(to);
+      
         _finished = _prim_set->size() == _nodecount;
+        [self updatePromptLabel:mut];
     }
     delete [] p.new_edges;
 }
@@ -215,8 +225,9 @@
         set<int> * s = *it;
         if (!(s->find(v1) == s->end() && s->find(v2) == s->end())) {
             if (s->find(v1) != s->end() && s->find(v2) != s->end()) { //都找到了
-                [_graphView invalidate_edge:[_graphView edgeWithStart:v1 end:v2]];
-                [self updatePromptLabel:@"构成环，删除边"];
+                GraphEdge *ee = [_graphView edgeWithStart:v1 end:v2];
+                [_graphView invalidate_edge:ee];
+                [self updatePromptLabel:[NSString stringWithFormat:@"选中边:(%@, %@)会构成环，删除该边", ee.startNode.name, ee.endNode.name]];
             } else { //只有一处找到了
                 s->insert(v1); s->insert(v2); exec = 1;
             }
@@ -298,7 +309,7 @@
 
 - (void)updatePromptLabel:(NSString *)str {
     if (_finished)
-        _promptLabel.text = [str stringByAppendingString:@"； 构成最小生成树"];
+        _promptLabel.text = [str stringByAppendingString:@"; 构成最小生成树"];
     else
         _promptLabel.text = str;
 }

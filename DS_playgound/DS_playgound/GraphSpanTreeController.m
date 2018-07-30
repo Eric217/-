@@ -21,12 +21,14 @@
 @property (nonatomic, strong) UILabel *descLabel;
 @property (nonatomic, strong) UIButton *startShow;
 @property (nonatomic, strong) UIScrollView *subScroll;
+@property (nonatomic, strong) UITableViewCell *selectStart;
 @property (nonatomic, strong) UIViewController *anotherRootVC;
 
 @property (nonatomic, strong) NSString *source;
 @property (nonatomic, strong) NSArray *titles;
 
 @property (nonatomic, assign) GraphAlgo algoType;
+@property (nonatomic, assign) int start_pos;
 
 @end
 
@@ -43,7 +45,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = TableBackLightestColor;
+    if (self.algoType == GraphAlgoPRI)
+        self.view.backgroundColor = TableBackColor;
+    else
+        self.view.backgroundColor = TableBackLightestColor;
     
     // navigation items
     self.navigationItem.title = _titles[1];
@@ -57,9 +62,20 @@
     NSString *algoName = [_titles[0] stringByAppendingString:@" 算法"];
     NSMutableParagraphStyle *paraStyle = [NSMutableParagraphStyle new];
     paraStyle.alignment = NSTextAlignmentCenter;
-    NSDictionary *attr = @{NSFontAttributeName: [UIFont fontWithName:LetterFont size:28], NSParagraphStyleAttributeName: paraStyle};
+    NSDictionary *attr = @{NSFontAttributeName: [UIFont fontWithName:LetterFont size:29], NSParagraphStyleAttributeName: paraStyle};
     _nameLabel.attributedText = [[NSAttributedString alloc] initWithString:algoName attributes:attr];;
     [self.view addSubview:_nameLabel];
+    
+    // select start view
+    if (_algoType == GraphAlgoPRI) {
+        _selectStart = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:0];
+        [self.view addSubview:_selectStart];
+        _selectStart.textLabel.font = [UIFont systemFontOfSize:22];
+        _selectStart.detailTextLabel.font = [UIFont systemFontOfSize:22];
+        _selectStart.detailTextLabel.textColor = UIColor.darkGrayColor;
+        _selectStart.textLabel.text = @"图中点击选择起点:";
+        _selectStart.backgroundColor = AlmostWhiteColor;
+    }
     
     // start show button
     _startShow = [UIButton buttonWithTitle:@"开始演示" fontSize:23 textColor:UIColor.blackColor target:self action:@selector(startDisplay:) image:[UIImage pushImage]];
@@ -67,11 +83,10 @@
     [_startShow setImageEdgeInsets:UIEdgeInsetsMake(0, 125, 0, 0)];
     [self.view addSubview:_startShow];
     
-    
+    // desc label and its scroll view
     _subScroll = [UIScrollView new];
     _subScroll.alwaysBounceVertical = 1;
     [self.view addSubview:_subScroll];
-    
     _descLabel = [[UILabel alloc] init];
     _descLabel.numberOfLines = 0;
     [_subScroll addSubview:_descLabel];
@@ -84,6 +99,15 @@
         make.top.equalTo(self.view).offset(64+[Config v_pad:40 plus:18 p:12 min:8]);
     }];
     
+    if (_algoType == GraphAlgoPRI) {
+        [_selectStart mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.nameLabel.mas_bottom).offset([Config v_pad:25 plus:13 p:12 min:8]);
+            make.centerX.equalTo(self.view);
+            make.width.mas_equalTo(250);
+            make.height.mas_equalTo(40);
+        }];
+    }
+    
     [_startShow mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view).inset([Config v_pad:41 plus:34 p:30 min:24]);
         make.height.mas_equalTo(44);
@@ -91,20 +115,31 @@
     }];
     
     [_subScroll mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.nameLabel.mas_bottom).offset(30);
+        if (self.algoType == GraphAlgoPRI) {
+            make.top.equalTo(self.selectStart.mas_bottom).offset(25);
+        } else {
+            make.top.equalTo(self.nameLabel.mas_bottom).offset(30);
+        }
         make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.startShow.mas_top).inset(30);
     }];
-    _subScroll.backgroundColor = AlmostWhiteColor;
+    //_subScroll.backgroundColor = AlmostWhiteColor;
     
     if (_algoType == GraphAlgoKRU) {
-        _source = @"对于N个顶点的连通图：\n1. 设T为已选边的集合，E为所有边的集合；\n2. 每次点击 下一步时执行：\n    (1) 从E中选择代价最小的边，并从E中删除；\n    (2) 如果该边加入T中不产生环路，则将其加入T中；\n    (3) 当T中有N-1条边时，算法结束（没有环、N个顶点的连通图有N-1条边，即最小生成树）。";
+        _source = @"对于 N 个顶点的连通图：\n1. 设 T 为已选边的集合，E 为所有边的集合；\n2. 每次点击 下一步时执行：\n     (1) 从 E 中选择代价最小的边，并从 E 中删除；\n     (2) 如果该边加入 T 中不产生环路，则将其加入 T 中；\n     (3) 当T中有 N-1 条边时，算法结束（没有环、N 个顶点的连通图有 N-1 条边，即最小生成树）。";
     } else if (_algoType == GraphAlgoPRI) {
-        _source = @" ";
+        _source = @"对于 N 个顶点的连通图：\n1. 选择任意一个顶点为起点；\n2. 设T为具有该单一顶点的树；\n3. 每次点击下一步时执行：\n     (1) 往 T 中加入一条代价最小的边，使 T 仍是一棵树（连通、无环）。\n     (2) 当 T 中有 N-1 条边时，算法结束（无环、N 个顶点的连通图有 N-1 条边，即最小生成树）。";
     }
     
+    if (self.algoType == GraphAlgoPRI)
+        [Config addObserver:self selector:@selector(didReceivePointInfo:) notiName:ELGraphDidSelectPointNotification];
+
 }
 
+- (void)didReceivePointInfo:(NSNotification *)noti {
+    _start_pos = [noti.userInfo[@"id"] intValue];
+    _selectStart.detailTextLabel.text = noti.userInfo[@"name"];
+}
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
@@ -139,7 +174,7 @@
     
     // TODO: - 提示框，是否重置
     
-    [Config postNotification:ELGraphShouldStartShowNotification message:0];
+    [Config postNotification:ELGraphShouldStartShowNotification message:@{NotiInfoId: String(_start_pos)}];
     
 }
 
