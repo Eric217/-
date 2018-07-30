@@ -27,10 +27,14 @@
 @property (nonatomic, strong) UIViewController *anotherRootVC;
 
 @property (nonatomic, copy) NSArray *titles;
-@property (nonatomic, copy) NSMutableArray *dataArr;
+@property (nonatomic, strong) NSString *pos_name;
 
 @property (nonatomic, assign) int start_pos;
 @property (nonatomic, assign) GraphAlgo algoType;
+
+@property (nonatomic, assign) bool start_clicked;
+@property (nonatomic, copy) NSMutableArray<NSMutableArray *> *dataArr;
+
 
 @end
 
@@ -87,7 +91,8 @@
     _table.dataSource = self;
     _table.allowsSelection = 0;
     _table.backgroundColor = UIColor.whiteColor;
-
+    _table.tableFooterView = [UIView new];
+    
     [_table roundStyleWithColor:UIColor.whiteColor width:1.5 radius:6];
     
     [_table setContentInset:UIEdgeInsetsMake(9, 0, 3, 0)];
@@ -98,7 +103,7 @@
     [_startShow setTitleEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     [_startShow setImageEdgeInsets:UIEdgeInsetsMake(0, 125, 0, 0)];
     [self.view addSubview:_startShow];
-    
+    _start_clicked = 0;
     // constraints
     
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -134,36 +139,35 @@
         make.bottom.equalTo(self.startShow.mas_top).inset(20);
     }];
     
-    _dataArr = [NSMutableArray new];
-//    [NSString stringWithFormat:@"到达 %@ 最短距离: %d", , 1];
-    [_dataArr addObject:@[@"到达 2 最短距离: 25", @"1 -> 4 -> 7 -> 5 -> 2 -> 4 -> 7 -> 5 -> 4 -> 7 -> 5"]];
-    [_dataArr addObject:@[@"到达 2 最短距离: 25", @"1 -> 4 -> 7 -> 5 -> 2 -> 4 -> 7 -> 5 -> 4 -> 7 -> 5"]];
-    [_dataArr addObject:@[@"到达 2 最短距离: 25", @"1 -> 4 -> 7 -> 5 -> 2 -> 4 -> 7 -> 5 -> 4 -> 7 -> 5"]];
-    [_dataArr addObject:@[@"test", @"tedataArr addObjecdataArr addObjecst2"]];
-    [_dataArr addObject:@[@"test", @"test2"]];
-    [_dataArr addObject:@[@"tedataArr addObjecdataArr addObjecst", @"tesdataArr addObjecdataArr addObject2"]];
-    [_dataArr addObject:@[@"test", @"test2"]];
-    [_dataArr addObject:@[@"tedataArr addObjecdataArr addObjecst", @"test2"]];
-    [_dataArr addObject:@[@"tesdataArr addObjecdataArr addObject", @"tdataArr addObjecdataArr addObjecdataArr addObjecdataArr addObjecest2"]];
-
-//    [_dataArr removeAllObjects];
-
     [Config addObserver:self selector:@selector(didReceivePointInfo:) notiName:ELGraphDidSelectPointNotification];
+    
     [Config addObserver:self selector:@selector(stackShouldOperate:) notiName:ELStackDidChangeNotification];
-    [Config addObserver:self selector:@selector(clearStack) notiName:ELGraphDidRestartShowNotification];
+  
+    [Config addObserver:self selector:@selector(getTableInitData:) notiName:ELGraphDidInitPathTableNotification];
     
 }
 
 - (void)didReceivePointInfo:(NSNotification *)noti {
     _start_pos = [noti.userInfo[@"id"] intValue];
-    NSString *pos_name = noti.userInfo[@"name"];
-    _selectStart.detailTextLabel.text = pos_name;
-    _tableHeaderPrompt.text = [NSString stringWithFormat:@"从 %@ 到各顶点的最短路如下 :", pos_name];
+    _pos_name = noti.userInfo[@"name"];
+    _selectStart.detailTextLabel.text = _pos_name;
+    if (!_start_clicked)
+        _tableHeaderPrompt.text = [NSString stringWithFormat:@"从 %@ 到各顶点的最短路如下 :", _pos_name];
     
+}
+
+- (void)getTableInitData:(NSNotification *)noti {
+    _dataArr = noti.userInfo[@"0"];
+    [_table reloadData];
 }
 
 
 - (void)startDisplay:(id)sender {
+    _start_clicked = 1;
+    if (_start_clicked)
+        _tableHeaderPrompt.text = [NSString stringWithFormat:@"从 %@ 到各顶点的最短路如下 :", _pos_name];
+    else _start_clicked = 1;
+    
     if (self.splitViewController.viewControllers.count == 1) {
         // 手机版另行适配
     }
@@ -176,11 +180,16 @@
 
 - (void)stackShouldOperate:(NSNotification *)noti {
     if (_algoType == GraphAlgoDIJ) {
-        
-        
-        
+        NSString *_id = noti.userInfo[@"0"];
+        for (NSMutableArray *arr in _dataArr) {
+            if ([arr[0] isEqualToString:_id]) {
+                arr[1] = noti.userInfo[@"1"];
+                arr[2] = noti.userInfo[@"2"];
+                [_table reloadData];
+                break;
+            }
+        }
     }
-    
 }
 
 - (void)viewDidLayoutSubviews {
@@ -192,13 +201,6 @@
     }];
     
 }
-
-
-- (void)clearStack {
-    [_dataArr removeAllObjects];
-    [_table reloadData];
-}
-
 
 - (void)showAlgorithm {
     [self.navigationController pushViewController:[[GraphDescController alloc] initWithAlgoType:_algoType titles:_titles] animated:1];
@@ -222,14 +224,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PathViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(PathViewCell.class)forIndexPath:indexPath];
     
-    [cell fillLabelWithTitle:_dataArr[indexPath.row][0] body:_dataArr[indexPath.row][1]];
+    [cell fillLabelWithTitle:_dataArr[indexPath.row][1] body:_dataArr[indexPath.row][2]];
     
     return cell;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return 58;
-//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _dataArr.count;

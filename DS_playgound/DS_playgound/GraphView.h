@@ -10,8 +10,6 @@
 #import "GraphEdge.h"
 #import "NodeView.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface GraphView : UIView
 
 @property (nonatomic, strong) NSMutableArray<GraphEdge *> *edges;
@@ -27,11 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)visit_edge:(GraphEdge *)e;
 - (void)revisit_edge:(GraphEdge *)e;
 
-- (NodeView *)verticeWithOrder:(int)o;
+- (NodeView *)nodeWithOrder:(int)o;
 - (GraphEdge *)edgeWithStart:(int)s end:(int)e;
 
 - (void)resetColor;
 
 @end
 
-NS_ASSUME_NONNULL_END

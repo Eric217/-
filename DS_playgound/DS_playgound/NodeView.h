@@ -16,13 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) int _id;
 @property (nonatomic, assign) bool load;
-//@property (nonatomic, assign) bool visited;
 
 @property (nonatomic, assign) CGPoint s_center; ///<在superview中的位置，0-1
-//@property (nonatomic, strong) UIColor *color;
 @property (nonatomic, strong) NSString *name;
-//@property (nonatomic, strong) NSMutableArray<GraphEdge *> *edges;
 
+
+- (void)flashWithDuration:(NSTimeInterval)t color:(CGColorRef)c;
 
 - (id)initWithId:(int)i name:(NSString *)n s_center:(CGPoint)sc;
 

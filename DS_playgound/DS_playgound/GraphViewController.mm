@@ -40,11 +40,19 @@
 @property (nonatomic, assign) AdjacencyWGraph<int> *aw_graph;
 @property (nonatomic, assign) set<set<int> *> *kru_set;
 @property (nonatomic, assign) set<int> *prim_set;
+@property (nonatomic, assign) int *dist;
+@property (nonatomic, assign) int *pre;
 
 @property (nonatomic, assign) int nodecount;
 @property (nonatomic, assign) int added_edge_count;
 @property (nonatomic, assign) int start_pos;
+
 @property (nonatomic, assign) bool finished;
+@property (nonatomic, assign) bool showing_result;
+
+@property (nonatomic, copy) NSMutableArray *dists;
+@property (nonatomic, copy) NSMutableArray *paths;
+//@[@"到达 2 最短距离: 25", @"1 -> 4 -> 7 -> 5 -> 2 -> 4 -> 7 -> 5 -> 4 -> 7 -> 5"]
 
 @end
 
@@ -56,6 +64,7 @@
     _titles = ts;
     _kru_set = 0;
     _prim_set = 0;
+    _dist = _pre = 0;
     return self;
 }
 
@@ -104,7 +113,7 @@
     _start_pos = 0;
     [self retriveGraph];
     if (_nodecount > 0) {
-        [Config postNotification:ELGraphDidSelectPointNotification message:@{NotiInfoId: @"1", NotiInfoName: [_graphView verticeWithOrder:1].name}];
+        [Config postNotification:ELGraphDidSelectPointNotification message:@{NotiInfoId: @"1", NotiInfoName: [_graphView nodeWithOrder:1].name}];
     }
     
     [Config addObserver:self selector:@selector(indicateStart:) notiName:ELGraphShouldStartShowNotification];
@@ -113,6 +122,7 @@
 
 /// 通知传来开始消息，那么确定要开始吗(拦截)？
 - (void)indicateStart:(NSNotification *)noti {
+
     int s = [noti.userInfo[NotiInfoId] intValue];
     if (!_start_pos) {
         // 开始
@@ -133,6 +143,7 @@
     _start_pos = pos;
     _added_edge_count = 0;
     _finished = 0;
+    _showing_result = 0;
     [self enableButtons:1];
     _restartButton.enabled = 1;
     [self updatePromptsWithIn:0 Out:0];
@@ -156,7 +167,10 @@
         else _prim_set = new set<int>();
         [self handlePRIPack:_aw_graph->startPrimFrom(_start_pos)];
     } else if (_algoType == GraphAlgoDIJ) {
-        [self handleDIJPack:_aw_graph->startDijkstra(_start_pos)];
+        if (!_dist) _dist = new int[_nodecount+1];
+        if (!_pre)  _pre = new int[_nodecount+1];
+        [self initPathTable];
+        [self handleDIJPack:_aw_graph->startDijkstra(_start_pos, _dist, _pre)];
     } else {}
 }
 - (void)nextStep:(UIBarButtonItem *)sender {
@@ -174,28 +188,75 @@
     } else {}
     
     if (_finished) {
+        _showing_result = 0;
         [self enableButtons:0];
     }
-    
 }
 
+- (void)initPathTable {
+    NSMutableArray<NSMutableArray *> *dataArr = [NSMutableArray new];
+    
+    for (int i = 0; i < _nodecount; i++) {
+        NodeView *node = _graphView.vertices[i];
+        if (node._id == _start_pos)
+            continue;
+        NSMutableArray *temp = [NSMutableArray new];
+
+        [temp addObject:String(node._id)];
+        [temp addObject:[NSString stringWithFormat:@"到达 %@ 的最短距离  _", node.name]];
+        [temp addObject:@" "];
+        [dataArr addObject:temp];
+    }
+    [Config postNotification:ELGraphDidInitPathTableNotification message:@{@"0": dataArr}];
+}
+ 
 - (void)handleDIJPack:(DIJDataPack)p {
+
     if (p.new_node) {
+        int i = p.new_node;
+        NodeView *node = [_graphView nodeWithOrder:i];
+        [_graphView visit_node:node from:0];
+        [self updatePromptLabel:[NSString stringWithFormat:@"路径首次到达顶点 %@", node.name]];
+        [self updatePathTableWithOrder:i name:node.name];
         
     } else if (p.no_update_node) {
-        
+        NodeView *node = [_graphView nodeWithOrder:p.no_update_node];
+        [self updatePromptLabel:[NSString stringWithFormat:@"无需更新顶点 %@", node.name]];
+        if (!_showing_result)
+            [node flashWithDuration:0.2 color:node.layer.borderColor];
     } else if (p.poped_node) {
+        NodeView *node = [_graphView nodeWithOrder:p.poped_node];
+        [_graphView revisit_node:node];
+        [self updatePromptLabel:[NSString stringWithFormat:@"切换至顶点 %@", node.name]];
         
     } else if (p.updated_node) {
-        
+        NodeView *node = [_graphView nodeWithOrder:p.updated_node];
+        if (!_showing_result)
+            [node flashWithDuration:0.2 color:node.layer.borderColor];
+        [self updatePromptLabel:[NSString stringWithFormat:@"更新顶点 %@ 的路径", node.name]];
+        [self updatePathTableWithOrder:p.updated_node name:node.name];
     } else {};
     
 }
 
+- (void)updatePathTableWithOrder:(int)o name:(NSString *)n {
+    NSString *first_line = [NSString stringWithFormat:@"到达 %@ 最短距离: %d", n, _dist[o]];
+    NSMutableString *str = [NSMutableString stringWithString:n];
+    int i = o;
+    while (_pre[i]) {
+        NSString *s = [_graphView nodeWithOrder:_pre[i]].name;
+        [str insertString:[NSString stringWithFormat:@"%@ -> ", s] atIndex:0];
+        i = _pre[i];
+    }
+    [Config postNotification:ELStackDidChangeNotification message:@{@"0": String(o), @"1": first_line, @"2": str}];
+ 
+}
+
+
 - (void)handlePRIPack:(PRIDataPack<int>)p {
     int from = p.from_node, to = p.new_node;
     if (!from) {
-        from = to; [_graphView revisit_node:[_graphView verticeWithOrder:to]];
+        from = to; [_graphView revisit_node:[_graphView nodeWithOrder:to]];
     }
     GraphEdge *edge = [_graphView edgeWithStart:from end:to];
     bool b1 = _prim_set->find(to) != _prim_set->end();
@@ -257,9 +318,9 @@
 }
 
 - (void)handleDFSPack:(DFSDataPack)p {
-    NodeView *n = [_graphView verticeWithOrder:p.order];
+    NodeView *n = [_graphView nodeWithOrder:p.order];
     if (p.type == 0) {
-        [_graphView visit_node:n from:[_graphView verticeWithOrder:p.lastTop]];
+        [_graphView visit_node:n from:[_graphView nodeWithOrder:p.lastTop]];
         [self updatePromptsWithIn:@[n.name] Out:0];
     } else if (p.type == 1) {
         [_graphView revisit_node:n];
@@ -270,12 +331,12 @@
 }
 
 - (void)handleBFSPack:(BFSDataPack)p {
-    NodeView *s = [_graphView verticeWithOrder:p.out_node];
+    NodeView *s = [_graphView nodeWithOrder:p.out_node];
     [_graphView revisit_node:s];
     NSMutableArray *inNames = [NSMutableArray new];
 
     for (int i = 0; i < p.in_count; i ++) {
-        NodeView *n = [_graphView verticeWithOrder:p.in_nodes[i]];
+        NodeView *n = [_graphView nodeWithOrder:p.in_nodes[i]];
         [_graphView visit_node:n from:s];
         [inNames addObject:n.name];
     }
@@ -318,7 +379,7 @@
 
 - (void)updatePromptLabel:(NSString *)str {
     if (_finished)
-        _promptLabel.text = [str stringByAppendingString:@"; 构成最小生成树"];
+        _promptLabel.text = [str stringByAppendingString:_algoType == GraphAlgoDIJ ? @"; 所有最短路径已生成" : @"; 构成最小生成树"];
     else
         _promptLabel.text = str;
 }
@@ -346,7 +407,7 @@
         int start_id = [edge[@"s"] intValue];
         int end_id = [edge[@"e"] intValue];
         _aw_graph->addEdge(start_id, end_id, weight);
-        GraphEdge *edgeView = [[GraphEdge alloc] initWithWeight:weight start:[_graphView verticeWithOrder:start_id] end:[_graphView verticeWithOrder:end_id]];
+        GraphEdge *edgeView = [[GraphEdge alloc] initWithWeight:weight start:[_graphView nodeWithOrder:start_id] end:[_graphView nodeWithOrder:end_id]];
         if (_algoType != GraphAlgoBFS && _algoType != GraphAlgoDFS)
             edgeView.drawCenter = 1;
         [_graphView.edges addObject:edgeView];
@@ -381,6 +442,7 @@
 }
 
 - (void)showResult:(UIBarButtonItem *)sender {
+    _showing_result = 1;
     while (!_finished) {
         [self nextStep:0];
     }
@@ -412,5 +474,7 @@
         delete _kru_set;
     }
     if (_prim_set) delete _prim_set;
+    if (_dist) delete [] _dist;
+    if (_pre) delete [] _pre;
 }
 @end

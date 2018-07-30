@@ -28,7 +28,7 @@
     _pathLabel = [UILabel new];
     _distLabel.numberOfLines = 0;
     _pathLabel.numberOfLines = 0;
-    _distLabel.font = [UIFont fontWithName:LetterFont size:16];
+    _distLabel.font = [UIFont fontWithName:LetterFont size:16.5];
     _pathLabel.font = [UIFont systemFontOfSize:17.5];
     
     [self.contentView addSubview:_distLabel];

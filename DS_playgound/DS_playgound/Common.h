@@ -19,6 +19,9 @@ UIKIT_EXTERN NSNotificationName const ELGraphDidSelectPointNotification;
 UIKIT_EXTERN NSNotificationName const ELGraphShouldStartShowNotification;
 UIKIT_EXTERN NSNotificationName const ELStackDidChangeNotification;
 UIKIT_EXTERN NSNotificationName const ELGraphDidRestartShowNotification;
+UIKIT_EXTERN NSNotificationName const ELGraphDidInitPathTableNotification;
+UIKIT_EXTERN NSNotificationName const ELGraphDidEndShowNotification;
+
 
 // FOR TREE
 UIKIT_EXTERN CGFloat UnitSize;

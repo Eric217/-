@@ -13,6 +13,9 @@ NSNotificationName const ELGraphDidSelectPointNotification = @"didselectpointnot
 NSNotificationName const ELGraphShouldStartShowNotification = @"graphshoudklshow";
 NSNotificationName const ELStackDidChangeNotification = @"stackshouldpusj";
 NSNotificationName const ELGraphDidRestartShowNotification = @"graphdidisatata";
+NSNotificationName const ELGraphDidInitPathTableNotification = @"grfwqdidisatata";
+
+
 
 CGFloat UnitSize = UnitSizeDefault; ///< 直径
 CGFloat TreeFont = TreeFontDefault;

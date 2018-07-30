@@ -61,7 +61,7 @@
     if (n)
         [n setColor:_g_tint];
 }
-
+ 
 - (void)visit_node:(NodeView *)n from:(NodeView *)f {
     [n setColor:_fresh_tint];
     if (!f) return;
@@ -114,7 +114,7 @@
     return 0;
 }
 
-- (NodeView *)verticeWithOrder:(int)o {
+- (NodeView *)nodeWithOrder:(int)o {
     for (NodeView *node in _vertices)
         if (node._id == o)
             return node;

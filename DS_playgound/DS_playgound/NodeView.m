@@ -37,6 +37,16 @@
     return self;
 }
 
+- (void)flashWithDuration:(NSTimeInterval)t color:(CGColorRef)c {
+    CGColorRef backup = self.layer.backgroundColor;
+    [UIView animateWithDuration:t animations:^{
+        self.layer.backgroundColor = c;
+        self.layer.backgroundColor = backup;
+    }];
+    
+}
+
+
 - (void)setColor:(UIColor *)color {
 //    _color = color;
     self.textColor = color;

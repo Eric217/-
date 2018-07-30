@@ -74,8 +74,8 @@ class AdjacencyWGraph : public AdjacencyWDigraph<T>, public UndirectedNetwork {
     set<IntPair> *_edge_set;
     
     MinHeap<Dist<T>> * heap2;
-    T * dist;
-    int * pre;
+    T  * dist; ///< delete by graph view
+    int * pre; ///< delete by graph view
     int start;
     int current_j;
     bool just_poped;
@@ -84,7 +84,7 @@ class AdjacencyWGraph : public AdjacencyWDigraph<T>, public UndirectedNetwork {
 public:
     AdjacencyWGraph(int ver = 10):
     AdjacencyWDigraph<T>(ver), reached(0), stack(0), queue(0), heap(0),
-    _set(0), _edge_set(0), heap2(0), dist(0), pre(0) {}
+    _set(0), _edge_set(0), heap2(0) {}
     ~AdjacencyWGraph();
     
     AdjacencyWGraph<T> & addEdge(int i, int j, const T & w);
@@ -101,19 +101,18 @@ public:
     EdgeForHeap<T> * nextKruskal();
     PRIDataPack<T> startPrimFrom(int);
     PRIDataPack<T> nextPrim();
-    DIJDataPack startDijkstra(int);
+    DIJDataPack startDijkstra(int from, T *dist, int * pre);
     DIJDataPack nextDijkstra(bool * finished);
     
 };
 
 
 template <typename T>
-DIJDataPack AdjacencyWGraph<T>::startDijkstra(int s) {
+DIJDataPack AdjacencyWGraph<T>::startDijkstra(int s, T *d, int * p) {
     if (heap2) delete heap2;
-   
     heap2 = new MinHeap<Dist<T>>(this->n-1);
-    if (!dist) dist = new T[this->n+1];
-    if (!pre)  pre = new int[this->n+1];
+    dist = d;
+    pre = p;
     for (int i = 0; i < this->n+1; i++)
         pre[i] = 0;
     just_poped = 0;
@@ -128,7 +127,6 @@ DIJDataPack AdjacencyWGraph<T>::nextDijkstra(bool * finished) {
     DIJDataPack p;
     
     if (current_j == 1 && !just_poped) {
-        
         heap2->pop(cur_dist);
         p.poped_node = cur_dist.idx;
         just_poped = 1;
@@ -141,7 +139,6 @@ DIJDataPack AdjacencyWGraph<T>::nextDijkstra(bool * finished) {
         
         if (j != start && this->arr[i][j] != NoEdge) {
             if (p.no_update_node) {
-                
                 current_j = j;
                 return p;
             }
@@ -179,9 +176,6 @@ DIJDataPack AdjacencyWGraph<T>::nextDijkstra(bool * finished) {
     current_j = 1;
     return this->nextDijkstra(finished);
 }
-
-
-
 
 template <typename T>
 PRIDataPack<T> AdjacencyWGraph<T>::startPrimFrom(int k) {
@@ -365,16 +359,10 @@ AdjacencyWGraph<T>::~AdjacencyWGraph<T>() {
     if (stack)     { delete stack;      stack = 0;      }
     if (queue)     { delete queue;      queue = 0;      }
     if (heap)      { delete heap;       heap = 0;       }
-    if (heap2) {
-        Dist<T> *d;
-        while (!heap2->empty()) { heap2->pop(d); delete d; }
-        delete heap2;
-    }
+    if (heap2)     { delete heap2;      heap2 = 0;      }
     if (_set)      { delete _set;       _set = 0;       }
     if (_edge_set) { delete _edge_set;  _edge_set = 0;  }
     if (reached)   { delete [] reached; reached = 0;    }
-    if (pre)       { delete [] pre;     pre = 0;        }
-    if (dist)      { delete [] dist;    dist = 0;       }
 }
 
 #endif /* AdjacencyWGraph_hpp */
