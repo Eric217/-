@@ -65,9 +65,9 @@ struct DIJDataPack {
 template <typename T>
 class AdjacencyWGraph : public AdjacencyWDigraph<T>, public UndirectedNetwork {
     bool * reached;
-
+    
     MinHeap<EdgeForHeap<T>> * heap;
-
+    
     LinkedStack<int> * stack;
     LinkedQueue<int> * queue;
     set<int> * _set;
@@ -78,12 +78,13 @@ class AdjacencyWGraph : public AdjacencyWDigraph<T>, public UndirectedNetwork {
     int * pre;
     int start;
     int current_j;
+    bool just_poped;
     Dist<T> cur_dist;
-
+    
 public:
     AdjacencyWGraph(int ver = 10):
-        AdjacencyWDigraph<T>(ver), reached(0), stack(0), queue(0), heap(0),
-        _set(0), _edge_set(0),heap2(0), dist(0), pre(0) {}
+    AdjacencyWDigraph<T>(ver), reached(0), stack(0), queue(0), heap(0),
+    _set(0), _edge_set(0), heap2(0), dist(0), pre(0) {}
     ~AdjacencyWGraph();
     
     AdjacencyWGraph<T> & addEdge(int i, int j, const T & w);
@@ -109,12 +110,15 @@ public:
 template <typename T>
 DIJDataPack AdjacencyWGraph<T>::startDijkstra(int s) {
     if (heap2) delete heap2;
+   
     heap2 = new MinHeap<Dist<T>>(this->n-1);
-    if (!dist) dist = new T[this->n];
-    if (!pre)  pre = new int[this->n];
-    
+    if (!dist) dist = new T[this->n+1];
+    if (!pre)  pre = new int[this->n+1];
+    for (int i = 0; i < this->n+1; i++)
+        pre[i] = 0;
+    just_poped = 0;
     current_j = 1;
-    start = s; 
+    start = s;
     heap2->push(Dist<T>(0, s));
     return nextDijkstra(0);
 }
@@ -123,15 +127,14 @@ DIJDataPack AdjacencyWGraph<T>::nextDijkstra(bool * finished) {
     
     DIJDataPack p;
     
-    if (current_j == 1 && cur_dist.dist != 0) {
-        if (heap2->empty()) {
-            *finished = 1;
-            return p;
-        }
+    if (current_j == 1 && !just_poped) {
+        
         heap2->pop(cur_dist);
         p.poped_node = cur_dist.idx;
+        just_poped = 1;
         return p;
     }
+    
     int i = cur_dist.idx;
     for (int j = current_j; j <= this->n; j++) {
         T incomingDist = dist[i] + this->arr[i][j];
@@ -142,20 +145,26 @@ DIJDataPack AdjacencyWGraph<T>::nextDijkstra(bool * finished) {
                 current_j = j;
                 return p;
             }
-            if (!pre[j] || dist[j] > incomingDist) {
+            if (pre[j] == 0 || dist[j] > incomingDist) {
                 dist[j] = incomingDist;
                 if (!pre[j]) {
                     heap2->push(Dist<T>(dist[j], j));
                     p.new_node = j;
-                } else
+                } else {
                     p.updated_node = j;
+                    Dist<T> *top = heap2->top();
+                    int c = 0;
+                    while ((top+c)->idx != j) c++;
+                    (top+c)->dist = incomingDist;
+                    heap2->deactive();
+                    heap2->initialize(top);
+                }
                 pre[j] = i;
                 current_j = ++j;
                 return p;
             } else {
                 current_j = j;
                 p.no_update_node = current_j++;
-                return p;
             }
         }
     }
@@ -163,9 +172,10 @@ DIJDataPack AdjacencyWGraph<T>::nextDijkstra(bool * finished) {
     if (p.no_update_node) {
         if (heap2->empty())
             *finished = 1;
+        just_poped = 0;
         return p;
     }
-    
+    just_poped = 0;
     current_j = 1;
     return this->nextDijkstra(finished);
 }
@@ -185,7 +195,7 @@ PRIDataPack<T> AdjacencyWGraph<T>::startPrimFrom(int k) {
     total = int(total*total/2-total/2);
     heap = new MinHeap<EdgeForHeap<T>>(total);
     EdgeForHeap<T> *temp_connected = new EdgeForHeap<T>[this->n-1];
- 
+    
     for (int i = 1; i <= this->n; i++) {
         if (this->arr[i][k] != NoEdge) {
             EdgeForHeap<T> edge(i, k, this->arr[i][k]);
@@ -209,7 +219,7 @@ PRIDataPack<T> AdjacencyWGraph<T>::nextPrim() {
     if (_set->find(heap_top.start) == _set->end()) {
         from = to; to = heap_top.start;
     }
-
+    
     int c = 0;
     EdgeForHeap<T> *temp_connected = new EdgeForHeap<T>[this->n-1];
     
@@ -226,7 +236,7 @@ PRIDataPack<T> AdjacencyWGraph<T>::nextPrim() {
                 temp_connected[c++] = edge;
                 heap->push(edge);
                 _edge_set->insert({i, to});
-            } 
+            }
         }
     }
     _set->insert(to);
@@ -355,7 +365,11 @@ AdjacencyWGraph<T>::~AdjacencyWGraph<T>() {
     if (stack)     { delete stack;      stack = 0;      }
     if (queue)     { delete queue;      queue = 0;      }
     if (heap)      { delete heap;       heap = 0;       }
-    if (heap2)     { delete heap2;      heap2 = 0;      }
+    if (heap2) {
+        Dist<T> *d;
+        while (!heap2->empty()) { heap2->pop(d); delete d; }
+        delete heap2;
+    }
     if (_set)      { delete _set;       _set = 0;       }
     if (_edge_set) { delete _edge_set;  _edge_set = 0;  }
     if (reached)   { delete [] reached; reached = 0;    }

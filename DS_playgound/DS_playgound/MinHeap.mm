@@ -22,13 +22,15 @@ public:
     MinHeap(T * arr, int length, int maxSize = -1);
     ~MinHeap() { delete [] element; }
     
+    void initialize(T * arr);
     int size() const { return currentSize; }
     T min() const { return element[0]; }
     bool empty() const { return !currentSize; }
     bool full() const { return currentSize == maxSize; }
     bool contains(const T & t) const;
-    void deactive() { element = 0; maxSize = currentSize = 0; }
- 
+    void deactive() { element = 0; }
+    T * top() { return element; }
+    
     MinHeap<T> & push(const T &);
     MinHeap<T> & pop(T *&);
     MinHeap<T> & pop(T &);
@@ -43,11 +45,8 @@ MinHeap<T>::MinHeap(int max) {
 }
 
 template <typename T>
-MinHeap<T>::MinHeap(T * arr, int length, int mxs) {
+void MinHeap<T>::initialize(T * arr) {
     element = arr;
-    maxSize = (mxs == -1 ? length : mxs);
-    currentSize = length;
-    
     for (int i = currentSize/2; i > 0; i--) {
         T t = arr[i-1];
         int c_idx = 2*i-1;
@@ -62,7 +61,13 @@ MinHeap<T>::MinHeap(T * arr, int length, int mxs) {
         int a = (c_idx+1)/2-1;
         arr[a] = t;
     }
-  
+}
+
+template <typename T>
+MinHeap<T>::MinHeap(T * arr, int length, int mxs) {
+    currentSize = length;
+    maxSize = (mxs == -1 ? length : mxs);
+    initialize(arr);
 }
 
 
