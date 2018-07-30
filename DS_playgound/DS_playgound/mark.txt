@@ -1,0 +1,13 @@
+modified files:
+	AppDelegate.m
+
+
+take care of these files:
+	LaunchScreen.storyboard
+
+removed files: (source existed in folder, not loaded)
+	ViewController.h
+	ViewController.m
+
+files which need rewriting:
+	ALL SWIFT FILES!
