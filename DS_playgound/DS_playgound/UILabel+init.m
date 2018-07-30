@@ -37,5 +37,6 @@
     _collectionEmptyView.textAlignment = NSTextAlignmentCenter;
     return _collectionEmptyView;
 }
+ 
 
 @end

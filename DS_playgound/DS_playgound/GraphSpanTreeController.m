@@ -70,8 +70,8 @@
     if (_algoType == GraphAlgoPRI) {
         _selectStart = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:0];
         [self.view addSubview:_selectStart];
-        _selectStart.textLabel.font = [UIFont systemFontOfSize:22];
-        _selectStart.detailTextLabel.font = [UIFont systemFontOfSize:22];
+        _selectStart.textLabel.font = [UIFont systemFontOfSize:21];
+        _selectStart.detailTextLabel.font = [UIFont systemFontOfSize:21];
         _selectStart.detailTextLabel.textColor = UIColor.darkGrayColor;
         _selectStart.textLabel.text = @"图中点击选择起点:";
         _selectStart.backgroundColor = AlmostWhiteColor;
@@ -104,7 +104,7 @@
             make.top.equalTo(self.nameLabel.mas_bottom).offset([Config v_pad:25 plus:13 p:12 min:8]);
             make.centerX.equalTo(self.view);
             make.width.mas_equalTo(250);
-            make.height.mas_equalTo(40);
+            make.height.mas_equalTo(37);
         }];
     }
     
@@ -145,11 +145,11 @@
     [super viewDidLayoutSubviews];
    
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
-    paragraphStyle.lineSpacing = 5;
+    paragraphStyle.lineSpacing = 3;
     paragraphStyle.firstLineHeadIndent = 23.5;
     paragraphStyle.headIndent = 23.5;
     paragraphStyle.tailIndent = -16;
-    paragraphStyle.paragraphSpacing = 9;
+    paragraphStyle.paragraphSpacing = 8.5;
     
     NSMutableDictionary *_attributes = [NSMutableDictionary new];
     _attributes[NSParagraphStyleAttributeName] = paragraphStyle;

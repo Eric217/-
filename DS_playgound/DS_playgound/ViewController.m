@@ -13,18 +13,19 @@
 #import "TravesingController.h"
 #import "GraphMainController.h"
 #import "SelectTravesalController.h"
+//#import "TestSwift.swift"
 
+//#import "TestSwift-swift"
 
-@interface ViewController ()
+@interface ViewController2 ()
 
 @end
 
-@implementation ViewController
+@implementation ViewController2
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
+        
     //测试
     [self addButton:@"测试：排序算法" frame:CGRectMake(300, 300, 140, 60) act:@selector(didClick)];
     [self addButton:@"测试：遍历二叉树" frame:CGRectMake(540, 300, 140, 60) act:@selector(didClick1)];

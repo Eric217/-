@@ -10,6 +10,7 @@
 #import "GraphViewController.h"
 #import "GraphStackController.h"
 #import "GraphSpanTreeController.h"
+#import "GraphPathController.h"
 
 #import "SubtitleCollectionCell.h"
 
@@ -135,6 +136,8 @@
         vc = [[GraphStackController alloc] initWithAlgoType:IPR titles:ts anotherRoot:WindowRoot];
     } else if (IPR == 2 || IPR == 3) {
         vc = [[GraphSpanTreeController alloc] initWithAlgoType:IPR titles:ts anotherRoot:WindowRoot];
+    } else if (IPR == 4) {
+        vc = [[GraphPathController alloc] initWithAlgoType:IPR titles:ts anotherRoot:WindowRoot];
     }
   
     UINavigationController *masterNav = [[UINavigationController alloc] initWithRootViewController:vc];

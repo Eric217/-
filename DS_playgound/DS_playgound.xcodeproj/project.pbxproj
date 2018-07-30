@@ -27,6 +27,15 @@
 		0715CD4421087E6A00A8594D /* SQLiteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0715CD4321087E6A00A8594D /* SQLiteManager.m */; };
 		071BDA3720F8A71500D10F53 /* TextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 071BDA3620F8A71500D10F53 /* TextFieldCell.m */; };
 		071C668F20FF2C810036A7A3 /* UIView+easyDraw.m in Sources */ = {isa = PBXBuildFile; fileRef = 071C668E20FF2C810036A7A3 /* UIView+easyDraw.m */; };
+		072C4B1C210F07020012F13F /* GraphPathController.m in Sources */ = {isa = PBXBuildFile; fileRef = 072C4B1B210F07020012F13F /* GraphPathController.m */; };
+		072C4B1F210F1CFF0012F13F /* PathViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 072C4B1E210F1CFF0012F13F /* PathViewCell.m */; };
+		072C4B34210F6EBD0012F13F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 072C4B33210F6EBD0012F13F /* AppDelegate.m */; };
+		072C4B38210F71FA0012F13F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072C4B37210F71FA0012F13F /* ViewController.swift */; };
+		072C4B3E210F72420012F13F /* QueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072C4B39210F72410012F13F /* QueueView.swift */; };
+		072C4B3F210F72420012F13F /* QueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072C4B3A210F72420012F13F /* QueueViewController.swift */; };
+		072C4B40210F72420012F13F /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072C4B3B210F72420012F13F /* RoundView.swift */; };
+		072C4B41210F72420012F13F /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072C4B3C210F72420012F13F /* StackView.swift */; };
+		072C4B42210F72420012F13F /* StackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072C4B3D210F72420012F13F /* StackViewController.swift */; };
 		073B04BD210254EF0009C1EA /* Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = 073B04BC210254EF0009C1EA /* Auth.m */; };
 		075B156D20F749EA0081CD48 /* MyComparator.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B156C20F749EA0081CD48 /* MyComparator.m */; };
 		075B157120F74A010081CD48 /* SortBaseClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B157020F74A010081CD48 /* SortBaseClass.m */; };
@@ -51,8 +60,6 @@
 		07AB209D21077AC40000ED3C /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07AB209C21077AC40000ED3C /* GraphView.m */; };
 		07AB20A02107834C0000ED3C /* GraphSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07AB209F2107834C0000ED3C /* GraphSettingController.m */; };
 		07B5BB5720FF24F500105B84 /* TreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B5BB5620FF24F500105B84 /* TreeView.m */; };
-		07BB0CC320F73DDD00B2BCA7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB0CC220F73DDD00B2BCA7 /* AppDelegate.m */; };
-		07BB0CC620F73DDD00B2BCA7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB0CC520F73DDD00B2BCA7 /* ViewController.m */; };
 		07BB0CC920F73DDD00B2BCA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07BB0CC720F73DDD00B2BCA7 /* Main.storyboard */; };
 		07BB0CCB20F73DDF00B2BCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07BB0CCA20F73DDF00B2BCA7 /* Assets.xcassets */; };
 		07BB0CCE20F73DDF00B2BCA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07BB0CCC20F73DDF00B2BCA7 /* LaunchScreen.storyboard */; };
@@ -118,6 +125,19 @@
 		071BDA3620F8A71500D10F53 /* TextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCell.m; sourceTree = "<group>"; };
 		071C668D20FF2C810036A7A3 /* UIView+easyDraw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+easyDraw.h"; sourceTree = "<group>"; };
 		071C668E20FF2C810036A7A3 /* UIView+easyDraw.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+easyDraw.m"; sourceTree = "<group>"; };
+		072C4B1A210F07020012F13F /* GraphPathController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphPathController.h; sourceTree = "<group>"; };
+		072C4B1B210F07020012F13F /* GraphPathController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphPathController.m; sourceTree = "<group>"; };
+		072C4B1D210F1CFF0012F13F /* PathViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PathViewCell.h; sourceTree = "<group>"; };
+		072C4B1E210F1CFF0012F13F /* PathViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PathViewCell.m; sourceTree = "<group>"; };
+		072C4B20210F6A520012F13F /* DS_playgound-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DS_playgound-Bridging-Header.h"; sourceTree = "<group>"; };
+		072C4B32210F6EBD0012F13F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		072C4B33210F6EBD0012F13F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		072C4B37210F71FA0012F13F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		072C4B39210F72410012F13F /* QueueView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueView.swift; sourceTree = "<group>"; };
+		072C4B3A210F72420012F13F /* QueueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueViewController.swift; sourceTree = "<group>"; };
+		072C4B3B210F72420012F13F /* RoundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
+		072C4B3C210F72420012F13F /* StackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
+		072C4B3D210F72420012F13F /* StackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackViewController.swift; sourceTree = "<group>"; };
 		073B04BB210254EF0009C1EA /* Auth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Auth.h; sourceTree = "<group>"; };
 		073B04BC210254EF0009C1EA /* Auth.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Auth.m; sourceTree = "<group>"; };
 		075B156A20F749EA0081CD48 /* Compare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Compare.h; sourceTree = "<group>"; };
@@ -169,10 +189,6 @@
 		07B5BB5520FF24F500105B84 /* TreeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TreeView.h; sourceTree = "<group>"; };
 		07B5BB5620FF24F500105B84 /* TreeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TreeView.m; sourceTree = "<group>"; };
 		07BB0CBE20F73DDD00B2BCA7 /* DS_playgound.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DS_playgound.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		07BB0CC120F73DDD00B2BCA7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		07BB0CC220F73DDD00B2BCA7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		07BB0CC420F73DDD00B2BCA7 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		07BB0CC520F73DDD00B2BCA7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		07BB0CC820F73DDD00B2BCA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		07BB0CCA20F73DDF00B2BCA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07BB0CCD20F73DDF00B2BCA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -288,30 +304,23 @@
 			name = UIView;
 			sourceTree = "<group>";
 		};
-		075B155B20F7445B0081CD48 /* Liu */ = {
+		075B155C20F744840081CD48 /* StackAndQueue */ = {
 			isa = PBXGroup;
 			children = (
-				073B04BE210255AB0009C1EA /* Sort */,
-				07DFBB7720FBA25200D23E9A /* Traversal */,
-				076B62F52103598F0029584A /* Graph */,
-				075B156420F749580081CD48 /* Extension */,
-				075B156320F7494E0081CD48 /* Common */,
+				072C4B39210F72410012F13F /* QueueView.swift */,
+				072C4B3A210F72420012F13F /* QueueViewController.swift */,
+				072C4B3B210F72420012F13F /* RoundView.swift */,
+				072C4B3C210F72420012F13F /* StackView.swift */,
+				072C4B3D210F72420012F13F /* StackViewController.swift */,
+				072C4B20210F6A520012F13F /* DS_playgound-Bridging-Header.h */,
 			);
-			name = Liu;
-			sourceTree = "<group>";
-		};
-		075B155C20F744840081CD48 /* Zhao */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Zhao;
+			name = StackAndQueue;
 			sourceTree = "<group>";
 		};
 		075B155D20F744D00081CD48 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				07BB0CC420F73DDD00B2BCA7 /* ViewController.h */,
-				07BB0CC520F73DDD00B2BCA7 /* ViewController.m */,
+				072C4B37210F71FA0012F13F /* ViewController.swift */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -514,10 +523,10 @@
 			isa = PBXGroup;
 			children = (
 				077AA9D82105DBE700BA1F9B /* GraphDisplay */,
+				077AA9D02105B81500BA1F9B /* GraphModal */,
 				077AA9D12105B83700BA1F9B /* GraphMain */,
 				0765A0D7210A338200CC2E58 /* GraphSetting */,
 				070B9951210713FE000BD552 /* View */,
-				077AA9D02105B81500BA1F9B /* GraphModal */,
 			);
 			name = Graph;
 			sourceTree = "<group>";
@@ -559,6 +568,8 @@
 			children = (
 				077AA9DA2105DC4E00BA1F9B /* GraphStackController.h */,
 				077AA9DB2105DC4E00BA1F9B /* GraphStackController.m */,
+				072C4B1A210F07020012F13F /* GraphPathController.h */,
+				072C4B1B210F07020012F13F /* GraphPathController.m */,
 				07CFD585210C601F00376AD5 /* GraphSpanTreeController.h */,
 				07CFD586210C601F00376AD5 /* GraphSpanTreeController.m */,
 				070B994E210713DF000BD552 /* GraphViewController.h */,
@@ -591,8 +602,12 @@
 			isa = PBXGroup;
 			children = (
 				075B155D20F744D00081CD48 /* Main */,
-				075B155C20F744840081CD48 /* Zhao */,
-				075B155B20F7445B0081CD48 /* Liu */,
+				075B155C20F744840081CD48 /* StackAndQueue */,
+				073B04BE210255AB0009C1EA /* Sort */,
+				07DFBB7720FBA25200D23E9A /* Traversal */,
+				076B62F52103598F0029584A /* Graph */,
+				075B156420F749580081CD48 /* Extension */,
+				075B156320F7494E0081CD48 /* Common */,
 				07BB0CD920F741EA00B2BCA7 /* support */,
 			);
 			path = DS_playgound;
@@ -602,8 +617,8 @@
 			isa = PBXGroup;
 			children = (
 				07BB0CDB20F7421300B2BCA7 /* SDK */,
-				07BB0CC120F73DDD00B2BCA7 /* AppDelegate.h */,
-				07BB0CC220F73DDD00B2BCA7 /* AppDelegate.m */,
+				072C4B32210F6EBD0012F13F /* AppDelegate.h */,
+				072C4B33210F6EBD0012F13F /* AppDelegate.m */,
 				07BB0CD020F73DDF00B2BCA7 /* main.m */,
 				07BB0CCF20F73DDF00B2BCA7 /* Info.plist */,
 				07BB0CCA20F73DDF00B2BCA7 /* Assets.xcassets */,
@@ -653,6 +668,8 @@
 			children = (
 				070B994B21070D6D000BD552 /* StackViewCell.h */,
 				070B994C21070D6D000BD552 /* StackViewCell.m */,
+				072C4B1D210F1CFF0012F13F /* PathViewCell.h */,
+				072C4B1E210F1CFF0012F13F /* PathViewCell.m */,
 				077AA9D52105BB8A00BA1F9B /* SubtitleCollectionCell.h */,
 				077AA9D62105BB8A00BA1F9B /* SubtitleCollectionCell.m */,
 			);
@@ -731,6 +748,7 @@
 				TargetAttributes = {
 					07BB0CBD20F73DDD00B2BCA7 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -833,6 +851,7 @@
 				07BB28F720F7668300909AFE /* HanyuPinyinOutputFormat.m in Sources */,
 				073B04BD210254EF0009C1EA /* Auth.m in Sources */,
 				07D609B820FC603C00838E3A /* SelectTravesalController.m in Sources */,
+				072C4B1C210F07020012F13F /* GraphPathController.m in Sources */,
 				07ECFEA6210840D600609875 /* GraphEdge.m in Sources */,
 				07AB209D21077AC40000ED3C /* GraphView.m in Sources */,
 				070D71E420F74CA300175D20 /* UILabel+init.m in Sources */,
@@ -841,7 +860,6 @@
 				075B157120F74A010081CD48 /* SortBaseClass.m in Sources */,
 				070D71E920F74CA300175D20 /* UIView+funcs.m in Sources */,
 				07BB28E820F7550C00909AFE /* SwitchCell2.m in Sources */,
-				07BB0CC620F73DDD00B2BCA7 /* ViewController.m in Sources */,
 				070D71F520F74CE600175D20 /* InsertionSorter.m in Sources */,
 				07DBCF6D210B054F0062D9B9 /* GraphDescController.m in Sources */,
 				070D71F720F74CE600175D20 /* HeapSorter.m in Sources */,
@@ -852,11 +870,14 @@
 				07BDE1EC2102CFA60009968B /* NSString+funcs.m in Sources */,
 				07BB28FD20F7683600909AFE /* PinyinFormatter.m in Sources */,
 				075B158D20F74A4E0081CD48 /* ELCommonLinearCell.m in Sources */,
+				072C4B38210F71FA0012F13F /* ViewController.swift in Sources */,
 				075B159020F74A4E0081CD48 /* CommonCollectionCell.m in Sources */,
 				077AA9D72105BB8A00BA1F9B /* SubtitleCollectionCell.m in Sources */,
 				075B15A120F74C2D0081CD48 /* SelectOrderController.m in Sources */,
+				072C4B3F210F72420012F13F /* QueueViewController.swift in Sources */,
 				075B15A520F74C2D0081CD48 /* SelectHeapController.m in Sources */,
 				071BDA3720F8A71500D10F53 /* TextFieldCell.m in Sources */,
+				072C4B34210F6EBD0012F13F /* AppDelegate.m in Sources */,
 				0768BFE720FE1613000DF520 /* TravesalDescController.m in Sources */,
 				07AB20A02107834C0000ED3C /* GraphSettingController.m in Sources */,
 				07E8A5F92100242400A8C94A /* Travesal.m in Sources */,
@@ -866,10 +887,13 @@
 				075B158C20F74A4E0081CD48 /* ELGroupedUnitCell.m in Sources */,
 				07BB290020F7690300909AFE /* PinyinHelper.m in Sources */,
 				075B158F20F74A4E0081CD48 /* ELCollectionCell.m in Sources */,
+				072C4B42210F72420012F13F /* StackViewController.swift in Sources */,
 				071C668F20FF2C810036A7A3 /* UIView+easyDraw.m in Sources */,
+				072C4B40210F72420012F13F /* RoundView.swift in Sources */,
 				075B158A20F74A4E0081CD48 /* ELTreeUnitCell.m in Sources */,
 				077AA9DC2105DC4E00BA1F9B /* GraphStackController.m in Sources */,
 				070D71E620F74CA300175D20 /* UIImage+operations.m in Sources */,
+				072C4B1F210F1CFF0012F13F /* PathViewCell.m in Sources */,
 				07CFD587210C601F00376AD5 /* GraphSpanTreeController.m in Sources */,
 				0715CD4421087E6A00A8594D /* SQLiteManager.m in Sources */,
 				070D71F620F74CE600175D20 /* BubbleSorter.m in Sources */,
@@ -879,13 +903,14 @@
 				077AA9D42105B87900BA1F9B /* GraphMainController.m in Sources */,
 				070D71EE20F74CB900175D20 /* Common.m in Sources */,
 				070D720420F74F1E00175D20 /* SortingViewController.m in Sources */,
+				072C4B41210F72420012F13F /* StackView.swift in Sources */,
 				070D71E520F74CA300175D20 /* UIView+frameProperty.m in Sources */,
 				070D720520F74F1E00175D20 /* ConfigSortController.m in Sources */,
-				07BB0CC320F73DDD00B2BCA7 /* AppDelegate.m in Sources */,
 				07BB28E520F7535C00909AFE /* SettingViewController2.m in Sources */,
 				07D609BB20FCB2A700838E3A /* TravesingController.m in Sources */,
 				075B15A220F74C2D0081CD48 /* SelectionSorter.m in Sources */,
 				075B156D20F749EA0081CD48 /* MyComparator.m in Sources */,
+				072C4B3E210F72420012F13F /* QueueView.swift in Sources */,
 				075B15A420F74C2D0081CD48 /* SelectController.m in Sources */,
 				075B158E20F74A4E0081CD48 /* ELInsertionSortCell.m in Sources */,
 				075B15A320F74C2D0081CD48 /* SelectFlowController.m in Sources */,
@@ -1030,12 +1055,17 @@
 			baseConfigurationReference = 33779D1955637EAD3502E930 /* Pods-DS_playgound.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = DS_playgound/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.SDU-iOS-LAB.DS-playgound";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DS_playgound/DS_playgound-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -1045,12 +1075,16 @@
 			baseConfigurationReference = 47DB74C7777C6EB771836EB6 /* Pods-DS_playgound.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = DS_playgound/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.SDU-iOS-LAB.DS-playgound";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DS_playgound/DS_playgound-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;

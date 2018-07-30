@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "DS_playgound-Swift.h"
+
 
 @interface AppDelegate ()
 
@@ -16,7 +18,18 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+
+    ViewController *vc = [ViewController new];
+    _window.rootViewController = vc;
+    [_window makeKeyAndVisible];
+    
+//    let vc = ViewController()
+//    self.window = UIWindow(frame:UIScreen.main.bounds)
+//    self.window!.backgroundColor = UIColor.white
+//    self.window!.rootViewController = vc
+//    self.window!.makeKeyAndVisible()
+    
+
     return YES;
 }
 

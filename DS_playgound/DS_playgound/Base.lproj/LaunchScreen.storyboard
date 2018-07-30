@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14269.12" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
+    <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,9 +15,21 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WelcomeBackground" translatesAutoresizingMaskIntoConstraints="NO" id="Go5-L6-zUN">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                                <color key="backgroundColor" red="0.4039215686" green="0.74117647060000003" blue="0.72941176470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Go5-L6-zUN" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="5Sp-wG-jfo"/>
+                            <constraint firstItem="Go5-L6-zUN" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="dIT-5F-GHn"/>
+                            <constraint firstItem="7HT-4j-gat" firstAttribute="trailing" secondItem="Go5-L6-zUN" secondAttribute="trailing" id="mhe-5P-5SX"/>
+                            <constraint firstItem="7HT-4j-gat" firstAttribute="bottom" secondItem="Go5-L6-zUN" secondAttribute="bottom" id="oNO-be-7EH"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="7HT-4j-gat"/>
                     </view>
                 </viewController>
@@ -26,4 +38,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="WelcomeBackground" width="4267" height="3200"/>
+    </resources>
 </document>

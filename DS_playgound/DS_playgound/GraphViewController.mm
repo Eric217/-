@@ -41,14 +41,10 @@
 @property (nonatomic, assign) set<set<int> *> *kru_set;
 @property (nonatomic, assign) set<int> *prim_set;
 
-
 @property (nonatomic, assign) int nodecount;
 @property (nonatomic, assign) int added_edge_count;
-
 @property (nonatomic, assign) int start_pos;
-
 @property (nonatomic, assign) bool finished;
-
 
 @end
 
@@ -149,19 +145,19 @@
         [self handleBFSPack:_aw_graph->startBFSFrom(pos)];
     } else if (_algoType == GraphAlgoKRU) {
         if (_kru_set) {
-            for (set<set<int> *>::iterator it = _kru_set->begin(); it != _kru_set->end(); it++) {
-                set<int> * s = *it; delete s;
-            } _kru_set->clear(); }
-        else _kru_set = new set<set<int> *>();
+            for (set<set<int> *>::iterator it = _kru_set->begin();
+                 it != _kru_set->end(); it++) {
+                set<int> * s = *it; delete s; }
+            _kru_set->clear();
+        } else _kru_set = new set<set<int> *>();
         [self handleKRUPack:_aw_graph->startKruskal()];
     } else if (_algoType == GraphAlgoPRI) {
         if (_prim_set) _prim_set->clear();
         else _prim_set = new set<int>();
         [self handlePRIPack:_aw_graph->startPrimFrom(_start_pos)];
     } else if (_algoType == GraphAlgoDIJ) {
-        
+        [self handleDIJPack:_aw_graph->startDijkstra(_start_pos)];
     } else {}
-
 }
 - (void)nextStep:(UIBarButtonItem *)sender {
     
@@ -174,12 +170,25 @@
     } else if (_algoType == GraphAlgoPRI) {
         [self handlePRIPack:_aw_graph->nextPrim()];
     } else if (_algoType == GraphAlgoDIJ) {
-        
+        [self handleDIJPack:_aw_graph->nextDijkstra(&_finished)];
     } else {}
     
     if (_finished) {
         [self enableButtons:0];
     }
+    
+}
+
+- (void)handleDIJPack:(DIJDataPack)p {
+    if (p.new_node) {
+        
+    } else if (p.no_update_node) {
+        
+    } else if (p.poped_node) {
+        
+    } else if (p.updated_node) {
+        
+    } else {};
     
 }
 

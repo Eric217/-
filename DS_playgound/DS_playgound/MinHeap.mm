@@ -76,7 +76,7 @@ bool MinHeap<T>::contains(const T & t) const {
 
 template <typename T>
 MinHeap<T> & MinHeap<T>::push(const T & t) {
-    
+    assert(currentSize <= maxSize);
     int i = ++currentSize; //t从新的叶节点开始 沿着树上升
     while (i != 1 && element[i/2-1] > t) {
         element[i-1] = element[i/2-1];

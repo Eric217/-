@@ -11,7 +11,7 @@
 @protocol DataTransmitter <NSObject>
 
 ///用identifier 判断是否是要传输的目的对象
-- (void)transmitData:(id)data withIdentifier:(nullable NSString *)identitifier;
+- (void)transmitData:(id _Nullable )data withIdentifier:(nullable NSString *)identitifier;
 
 @end
 

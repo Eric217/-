@@ -71,7 +71,7 @@ public:
 template <typename T>
 class Dist {
 public:
-    Dist() {}
+    Dist(): idx(0), dist(0) {}
     Dist(T d, int i): dist(d), idx(i) {}
     T dist;
     int idx;
