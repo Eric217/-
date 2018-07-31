@@ -21,19 +21,16 @@ struct IntPair {
     bool operator<(const IntPair & t) const { return !(*this == t); }
 };
 
-/// for FDS
 struct DFSDataPack {
     int type; int order; int lastTop;
 };
 
-/// for BFS
 struct BFSDataPack {
     int * in_nodes;
     int in_count;
     int out_node;
 };
 
-/// for KRU
 template <typename T>
 class EdgeForHeap {
 public:
@@ -45,7 +42,6 @@ public:
     int start, end;//边的端点
 };
 
-/// for PRI
 template <typename T>
 struct PRIDataPack {
     EdgeForHeap<T> *new_edges; ///< 无论怎样都要 delete []
@@ -55,36 +51,42 @@ struct PRIDataPack {
 };
 
 struct DIJDataPack {
-    int new_node; ///< 新访问
-    int poped_node; ///< 切换至
-    int updated_node; ///< 更新
-    int no_update_node; ///< 无需更新
+    int new_node;           ///< 新访问
+    int poped_node;         ///< 切换至
+    int updated_node;       ///< 更新
+    int no_update_node;     ///< 无需更新
     DIJDataPack(): new_node(0), poped_node(0), updated_node(0), no_update_node(0) {}
 };
 
 template <typename T>
 class AdjacencyWGraph : public AdjacencyWDigraph<T>, public UndirectedNetwork {
-    bool * reached;
     
-    MinHeap<EdgeForHeap<T>> * heap;
+    // 所有指针，对应哪个算法谁污染谁治理
+  
+    // for common usage
+    bool *_reached;
+    MinHeap<EdgeForHeap<T>> *_heap;
+
+    LinkedStack<int> * _stack;      ///< for DFS
+    LinkedQueue<int> * _queue;      ///< for BFS
     
-    LinkedStack<int> * stack;
-    LinkedQueue<int> * queue;
-    set<int> * _set;
-    set<IntPair> *_edge_set;
+    set<int> * _set;                ///< for PRIM
+    set<IntPair> *_edge_set;        ///< for PRIM
     
-    MinHeap<Dist<T>> * heap2;
-    T  * dist; ///< delete by graph view
-    int * pre; ///< delete by graph view
-    int start;
-    int current_j;
-    bool just_poped;
-    Dist<T> cur_dist;
+    /// heap for DIJ @discussion 应该使用特殊修改过的堆。因为dist[i]的值会变，但堆内部还是存的原来的值，因此可以堆内部保存 dist指针，让 operator T 返回的是dist[i]的值！然后每次 update dist 需要 reactive。本项目内用了一个折中的办法，不改了
+    MinHeap<Dist<T>> * _heap_dij;
+
+    T * dist;                       ///< for DIJ; deleted by graph view
+    int * pre;                      ///< for DIJ; deleted by graph view
+    int _start;                     ///< for DIJ
+    int _current_j;                 ///< for DIJ
+    bool _just_poped;               ///< for DIJ
+    Dist<T> _cur_dist;              ///< for DIJ
     
 public:
     AdjacencyWGraph(int ver = 10):
-    AdjacencyWDigraph<T>(ver), reached(0), stack(0), queue(0), heap(0),
-    _set(0), _edge_set(0), heap2(0) {}
+    AdjacencyWDigraph<T>(ver), _reached(0), _stack(0), _queue(0), _heap(0),
+    _set(0), _edge_set(0), _heap_dij(0) {}
     ~AdjacencyWGraph();
     
     AdjacencyWGraph<T> & addEdge(int i, int j, const T & w);
@@ -95,91 +97,97 @@ public:
     /// IntPair 第一个值为0是入栈，1是出栈
     DFSDataPack startDFSFrom(int);
     DFSDataPack nextDFSStep(bool *finished);
+    
     BFSDataPack startBFSFrom(int);
     BFSDataPack nextBFSStep(bool *finished);
+    
     EdgeForHeap<T> * startKruskal();
     EdgeForHeap<T> * nextKruskal();
+    
     PRIDataPack<T> startPrimFrom(int);
     PRIDataPack<T> nextPrim();
+    
     DIJDataPack startDijkstra(int from, T *dist, int * pre);
     DIJDataPack nextDijkstra(bool * finished);
     
 };
 
-
 template <typename T>
 DIJDataPack AdjacencyWGraph<T>::startDijkstra(int s, T *d, int * p) {
-    if (heap2) delete heap2;
-    heap2 = new MinHeap<Dist<T>>(this->n-1);
+    if (_heap_dij) delete _heap_dij;
+    _heap_dij = new MinHeap<Dist<T>>(this->n-1);
     dist = d;
     pre = p;
     for (int i = 0; i < this->n+1; i++)
         pre[i] = 0;
-    just_poped = 0;
-    current_j = 1;
-    start = s;
-    heap2->push(Dist<T>(0, s));
+    _just_poped = 0;
+    _current_j = 1;
+    _start = s;
+    _heap_dij->push(Dist<T>(0, s));
+    dist[s] = 0;
     return nextDijkstra(0);
 }
+
 template <typename T>
 DIJDataPack AdjacencyWGraph<T>::nextDijkstra(bool * finished) {
-    
     DIJDataPack p;
     
-    if (current_j == 1 && !just_poped) {
-        heap2->pop(cur_dist);
-        p.poped_node = cur_dist.idx;
-        just_poped = 1;
+    if (_current_j == 1 && !_just_poped) {
+        _heap_dij->pop(_cur_dist);
+        p.poped_node = _cur_dist.idx;
+        _just_poped = 1;
         return p;
     }
     
-    int i = cur_dist.idx;
-    for (int j = current_j; j <= this->n; j++) {
+    int i = _cur_dist.idx; // 所有与 i 连的边 (非 start) 走一遍
+    for (int j = _current_j; j <= this->n; j++) {
         T incomingDist = dist[i] + this->arr[i][j];
         
-        if (j != start && this->arr[i][j] != NoEdge) {
+        if (j != _start && this->arr[i][j] != NoEdge) {
             if (p.no_update_node) {
-                current_j = j;
+                _current_j = j;
                 return p;
             }
             if (pre[j] == 0 || dist[j] > incomingDist) {
-                dist[j] = incomingDist;
+                dist[j] = incomingDist; // 上面如果pre[j] != 0，则dist[j]一定有正常值
                 if (!pre[j]) {
-                    heap2->push(Dist<T>(dist[j], j));
+                    _heap_dij->push(Dist<T>(dist[j], j));
                     p.new_node = j;
-                } else {
+                } else { // dist更新了，但是
                     p.updated_node = j;
-                    Dist<T> *top = heap2->top();
+                    Dist<T> *top = _heap_dij->top();
                     int c = 0;
                     while ((top+c)->idx != j) c++;
                     (top+c)->dist = incomingDist;
-                    heap2->deactive();
-                    heap2->initialize(top);
+                    _heap_dij->initialize(top);
                 }
                 pre[j] = i;
-                current_j = ++j;
+                _current_j = ++j;
                 return p;
             } else {
-                current_j = j;
-                p.no_update_node = current_j++;
+                _current_j = j;
+                p.no_update_node = _current_j++;
             }
         }
     }
     
+    // pop 最后一个节点后，最后一个节点 1-n 遍历时肯定全是 no-update，此时判结束
     if (p.no_update_node) {
-        if (heap2->empty())
+        if (_heap_dij->empty())
             *finished = 1;
-        just_poped = 0;
+        _just_poped = 0;
         return p;
     }
-    just_poped = 0;
-    current_j = 1;
+    
+    // 走完了一轮 for，(能走到这句上一次操作肯定不是 no-update) 也就是正常循环完一个节点且没做操作，因此需要 pop 下一轮开始
+    _just_poped = 0;
+    _current_j = 1;
     return this->nextDijkstra(finished);
 }
 
 template <typename T>
 PRIDataPack<T> AdjacencyWGraph<T>::startPrimFrom(int k) {
-    if (heap) delete heap;
+    if (_heap) delete _heap;
     if (_set) _set->clear();
     else _set = new set<int>();
     if (_edge_set) _edge_set->clear();
@@ -187,7 +195,7 @@ PRIDataPack<T> AdjacencyWGraph<T>::startPrimFrom(int k) {
     
     int total = this->n, c = 0;
     total = int(total*total/2-total/2);
-    heap = new MinHeap<EdgeForHeap<T>>(total);
+    _heap = new MinHeap<EdgeForHeap<T>>(total);
     EdgeForHeap<T> *temp_connected = new EdgeForHeap<T>[this->n-1];
     
     for (int i = 1; i <= this->n; i++) {
@@ -195,7 +203,7 @@ PRIDataPack<T> AdjacencyWGraph<T>::startPrimFrom(int k) {
             EdgeForHeap<T> edge(i, k, this->arr[i][k]);
             temp_connected[c++] = edge;
             _edge_set->insert({k, i});
-            heap->push(edge);
+            _heap->push(edge);
         }
     }
     _set->insert(k);
@@ -207,7 +215,7 @@ template <typename T>
 PRIDataPack<T> AdjacencyWGraph<T>::nextPrim() {
     
     EdgeForHeap<T> heap_top;
-    heap->pop(heap_top);
+    _heap->pop(heap_top);
     
     int from = heap_top.start, to = heap_top.end;
     if (_set->find(heap_top.start) == _set->end()) {
@@ -228,7 +236,7 @@ PRIDataPack<T> AdjacencyWGraph<T>::nextPrim() {
             if (!f) {
                 EdgeForHeap<T> edge(i, to, this->arr[i][to]);
                 temp_connected[c++] = edge;
-                heap->push(edge);
+                _heap->push(edge);
                 _edge_set->insert({i, to});
             }
         }
@@ -239,7 +247,7 @@ PRIDataPack<T> AdjacencyWGraph<T>::nextPrim() {
 
 template <typename T>
 EdgeForHeap<T> * AdjacencyWGraph<T>::startKruskal() {
-    if (heap) delete heap;
+    if (_heap) delete _heap;
     
     int total = this->n, c = 0;
     total = int(total*total/2-total/2);
@@ -256,43 +264,43 @@ EdgeForHeap<T> * AdjacencyWGraph<T>::startKruskal() {
         }
     }
     
-    heap = new MinHeap<EdgeForHeap<T>>(edges, c);
+    _heap = new MinHeap<EdgeForHeap<T>>(edges, c);
     EdgeForHeap<T> * e;
-    heap->pop(e);
+    _heap->pop(e);
     return e;
 }
 
 template <typename T>
 EdgeForHeap<T> * AdjacencyWGraph<T>::nextKruskal() {
-    EdgeForHeap<T> * e; heap->pop(e);
+    EdgeForHeap<T> * e; _heap->pop(e);
     return e;
 }
 
 template <typename T>
 DFSDataPack AdjacencyWGraph<T>::startDFSFrom(int i) {
-    if (stack) delete stack;
-    stack = new LinkedStack<int>();
-    if (reached) delete [] reached;
-    reached = new bool[this->n+1];
+    if (_stack) delete _stack;
+    _stack = new LinkedStack<int>();
+    if (_reached) delete [] _reached;
+    _reached = new bool[this->n+1];
     
     for (int i = 1; i < this->n+1; i++)
-        reached[i] = 0;
-    reached[i] = 1;
-    stack->push(i);
+        _reached[i] = 0;
+    _reached[i] = 1;
+    _stack->push(i);
     return {0, i};
 }
 
 /// in 的蓝色，out的红色，
 template <typename T>
 BFSDataPack AdjacencyWGraph<T>::startBFSFrom(int i) {
-    if (queue) delete queue;
-    queue = new LinkedQueue<int>();
-    if (reached) delete [] reached;
-    reached = new bool[this->n+1];
+    if (_queue) delete _queue;
+    _queue = new LinkedQueue<int>();
+    if (_reached) delete [] _reached;
+    _reached = new bool[this->n+1];
     for (int i = 1; i < this->n+1; i++)
-        reached[i] = 0;
-    reached[i] = 1;
-    queue->push(i);
+        _reached[i] = 0;
+    _reached[i] = 1;
+    _queue->push(i);
     int * arr = new int[1];
     arr[0] = i;
     return {arr, 1, 0};
@@ -300,16 +308,16 @@ BFSDataPack AdjacencyWGraph<T>::startBFSFrom(int i) {
 
 template <typename T>
 DFSDataPack AdjacencyWGraph<T>::nextDFSStep(bool *finished) {
-    int top = stack->Top();
+    int top = _stack->Top();
     for (int i = 1; i <= this->n; i++) {
-        if (this->arr[top][i] != NoEdge && !reached[i]) {
-            stack->push(i);
-            reached[i] = 1;
+        if (this->arr[top][i] != NoEdge && !_reached[i]) {
+            _stack->push(i);
+            _reached[i] = 1;
             return {0, i, top};
         }
     }
-    stack->pop();
-    *finished = stack->isEmpty();
+    _stack->pop();
+    *finished = _stack->isEmpty();
     return {1, top};
 }
 
@@ -317,12 +325,12 @@ DFSDataPack AdjacencyWGraph<T>::nextDFSStep(bool *finished) {
 template <typename T>
 BFSDataPack AdjacencyWGraph<T>::nextBFSStep(bool *finished) {
     int top;
-    queue->pop(top);
+    _queue->pop(top);
     int temp[this->n], c = 0;
     for (int i = 1; i <= this->n; i++) {
-        if (this->arr[top][i] != NoEdge && !reached[i]) {
-            queue->push(i);
-            reached[i] = 1;
+        if (this->arr[top][i] != NoEdge && !_reached[i]) {
+            _queue->push(i);
+            _reached[i] = 1;
             temp[c++] = i;
         }
     }
@@ -336,7 +344,7 @@ BFSDataPack AdjacencyWGraph<T>::nextBFSStep(bool *finished) {
         p.in_nodes = 0;
     p.in_count = c;
     p.out_node = top;
-    *finished = queue->isEmpty();
+    *finished = _queue->isEmpty();
     return p;
 }
 
@@ -356,13 +364,13 @@ AdjacencyWGraph<T> & AdjacencyWGraph<T>::deleteEdge(int i, int j) {
 
 template <typename T>
 AdjacencyWGraph<T>::~AdjacencyWGraph<T>() {
-    if (stack)     { delete stack;      stack = 0;      }
-    if (queue)     { delete queue;      queue = 0;      }
-    if (heap)      { delete heap;       heap = 0;       }
-    if (heap2)     { delete heap2;      heap2 = 0;      }
+    if (_stack)     { delete _stack;      _stack = 0;      }
+    if (_queue)     { delete _queue;      _queue = 0;      }
+    if (_heap)      { delete _heap;       _heap = 0;       }
+    if (_heap_dij)     { delete _heap_dij;      _heap_dij = 0;      }
     if (_set)      { delete _set;       _set = 0;       }
     if (_edge_set) { delete _edge_set;  _edge_set = 0;  }
-    if (reached)   { delete [] reached; reached = 0;    }
+    if (_reached)   { delete [] _reached; _reached = 0;    }
 }
 
 #endif /* AdjacencyWGraph_hpp */

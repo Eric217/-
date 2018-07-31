@@ -23,9 +23,10 @@
 
 @interface GraphViewController ()
 
+@property (nonatomic, assign) GraphAlgo algoType;
 @property (nonatomic, strong) GraphView *graphView;
 @property (nonatomic, strong) UILabel *promptLabel;
-
+@property (nonatomic, copy)   NSArray<NSString *> *titles; ///< title, sub
 //Right 2
 @property (nonatomic, strong) UIBarButtonItem *capture;
 @property (nonatomic, strong) UIBarButtonItem *settings;
@@ -34,25 +35,21 @@
 @property (nonatomic, strong) UIBarButtonItem *resultButton;
 @property (nonatomic, strong) UIBarButtonItem *restartButton;
 
-@property (nonatomic, assign) GraphAlgo algoType;
-@property (nonatomic, copy) NSArray<NSString *> *titles; ///< title, sub
-
 @property (nonatomic, assign) AdjacencyWGraph<int> *aw_graph;
-@property (nonatomic, assign) set<set<int> *> *kru_set;
-@property (nonatomic, assign) set<int> *prim_set;
-@property (nonatomic, assign) int *dist;
-@property (nonatomic, assign) int *pre;
-
 @property (nonatomic, assign) int nodecount;
-@property (nonatomic, assign) int added_edge_count;
-@property (nonatomic, assign) int start_pos;
 
-@property (nonatomic, assign) bool finished;
-@property (nonatomic, assign) bool showing_result;
+@property (nonatomic, assign) set<set<int> *> *kru_set; ///< for kruskal
+@property (nonatomic, assign) int added_edge_count; ///< for kruskal
 
-@property (nonatomic, copy) NSMutableArray *dists;
-@property (nonatomic, copy) NSMutableArray *paths;
-//@[@"到达 2 最短距离: 25", @"1 -> 4 -> 7 -> 5 -> 2 -> 4 -> 7 -> 5 -> 4 -> 7 -> 5"]
+@property (nonatomic, assign) set<int> *prim_set; ///< for prim
+
+@property (nonatomic, assign) int *dist; ///< for dijkstra
+@property (nonatomic, assign) int *pre; ///< for dijkstra
+
+@property (nonatomic, assign) int start_pos; ///< for those who need select start
+
+@property (nonatomic, assign) bool finished; ///< signal for finish
+@property (nonatomic, assign) bool showing_result; ///< for show_result, disable flash node views
 
 @end
 
@@ -65,6 +62,7 @@
     _kru_set = 0;
     _prim_set = 0;
     _dist = _pre = 0;
+    _start_pos = 0;
     return self;
 }
 
@@ -110,7 +108,6 @@
         make.height.mas_equalTo(52);
     }];
     
-    _start_pos = 0;
     [self retriveGraph];
     if (_nodecount > 0) {
         [Config postNotification:ELGraphDidSelectPointNotification message:@{NotiInfoId: @"1", NotiInfoName: [_graphView nodeWithOrder:1].name}];
@@ -122,10 +119,9 @@
 
 /// 通知传来开始消息，那么确定要开始吗(拦截)？
 - (void)indicateStart:(NSNotification *)noti {
-
     int s = [noti.userInfo[NotiInfoId] intValue];
     if (!_start_pos) {
-        // 开始
+        // 开始 directly
     } else if (s == _start_pos) {
         // if !finished, 提示重新开始吗
         // else 开始
@@ -133,15 +129,16 @@
         // if !finished, 提示是否演示新的
         // else 开始
     }
-    // temp: start, in all cases.
-    
+    // for now: start directly in all cases.
     [self startShowFrom:s];
 }
 
 /// 重新开始、通知要求开始 最后都从这里开始
+/// @discussion init these values:
+/// _graphView->reset;\n _promptLabel->clear;
+/// enable all buttons; _aw_graph->restart; for properties specificated for certain algorithm, reset in their bodies; _start_pos updated if needed; _finished = 0; _showing_result = 0;
 - (void)startShowFrom:(int)pos {
     _start_pos = pos;
-    _added_edge_count = 0;
     _finished = 0;
     _showing_result = 0;
     [self enableButtons:1];
@@ -155,6 +152,7 @@
     } else if (_algoType == GraphAlgoBFS) {
         [self handleBFSPack:_aw_graph->startBFSFrom(pos)];
     } else if (_algoType == GraphAlgoKRU) {
+        _added_edge_count = 0;
         if (_kru_set) {
             for (set<set<int> *>::iterator it = _kru_set->begin();
                  it != _kru_set->end(); it++) {
@@ -188,6 +186,8 @@
     } else {}
     
     if (_finished) {
+        if (_showing_result)
+            [self updatePromptLabel:@"" withFinishComma:0];
         _showing_result = 0;
         [self enableButtons:0];
     }
@@ -201,7 +201,6 @@
         if (node._id == _start_pos)
             continue;
         NSMutableArray *temp = [NSMutableArray new];
-
         [temp addObject:String(node._id)];
         [temp addObject:[NSString stringWithFormat:@"到达 %@ 的最短距离  _", node.name]];
         [temp addObject:@" "];
@@ -216,24 +215,24 @@
         int i = p.new_node;
         NodeView *node = [_graphView nodeWithOrder:i];
         [_graphView visit_node:node from:0];
-        [self updatePromptLabel:[NSString stringWithFormat:@"路径首次到达顶点 %@", node.name]];
+        [self updatePromptLabel:[NSString stringWithFormat:@"路径首次到达顶点 %@", node.name] withFinishComma:1];
         [self updatePathTableWithOrder:i name:node.name];
         
     } else if (p.no_update_node) {
         NodeView *node = [_graphView nodeWithOrder:p.no_update_node];
-        [self updatePromptLabel:[NSString stringWithFormat:@"无需更新顶点 %@", node.name]];
+        [self updatePromptLabel:[NSString stringWithFormat:@"无需更新顶点 %@", node.name] withFinishComma:1];
         if (!_showing_result)
             [node flashWithDuration:0.2 color:node.layer.borderColor];
     } else if (p.poped_node) {
         NodeView *node = [_graphView nodeWithOrder:p.poped_node];
         [_graphView revisit_node:node];
-        [self updatePromptLabel:[NSString stringWithFormat:@"切换至顶点 %@", node.name]];
+        [self updatePromptLabel:[NSString stringWithFormat:@"切换至顶点 %@", node.name] withFinishComma:1];
         
     } else if (p.updated_node) {
         NodeView *node = [_graphView nodeWithOrder:p.updated_node];
         if (!_showing_result)
             [node flashWithDuration:0.2 color:node.layer.borderColor];
-        [self updatePromptLabel:[NSString stringWithFormat:@"更新顶点 %@ 的路径", node.name]];
+        [self updatePromptLabel:[NSString stringWithFormat:@"更新顶点 %@ 的路径", node.name] withFinishComma:1];
         [self updatePathTableWithOrder:p.updated_node name:node.name];
     } else {};
     
@@ -262,7 +261,7 @@
     bool b1 = _prim_set->find(to) != _prim_set->end();
     if (b1) { // 环
         [_graphView invalidate_edge:edge];
-        [self updatePromptLabel:[NSString stringWithFormat:@"选中边:(%@, %@)会构成环，删除该边", edge.startNode.name, edge.endNode.name]];
+        [self updatePromptLabel:[NSString stringWithFormat:@"选中边:(%@, %@)会构成环，删除该边", edge.startNode.name, edge.endNode.name] withFinishComma:1];
     } else {
         [_graphView revisit_edge:edge];
         NSMutableString *mut = from == to ? [NSMutableString new] : [NSMutableString stringWithFormat:@"选中边:(%@, %@)", edge.startNode.name, edge.endNode.name];
@@ -281,7 +280,7 @@
         _prim_set->insert(to);
       
         _finished = _prim_set->size() == _nodecount;
-        [self updatePromptLabel:mut];
+        [self updatePromptLabel:mut withFinishComma:1];
     }
     delete [] p.new_edges;
 }
@@ -297,7 +296,7 @@
             if (s->find(v1) != s->end() && s->find(v2) != s->end()) { //都找到了
                 GraphEdge *ee = [_graphView edgeWithStart:v1 end:v2];
                 [_graphView invalidate_edge:ee];
-                [self updatePromptLabel:[NSString stringWithFormat:@"选中边:(%@, %@)会构成环，删除该边", ee.startNode.name, ee.endNode.name]];
+                [self updatePromptLabel:[NSString stringWithFormat:@"选中边:(%@, %@)会构成环，删除该边", ee.startNode.name, ee.endNode.name] withFinishComma:1];
             } else { //只有一处找到了
                 s->insert(v1); s->insert(v2); exec = 1;
             }
@@ -313,7 +312,7 @@
         [_graphView revisit_edge:[_graphView edgeWithStart:v1 end:v2]];
         if (_added_edge_count == _nodecount-1)
             _finished = 1;
-        [self updatePromptLabel:[NSString stringWithFormat:@"加入权值为 %d 的边", edge->weight]];
+        [self updatePromptLabel:[NSString stringWithFormat:@"加入权值为 %d 的边", edge->weight] withFinishComma:1];
     }
 }
 
@@ -377,10 +376,13 @@
     _promptLabel.text = out_str;
 }
 
-- (void)updatePromptLabel:(NSString *)str {
-    if (_finished)
-        _promptLabel.text = [str stringByAppendingString:_algoType == GraphAlgoDIJ ? @"; 所有最短路径已生成" : @"; 构成最小生成树"];
-    else
+- (void)updatePromptLabel:(NSString *)str withFinishComma:(bool)b {
+    if (_finished) {
+        NSMutableString *s = [NSMutableString stringWithString:str];
+        if (b) [s appendString:@"; "];
+        [s appendString:_algoType == GraphAlgoDIJ ? @"所有最短路径已生成" : @"构成最小生成树"];
+        _promptLabel.text = s;
+    } else
         _promptLabel.text = str;
 }
 
@@ -399,6 +401,11 @@
         [_graphView addSubview:nodeView];
         [_graphView.vertices addObject:nodeView];
     }
+    
+    [_graphView.vertices sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NodeView *n = obj1; NodeView *m = obj2;
+        return n._id < m._id ? NSOrderedAscending : NSOrderedDescending;
+    }];
  
     sql = [NSString stringWithFormat:@"select n_s_o s, n_e_o e, weight w from graph_edge where gid = (select gid from graph where gname = '%@')", name];
     NSArray *edges = [SQLiteManager.shared querySQL:sql];

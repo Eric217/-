@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NodeView : UILabel
 
-@property (nonatomic, assign) int _id;
+@property (nonatomic, assign) int _id; ///< 这个属性是用户不可见、严格在创建图时分配的，从 1 开始递增
 @property (nonatomic, assign) bool load;
 
 @property (nonatomic, assign) CGPoint s_center; ///<在superview中的位置，0-1

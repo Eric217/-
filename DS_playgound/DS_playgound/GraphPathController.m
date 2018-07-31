@@ -27,9 +27,11 @@
 @property (nonatomic, strong) UIViewController *anotherRootVC;
 
 @property (nonatomic, copy) NSArray *titles;
-@property (nonatomic, strong) NSString *pos_name;
+@property (nonatomic, strong) NSString *current_name;
+@property (nonatomic, assign) int current_pos;
 
-@property (nonatomic, assign) int start_pos;
+@property (nonatomic, assign) int latest_clicked_pos;
+
 @property (nonatomic, assign) GraphAlgo algoType;
 
 @property (nonatomic, assign) bool start_clicked;
@@ -109,7 +111,7 @@
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.height.equalTo(@36);
-        make.top.equalTo(self.view).offset(64+[Config v_pad:31 plus:18 p:12 min:8]);
+        make.top.equalTo(self.view).offset(64+[Config v_pad:33 plus:18 p:12 min:8]);
     }];
     
     [_selectStart mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -123,49 +125,49 @@
         make.height.equalTo(@26);
         make.left.equalTo(self.view).offset(15);
         make.right.equalTo(self.view).inset(15);
-        make.top.equalTo(self.selectStart.mas_bottom).offset(3);
+        make.top.equalTo(self.selectStart.mas_bottom).offset(1.5);
     }];
     
     [_startShow mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view).inset([Config v_pad:40 plus:34 p:30 min:24]);
-        make.height.mas_equalTo(44);
+        make.bottom.equalTo(self.view).inset([Config v_pad:39 plus:34 p:30 min:24]);
+        make.height.mas_equalTo(38);
         make.centerX.equalTo(self.view);
     }];
     
     [_table mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(40);
-        make.right.equalTo(self.view).inset(40);
+        make.left.equalTo(self.view).offset(42);
+        make.right.equalTo(self.view).inset(42);
         make.top.equalTo(self.tableHeaderPrompt.mas_bottom).offset(15);
-        make.bottom.equalTo(self.startShow.mas_top).inset(20);
+        make.bottom.equalTo(self.startShow.mas_top).inset(18);
     }];
     
     [Config addObserver:self selector:@selector(didReceivePointInfo:) notiName:ELGraphDidSelectPointNotification];
     
-    [Config addObserver:self selector:@selector(stackShouldOperate:) notiName:ELStackDidChangeNotification];
+    [Config addObserver:self selector:@selector(pathTableDidChange:) notiName:ELStackDidChangeNotification];
   
     [Config addObserver:self selector:@selector(getTableInitData:) notiName:ELGraphDidInitPathTableNotification];
     
 }
 
 - (void)didReceivePointInfo:(NSNotification *)noti {
-    _start_pos = [noti.userInfo[@"id"] intValue];
-    _pos_name = noti.userInfo[@"name"];
-    _selectStart.detailTextLabel.text = _pos_name;
+    _latest_clicked_pos = [noti.userInfo[@"id"] intValue];
+    _current_name = noti.userInfo[@"name"];
+    _selectStart.detailTextLabel.text = _current_name;
     if (!_start_clicked)
-        _tableHeaderPrompt.text = [NSString stringWithFormat:@"从 %@ 到各顶点的最短路如下 :", _pos_name];
+        _tableHeaderPrompt.text = [NSString stringWithFormat:@"从 %@ 到各顶点的最短路如下 :", _current_name];
     
 }
 
 - (void)getTableInitData:(NSNotification *)noti {
     _dataArr = noti.userInfo[@"0"];
-    [_table reloadData];
+    [_table reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 
 - (void)startDisplay:(id)sender {
     _start_clicked = 1;
     if (_start_clicked)
-        _tableHeaderPrompt.text = [NSString stringWithFormat:@"从 %@ 到各顶点的最短路如下 :", _pos_name];
+        _tableHeaderPrompt.text = [NSString stringWithFormat:@"从 %@ 到各顶点的最短路如下 :", _current_name];
     else _start_clicked = 1;
     
     if (self.splitViewController.viewControllers.count == 1) {
@@ -173,22 +175,32 @@
     }
     
     // TODO: - 提示框，是否重置
-    
-    [Config postNotification:ELGraphShouldStartShowNotification message:@{NotiInfoId: String(_start_pos)}];
+    _current_pos = _latest_clicked_pos;
+    [Config postNotification:ELGraphShouldStartShowNotification message:@{NotiInfoId: String(_latest_clicked_pos)}];
     
 }
 
-- (void)stackShouldOperate:(NSNotification *)noti {
+- (void)pathTableDidChange:(NSNotification *)noti {
     if (_algoType == GraphAlgoDIJ) {
         NSString *_id = noti.userInfo[@"0"];
-        for (NSMutableArray *arr in _dataArr) {
-            if ([arr[0] isEqualToString:_id]) {
-                arr[1] = noti.userInfo[@"1"];
-                arr[2] = noti.userInfo[@"2"];
-                [_table reloadData];
-                break;
+        int __id = [_id intValue];
+        int p = __id < _current_pos ? __id - 1 : __id - 2;
+        
+        if ([_dataArr[p][0] isEqualToString:_id]) {
+            _dataArr[p][1] = noti.userInfo[@"1"];
+            _dataArr[p][2] = noti.userInfo[@"2"];
+            NSIndexPath *idx = IndexPath_Sec0(p);
+            [_table reloadRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationTop];
+            [_table scrollToRowAtIndexPath:idx atScrollPosition:__id < _dataArr.count/2 ? UITableViewScrollPositionTop : UITableViewScrollPositionBottom animated:1];
+        } else
+            for (NSMutableArray *arr in _dataArr) {
+                if ([arr[0] isEqualToString:_id]) {
+                    arr[1] = noti.userInfo[@"1"];
+                    arr[2] = noti.userInfo[@"2"];
+                    [_table reloadData];
+                    break;
+                }
             }
-        }
     }
 }
 
