@@ -48,7 +48,7 @@
 #define SquareRect(centerPoint, radius) CGRectMake(centerPoint.x-radius, centerPoint.y-radius, 2*radius, 2*radius)
 
 // UIColor
-#define SystemBlue              [UIColor colorWithRed:0 green:111.0/255 blue:1 alpha:1]
+#define SystemBlue              [UIColor colorWithRed:0 green:0.435 blue:1 alpha:1]
 #define AlmostWhiteColor        [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1]
 #define TableBackLightestColor  [UIColor colorWithRed:0.959 green:0.959 blue:0.965 alpha:1]
 #define TableBackLightColor     [UIColor colorWithRed:0.953 green:0.953 blue:0.96 alpha:1]

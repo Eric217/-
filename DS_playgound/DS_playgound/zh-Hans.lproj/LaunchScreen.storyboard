@@ -22,30 +22,20 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                                 <color key="backgroundColor" red="0.4039215686" green="0.74117647060000003" blue="0.72941176470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English version needed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QaS-Po-WbK">
-                                <rect key="frame" x="285" y="146" width="347" height="73"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Go5-L6-zUN" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="5Sp-wG-jfo"/>
-                            <constraint firstItem="7HT-4j-gat" firstAttribute="bottom" secondItem="QaS-Po-WbK" secondAttribute="bottom" constant="549" id="Yaa-Jh-CQJ"/>
-                            <constraint firstItem="7HT-4j-gat" firstAttribute="trailing" secondItem="QaS-Po-WbK" secondAttribute="trailing" constant="392" id="Zxh-L7-ooI"/>
                             <constraint firstItem="Go5-L6-zUN" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="dIT-5F-GHn"/>
                             <constraint firstAttribute="trailing" secondItem="Go5-L6-zUN" secondAttribute="trailing" id="mhe-5P-5SX"/>
                             <constraint firstAttribute="bottom" secondItem="Go5-L6-zUN" secondAttribute="bottom" id="oNO-be-7EH"/>
-                            <constraint firstItem="QaS-Po-WbK" firstAttribute="leading" secondItem="7HT-4j-gat" secondAttribute="leading" constant="285" id="s96-bS-mHV"/>
-                            <constraint firstItem="QaS-Po-WbK" firstAttribute="top" secondItem="7HT-4j-gat" secondAttribute="top" constant="126" id="xwL-p5-shN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7HT-4j-gat"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52.734375" y="375"/>
+            <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
     <resources>

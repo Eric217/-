@@ -397,7 +397,7 @@
     _aw_graph = new AdjacencyWGraph<int>(_nodecount);
 
     for (NSDictionary *node in nodes) {
-        NodeView *nodeView = [[NodeView alloc] initWithId:[node[@"__id"] intValue] name:node[@"nname"] s_center:{[node[@"x"] doubleValue], [node[@"y"] doubleValue]}];
+        NodeView *nodeView = [[NodeView alloc] initWithId:[node[@"__id"] intValue] name:node[@"nname"] s_center:{static_cast<CGFloat>([node[@"x"] doubleValue]), static_cast<CGFloat>([node[@"y"] doubleValue])}];
         [_graphView addSubview:nodeView];
         [_graphView.vertices addObject:nodeView];
     }

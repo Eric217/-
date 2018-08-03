@@ -186,21 +186,15 @@
         int __id = [_id intValue];
         int p = __id < _current_pos ? __id - 1 : __id - 2;
         
-        if ([_dataArr[p][0] isEqualToString:_id]) {
-            _dataArr[p][1] = noti.userInfo[@"1"];
-            _dataArr[p][2] = noti.userInfo[@"2"];
-            NSIndexPath *idx = IndexPath_Sec0(p);
-            [_table reloadRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationTop];
+        _dataArr[p][1] = noti.userInfo[@"1"];
+        _dataArr[p][2] = noti.userInfo[@"2"];
+        NSIndexPath *idx = IndexPath_Sec0(p);
+        [_table reloadRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationRight];
+        
+        UITableViewCell *cell = [_table cellForRowAtIndexPath:idx];
+        if (!CGRectContainsRect(_table.bounds, cell.frame))
             [_table scrollToRowAtIndexPath:idx atScrollPosition:__id < _dataArr.count/2 ? UITableViewScrollPositionTop : UITableViewScrollPositionBottom animated:1];
-        } else
-            for (NSMutableArray *arr in _dataArr) {
-                if ([arr[0] isEqualToString:_id]) {
-                    arr[1] = noti.userInfo[@"1"];
-                    arr[2] = noti.userInfo[@"2"];
-                    [_table reloadData];
-                    break;
-                }
-            }
+        
     }
 }
 

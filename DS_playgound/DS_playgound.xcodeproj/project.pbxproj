@@ -54,6 +54,7 @@
 		075B15A520F74C2D0081CD48 /* SelectHeapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B15A020F74C2D0081CD48 /* SelectHeapController.m */; };
 		0768BFE720FE1613000DF520 /* TravesalDescController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0768BFE620FE1613000DF520 /* TravesalDescController.m */; };
 		076B62F42103264B0029584A /* UIViewController+SplitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076B62F32103264B0029584A /* UIViewController+SplitController.m */; };
+		07732FC12114A63A005AB98B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07732FC32114A63A005AB98B /* InfoPlist.strings */; };
 		077AA9D42105B87900BA1F9B /* GraphMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 077AA9D32105B87900BA1F9B /* GraphMainController.m */; };
 		077AA9D72105BB8A00BA1F9B /* SubtitleCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 077AA9D62105BB8A00BA1F9B /* SubtitleCollectionCell.m */; };
 		077AA9DC2105DC4E00BA1F9B /* GraphStackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 077AA9DB2105DC4E00BA1F9B /* GraphStackController.m */; };
@@ -176,6 +177,8 @@
 		0768BFE620FE1613000DF520 /* TravesalDescController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TravesalDescController.m; sourceTree = "<group>"; };
 		076B62F22103264B0029584A /* UIViewController+SplitController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SplitController.h"; sourceTree = "<group>"; };
 		076B62F32103264B0029584A /* UIViewController+SplitController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SplitController.m"; sourceTree = "<group>"; };
+		07732FBE2114A512005AB98B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.storyboard"; sourceTree = "<group>"; };
+		07732FC22114A63A005AB98B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		077AA9D22105B87900BA1F9B /* GraphMainController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphMainController.h; sourceTree = "<group>"; };
 		077AA9D32105B87900BA1F9B /* GraphMainController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphMainController.m; sourceTree = "<group>"; };
 		077AA9D52105BB8A00BA1F9B /* SubtitleCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubtitleCollectionCell.h; sourceTree = "<group>"; };
@@ -621,6 +624,7 @@
 				072C4B33210F6EBD0012F13F /* AppDelegate.m */,
 				07BB0CD020F73DDF00B2BCA7 /* main.m */,
 				07BB0CCF20F73DDF00B2BCA7 /* Info.plist */,
+				07732FC32114A63A005AB98B /* InfoPlist.strings */,
 				07BB0CCA20F73DDF00B2BCA7 /* Assets.xcassets */,
 				07BB0CC720F73DDD00B2BCA7 /* Main.storyboard */,
 				07BB0CCC20F73DDF00B2BCA7 /* LaunchScreen.storyboard */,
@@ -760,6 +764,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 07BB0CB520F73DDD00B2BCA7;
 			productRefGroup = 07BB0CBF20F73DDD00B2BCA7 /* Products */;
@@ -780,6 +785,7 @@
 				07BB0CCE20F73DDF00B2BCA7 /* LaunchScreen.storyboard in Resources */,
 				07BB0CCB20F73DDF00B2BCA7 /* Assets.xcassets in Resources */,
 				07BB0CC920F73DDD00B2BCA7 /* Main.storyboard in Resources */,
+				07732FC12114A63A005AB98B /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -921,6 +927,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		07732FC32114A63A005AB98B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07732FC22114A63A005AB98B /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		07BB0CC720F73DDD00B2BCA7 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -933,6 +947,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				07BB0CCD20F73DDF00B2BCA7 /* Base */,
+				07732FBE2114A512005AB98B /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -944,6 +959,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1002,6 +1018,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1058,6 +1075,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 98RSU49GZT;
 				INFOPLIST_FILE = DS_playgound/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1078,6 +1096,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 98RSU49GZT;
 				INFOPLIST_FILE = DS_playgound/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

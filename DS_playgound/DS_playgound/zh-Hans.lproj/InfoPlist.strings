@@ -1,0 +1,8 @@
+/* 
+  InfoPlist.strings
+  DS_playgound
+
+  Created by Eric on 2018/8/3.
+  Copyright © 2018 SDU_iOS_LAB. All rights reserved.
+*/
+CFBundleDisplayName = "玩转数据结构";

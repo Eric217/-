@@ -10,13 +10,15 @@
 #import "Common.h"
 #import "UIView+funcs.h"
 
+static CGColorRef node_highlight_color = 0;
+
 @interface NodeView ()
 
 @end
 
 @implementation NodeView
 
-/// load = 1, color = black, edges = @[]
+/// load = 1
 - (id)initWithId:(int)i name:(NSString *)n s_center:(CGPoint)sc {
     self = [super init];
     __id = i;
@@ -46,42 +48,47 @@
     
 }
 
-
 - (void)setColor:(UIColor *)color {
-//    _color = color;
     self.textColor = color;
     self.layer.borderColor = color.CGColor;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    CGFloat c[4] = {0.88, 0.88, 0.88, 1};
-    self.layer.backgroundColor = CGColorCreate(CGColorSpaceCreateDeviceRGB(), c);
-}
-
-- (void)touchEnd {
-    self.layer.backgroundColor = UIColor.whiteColor.CGColor;
+    [self touchBegan];
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self touchEnd];
-
-    
     if (CGRectContainsPoint(self.bounds, [[touches anyObject] locationInView:self])) { // did click
         
         [Config postNotification:ELGraphDidSelectPointNotification message:@{@"id": String(__id), @"name": _name}];
-        
-        
     }
-   
-    
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self touchEnd];
 }
 
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    CGPoint pt = [[touches anyObject] locationInView:self];
+   
+    if (pt.x - self.frame.size.width > 5 || pt.x < -5 || pt.y - self.frame.size.height > 5 || pt.y < -5) {
+        [self touchEnd];
+    } else {
+        [self touchBegan];
+    }
+}
 
+- (void)touchBegan {
+    if (!node_highlight_color) {
+        CGFloat c[4] = {0.597, 1, 1, 1};
+        node_highlight_color = CGColorCreate(CGColorSpaceCreateDeviceRGB(), c);
+    }
+    self.layer.backgroundColor = node_highlight_color;
+}
 
-
+- (void)touchEnd {
+    self.layer.backgroundColor = UIColor.whiteColor.CGColor;
+}
 
 @end
