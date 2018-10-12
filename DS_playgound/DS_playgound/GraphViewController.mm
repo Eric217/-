@@ -202,7 +202,7 @@
             continue;
         NSMutableArray *temp = [NSMutableArray new];
         [temp addObject:String(node._id)];
-        [temp addObject:[NSString stringWithFormat:@"到达 %@ 的最短距离  _", node.name]];
+        [temp addObject:[NSString stringWithFormat:@"到达 %@ 的最短距离:  _", node.name]];
         [temp addObject:@" "];
         [dataArr addObject:temp];
     }
@@ -248,7 +248,7 @@
         i = _pre[i];
     }
     [Config postNotification:ELStackDidChangeNotification message:@{@"0": String(o), @"1": first_line, @"2": str}];
- 
+    
 }
 
 

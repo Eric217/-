@@ -24,7 +24,7 @@ class StackViewController: UIViewController {
         self.view.addSubview(gameView)
         
         let backButton = UIButton(frame: CGRect(x: 80, y: 60, width: 100, height: 50))
-        backButton.setTitle("back", for: .normal)
+        backButton.setTitle("返回", for: .normal)
         backButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
         backButton.addTarget(self, action:#selector(back), for:.touchUpInside)
         backButton.setTitleColor(UIColor(red: 119/255, green: 202/255, blue: 223/255, alpha: 1), for: .normal)

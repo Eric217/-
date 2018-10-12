@@ -82,7 +82,7 @@
             if ([info[kStatus] isEqualToString:@"0"]) { // restricted
                 [self presentTip:PromptText message:str Action:^{}];
             } else if ([info[kStatus] isEqualToString:@"1"]) { // denied
-                [self presentAlertWithCancelAndConfirm:@"无权访问相册" message:@"要到设置中打开相册权限吗?" Action:^{
+                [self presentAlertWithCancelAndConfirm:@"应用请求访问相册" message:@"要前往设置中打开相册权限吗?" Action:^{
                     [Auth jumpToSettings:@"App-Prefs:root=Photos"];
                 }];
             }
