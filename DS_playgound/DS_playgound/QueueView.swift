@@ -102,7 +102,12 @@ class QueueView: UIView {
             let t = touch as! UITouch
             let point = t.location(in: self)
             if selectedItem > -1{
-                roundArray[selectedItem].frame = CGRect(x: point.x - self.diameter/2 , y: point.y - self.diameter/2 , width: self.diameter , height: self.diameter)
+                let flagX = point.x > 50 && point.x < (UIScreen.main.bounds.width - 100)
+                let flagY = point.y > 50 && point.y < (UIScreen.main.bounds.height - 100)
+                let flagButton = point.x < 200 && point.y < 130
+                if flagX && flagY && !flagButton {
+                    roundArray[selectedItem].frame = CGRect(x: point.x - self.diameter/2 , y: point.y - self.diameter/2 , width: self.diameter , height: self.diameter)
+                }
             }
         }
     }
@@ -113,7 +118,7 @@ class QueueView: UIView {
             let t = touch as! UITouch
             let point = t.location(in: self)
             let pointInQueue = getPositionInQueueView()
-            if isDragIntoQueueView(point) && selectedItem > -1 {
+            if isDragIntoQueueView(point) && selectedItem > -1 && queue.count < 9 {
                 roundArray[selectedItem].frame = CGRect(x: pointInQueue.x, y: pointInQueue.y, width: self.diameter, height: self.diameter)
                 queue.append(roundArray[selectedItem])
                 
@@ -164,17 +169,19 @@ class QueueView: UIView {
     }
     
     @objc func pop() {
-        queue[0].frame = CGRect(x: 0 , y: 0 , width: self.diameter , height: self.diameter)
-        queue[0].isHidden = true
-        nowText.text = nowText.text + "\t\(queue[0].getText())"
-        queue.remove(at: 0)
-        for item in queue {
-            item.frame = CGRect(x: item.frame.origin.x , y: item.frame.origin.y + self.diameter , width: self.diameter , height: self.diameter)
-        }
-        if nowText.text == targetText.text {
-            self.win = true
-        }else if nowText.text != targetText.text && nowText.text.count == targetText.text.count {
-            self.lose = true
+        if queue.count > 0 {
+            queue[0].frame = CGRect(x: 0 , y: 0 , width: self.diameter , height: self.diameter)
+            queue[0].isHidden = true
+            nowText.text = nowText.text + "\t\(queue[0].getText())"
+            queue.remove(at: 0)
+            for item in queue {
+                item.frame = CGRect(x: item.frame.origin.x , y: item.frame.origin.y + self.diameter , width: self.diameter , height: self.diameter)
+            }
+            if nowText.text == targetText.text {
+                self.win = true
+            }else if nowText.text != targetText.text && nowText.text.count == targetText.text.count {
+                self.lose = true
+            }
         }
     }
 }

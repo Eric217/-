@@ -92,12 +92,11 @@
     _table.delegate = self;
     _table.dataSource = self;
     _table.allowsSelection = 0;
-    _table.backgroundColor = UIColor.whiteColor;
     _table.tableFooterView = [UIView new];
-    
+    _table.showsVerticalScrollIndicator = 0;
+    _table.backgroundColor = UIColor.whiteColor;
+    [_table setContentInset:UIEdgeInsetsMake(2, 0, 3, 0)];
     [_table roundStyleWithColor:UIColor.whiteColor width:1.5 radius:6];
-    
-    [_table setContentInset:UIEdgeInsetsMake(9, 0, 3, 0)];
     [_table registerClass:PathViewCell.class forCellReuseIdentifier:NSStringFromClass(PathViewCell.class)];
    
     // start show button
@@ -106,16 +105,16 @@
     [_startShow setImageEdgeInsets:UIEdgeInsetsMake(0, 125, 0, 0)];
     [self.view addSubview:_startShow];
     _start_clicked = 0;
-    // constraints
     
+    // constraints
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.height.equalTo(@36);
-        make.top.equalTo(self.view).offset(64+[Config v_pad:33 plus:18 p:12 min:8]);
+        make.top.equalTo(self.view).offset(64+[Config v_pad:35.5 plus:18 p:12 min:8]);
     }];
     
     [_selectStart mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.nameLabel.mas_bottom).offset([Config v_pad:18 plus:13 p:12 min:8]);
+        make.top.equalTo(self.nameLabel.mas_bottom).offset([Config v_pad:18.5 plus:13 p:12 min:8]);
         make.centerX.equalTo(self.view);
         make.width.equalTo(@258.58);
         make.height.equalTo(@26);
@@ -137,7 +136,7 @@
     [_table mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(42);
         make.right.equalTo(self.view).inset(42);
-        make.top.equalTo(self.tableHeaderPrompt.mas_bottom).offset(15);
+        make.top.equalTo(self.tableHeaderPrompt.mas_bottom).offset(18.5);
         make.bottom.equalTo(self.startShow.mas_top).inset(18);
     }];
     
@@ -181,6 +180,7 @@
 }
 
 - (void)pathTableDidChange:(NSNotification *)noti {
+    
     if (_algoType == GraphAlgoDIJ) {
         NSString *_id = noti.userInfo[@"0"];
         int __id = [_id intValue];
@@ -192,6 +192,7 @@
         [_table reloadRowsAtIndexPaths:@[idx] withRowAnimation:UITableViewRowAnimationRight];
         
         UITableViewCell *cell = [_table cellForRowAtIndexPath:idx];
+        
         if (!CGRectContainsRect(_table.bounds, cell.frame))
             [_table scrollToRowAtIndexPath:idx atScrollPosition:__id < _dataArr.count/2 ? UITableViewScrollPositionTop : UITableViewScrollPositionBottom animated:1];
         

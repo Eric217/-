@@ -167,6 +167,7 @@ DIJDataPack AdjacencyWGraph<T>::nextDijkstra(bool * finished) {
             } else {
                 _current_j = j;
                 p.no_update_node = _current_j++;
+                
             }
         }
     }
